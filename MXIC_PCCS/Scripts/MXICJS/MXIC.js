@@ -607,16 +607,19 @@ function EditData(EditID) {
         editinput = []
         if (EditIinfo[i] == "true") {
 
-            editinputobj = $('.editPopUpContant input[placeholder=' + EditColumnName[i]).attr('checked', true)
+            editinputobj = $('.editPopUpContant input[placeholder=' + EditColumnName[i]+']').attr('checked', true)
 
         } else if (EditIinfo[i] == "false") {
 
-            editinputobj = $('.editPopUpContant input[placeholder=' + EditColumnName[i]).attr('checked', false)
+            editinputobj = $('.editPopUpContant input[placeholder=' + EditColumnName[i]+']').attr('checked', false)
         }
-        else if (editPopGenerateTypeResult[i]="select"){
-            editinputobj = $('.editPopUpContant input[id=editPopInput0').attr('value', EditIinfo[i])
-        } else {
-            editinputobj = $('.editPopUpContant input[id=editPopInput0').attr('value', EditIinfo[i])
+        else if (editPopGenerateTypeResult[i] == "Select") {
+
+            editinputobj = $('.editPopUpContant input[id=editPopInput0]').attr('value', EditIinfo[i])
+        }
+        else {
+            
+            editinputobj = $('.editPopUpContant input[placeholder=' + EditColumnName[i]+']').attr('value', EditIinfo[i])
         }
 
         editinput.push(editinputobj)

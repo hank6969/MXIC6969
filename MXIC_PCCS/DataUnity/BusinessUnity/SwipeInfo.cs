@@ -85,7 +85,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 else
                 {
 
-                    str = "時數格是錯誤";
+                    str = "時數格式錯誤";
                 }
 
 

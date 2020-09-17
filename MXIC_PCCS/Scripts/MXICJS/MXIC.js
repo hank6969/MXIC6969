@@ -399,7 +399,12 @@ $(document).ready(function () {
     marquee(marqueeContant);
 });
 
-
+////指定 下拉選單選項
+function inputOption2(inputID, DT, PrefixValue, PrefixText) {
+    for (i = 0; i < DT.length; i++) {
+        $('#' + inputID).append('<option value="' + PrefixValue + '' + DT[i].name + '" />' + PrefixText + '' + DT[i].value + '</option>')
+    };
+};
 //彈跳視窗 input生成
 function inputGenerate(location, result, resultType, inputname) {
     $('.' + location).html('');
@@ -833,5 +838,5 @@ function ResetInput() {
         $('.editPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + editPopGenerateResult[i] + '</label><input type="' + editPopGenerateTypeResult[i] + '" name="editTextInput" placeholder="' + editPopGenerateResult[i] + '" required="required" /></div>')
         $('input[type=Select]').replaceWith('<input type="text" name="editTextInput" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
     }
-
+    inputOption2('editInputOption0',dataList,'','')
 }

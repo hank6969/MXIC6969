@@ -41,7 +41,7 @@ if (title == 'MXIC') {
 } else if (title == '刷卡紀錄') {
     tablename = "MXIC_View_Swipe"
     ajaxUrl = "/SwipeInfo/CheckinList"
-    //editDetailUrl="/SwipeInfo/SwipeInfoDetail"
+    editDetailUrl="/SwipeInfo/SwipeInfoDetail"
     editUrl = "/SwipeInfo/EditSwipe"
 } else if (title == '匯出計價單') {
     ajaxUrl = '.../api/api-9'
@@ -348,7 +348,7 @@ $(document).ready(function () {
 
         }
         else if (testb == 'EditBtn') {
-            testdata = { name: testA[i], index: testA[i], width: gridColume * 0.5, align: "center", formatter: EditBtn }
+            testdata = { name: testA[i], index: testA[i], width: gridColume * 0.7, align: "center", formatter: EditBtn }
 
         } else if (testb == 'Hidden') {
             testdata = { name: testA[i], index: testA[i], width: gridColume * 0.5, align: "center",hidden:true }
@@ -778,7 +778,7 @@ function delectCheck() {
 function EditBtn(cellvalue, options, rowObject) {
  if(title == '刷卡紀錄')
  {
-     if(rowObject.AttendType=="異常")
+     if(rowObject.AttendType!=="正常")
      {
         return ' <a href="#" id=' + rowObject.EditID + ' class="seachBTN btn-1" style="width:50px" onclick="edit(this)">'+rowObject.AttendType+'</a>';
 
@@ -792,7 +792,7 @@ function EditBtn(cellvalue, options, rowObject) {
  }else
  {
      return ' <a href="#" id=' + rowObject.EditID + ' class="seachBTN btn-1" style="width:50px" onclick="edit(this)">修改</a>';
-}
+ }
     
 }
 function DeleteBtn(cellvalue, options, rowObject) {

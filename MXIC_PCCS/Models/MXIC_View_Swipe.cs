@@ -46,5 +46,11 @@
         [Column(Order = 7)]
 
         public float Hour { get; set; }
+
+
+            [Key]
+            [Column(Order = 8)]
+
+            public string CheckType { get; set; }
     }
 }

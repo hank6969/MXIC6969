@@ -284,14 +284,12 @@ $(document).ready(function () {
     function inputGenerate(location, result, resultType, inputname) {
         $('.' + location).html('');
         for (i = 0; i < result.length; i++) {
-           
+
             $('.' + location).append('<div class="PopSeachBox" stlye="display:flex;"><label>' + result[i] + '</label><input type="' + resultType[i] + '" name="' + inputname + '" placeholder="' + result[i] + '" required="required" /></div>')
-            $('input[type=select]').replaceWith('</label><input type="text" name="' + inputname + '" id="editPopInput'+i+'" class="editInputOption" list="editInputOption'+[i]+'"><datalist id="editInputOption'+[i]+'"></datalist>')
-           //$('input[type=checkbox]').replaceWith('<input type="checkbox" checked="checked" value="" onclick="' + checkboxFuntiom + '">')
+            $('input[type=select]').replaceWith('</label><input type="text" name="' + inputname + '" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
+            //$('input[type=checkbox]').replaceWith('<input type="checkbox" checked="checked" value="" onclick="' + checkboxFuntiom + '">')
         };
     }
-
-
 
     //指地select選單資料
     inputOption('editInputOption0', dataList, '', '');
@@ -400,6 +398,19 @@ $(document).ready(function () {
     iconMenu(navData);
     marquee(marqueeContant);
 });
+
+
+//彈跳視窗 input生成
+function inputGenerate(location, result, resultType, inputname) {
+    $('.' + location).html('');
+    for (i = 0; i < result.length; i++) {
+
+        $('.' + location).append('<div class="PopSeachBox" stlye="display:flex;"><label>' + result[i] + '</label><input type="' + resultType[i] + '" name="' + inputname + '" placeholder="' + result[i] + '" required="required" /></div>')
+        $('input[type=select]').replaceWith('</label><input type="text" name="' + inputname + '" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
+        //$('input[type=checkbox]').replaceWith('<input type="checkbox" checked="checked" value="" onclick="' + checkboxFuntiom + '">')
+    };
+}
+
 //表格返回自訂物件
 function imageFormat(cellvalue, options, rowObject) {
     return ' <a href="#" class="seachBTN btn-1" onclick="delect()">刪除</a>';
@@ -820,6 +831,7 @@ function ResetInput() {
 
     for (i = 0; i < editPopGenerateResult.length; i++) {
         $('.editPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + editPopGenerateResult[i] + '</label><input type="' + editPopGenerateTypeResult[i] + '" name="editTextInput" placeholder="' + editPopGenerateResult[i] + '" required="required" /></div>')
+        $('input[type=Select]').replaceWith('<input type="text" name="editTextInput" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
     }
-    $('input[type=select]').replaceWith('<select ></select>')
+
 }

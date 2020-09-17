@@ -626,7 +626,7 @@ function EditData(EditID) {
         }
         else if (editPopGenerateTypeResult[i] == "Select") {
 
-            editinputobj = $('.editPopUpContant input[id=editPopInput0]').attr('value', EditIinfo[i])
+            editinputobj = $('.editPopUpContant input[id=editPopInput' + i + ']').attr('value', EditIinfo[i])
         }
         else {
             

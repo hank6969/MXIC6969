@@ -88,13 +88,6 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     str = "時數格式錯誤";
                 }
 
-
-
-
-
-
-
-
                 _db.SaveChanges();
 
 
@@ -212,15 +205,6 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             Swipe.AttendType = AttendType;
                             Swipe.valid = "true";
                         }
-                    
-                        
-                     
-
-
-
-
-
-                       
                         _db.MXIC_SwipeInfos.Add(Swipe);
                         _db.SaveChanges();
 

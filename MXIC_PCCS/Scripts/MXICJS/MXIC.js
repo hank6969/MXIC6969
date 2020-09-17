@@ -286,7 +286,7 @@ $(document).ready(function () {
         for (i = 0; i < result.length; i++) {
            
             $('.' + location).append('<div class="PopSeachBox" stlye="display:flex;"><label>' + result[i] + '</label><input type="' + resultType[i] + '" name="' + inputname + '" placeholder="' + result[i] + '" required="required" /></div>')
-            $('input[type=select]').replaceWith('</label><input type="text" name="' + inputname + '" id="" class="editInputOption" list="editInputOption'+[i]+'"><datalist id="editInputOption'+[i]+'"></datalist>')
+            $('input[type=select]').replaceWith('</label><input type="text" name="' + inputname + '" id="editPopInput'+i+'" class="editInputOption" list="editInputOption'+[i]+'"><datalist id="editInputOption'+[i]+'"></datalist>')
            //$('input[type=checkbox]').replaceWith('<input type="checkbox" checked="checked" value="" onclick="' + checkboxFuntiom + '">')
         };
     }
@@ -613,8 +613,10 @@ function EditData(EditID) {
 
             editinputobj = $('.editPopUpContant input[placeholder=' + EditColumnName[i]).attr('checked', false)
         }
-        else {
-            editinputobj = $('.editPopUpContant input[placeholder=' + EditColumnName[i]).attr('value', EditIinfo[i])
+        else if (editPopGenerateTypeResult[i]="select"){
+            editinputobj = $('.editPopUpContant input[id=editPopInput0').attr('value', EditIinfo[i])
+        } else {
+            editinputobj = $('.editPopUpContant input[id=editPopInput0').attr('value', EditIinfo[i])
         }
 
         editinput.push(editinputobj)

@@ -150,11 +150,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LisenceManagementController.cs" />
+    <Compile Include="Controllers\QuotationController.cs" />
     <Compile Include="Controllers\SwipeInfoController.cs" />
     <Compile Include="Controllers\UserManagementController.cs" />
     <Compile Include="Controllers\WebpageController.cs" />
+    <Compile Include="DataUnity\BusinessUnity\LisenceManagement.cs" />
+    <Compile Include="DataUnity\BusinessUnity\Quotation.cs" />
     <Compile Include="DataUnity\BusinessUnity\SwipeInfo.cs" />
     <Compile Include="DataUnity\BusinessUnity\UserManagement.cs" />
+    <Compile Include="DataUnity\Interface\ILisenceManagement.cs" />
+    <Compile Include="DataUnity\Interface\IQuotation.cs" />
     <Compile Include="DataUnity\Interface\ISwipeInfo.cs" />
     <Compile Include="DataUnity\Interface\IUserManagement.cs" />
     <Compile Include="Global.asax.cs">
@@ -245,6 +251,8 @@
     <Content Include="Scripts\MXICJS\jquery.jqgrid.min.js.map" />
     <Content Include="Views\UserManagement\Index.cshtml" />
     <Content Include="Views\SwipeInfo\Index.cshtml" />
+    <Content Include="Views\LisenceManagement\Index.cshtml" />
+    <Content Include="Views\Quotation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

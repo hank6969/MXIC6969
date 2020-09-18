@@ -32,5 +32,16 @@ namespace MXIC_PCCS.Controllers
             return (Str);
 
         }
+
+        public string Nav()
+        {
+
+            var list = _db.NavDatas.Select(x=>new { x.Name,x.Url,x.commonly_used}); 
+
+            string Str = JsonConvert.SerializeObject(list, Formatting.Indented);
+
+            return (Str);
+
+        }
     }
 }

@@ -79,15 +79,15 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
         {
             string MessageStr = "修改成功";
 
-            var EditLisenceList = _db.MXIC_LisenceManagements.Where(x => x.EditID.ToString() == EditID).FirstOrDefault();
+            var EditLisenceItem = _db.MXIC_LisenceManagements.Where(x => x.EditID.ToString() == EditID).FirstOrDefault();
 
             try
             {
-                EditLisenceList.PoNo = PoNo;
-                EditLisenceList.EmpName = EmpName;
-                EditLisenceList.LicName = LicName;
-                EditLisenceList.EndDate = EndDate;
-                EditLisenceList.UpDateTime = DateTime.Now;
+                EditLisenceItem.PoNo = PoNo;
+                EditLisenceItem.EmpName = EmpName;
+                EditLisenceItem.LicName = LicName;
+                EditLisenceItem.EndDate = EndDate;
+                EditLisenceItem.UpDateTime = DateTime.Now;
 
                 _db.SaveChanges();
             }

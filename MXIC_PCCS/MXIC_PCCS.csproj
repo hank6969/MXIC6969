@@ -155,6 +155,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DepartmentManagementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LisenceManagementController.cs" />
     <Compile Include="Controllers\QuotationController.cs" />
@@ -163,12 +164,14 @@
     <Compile Include="Controllers\UserManagementController.cs" />
     <Compile Include="Controllers\VendorManagementController.cs" />
     <Compile Include="Controllers\WebpageController.cs" />
+    <Compile Include="DataUnity\BusinessUnity\DepartmentManagement.cs" />
     <Compile Include="DataUnity\BusinessUnity\LisenceManagement.cs" />
     <Compile Include="DataUnity\BusinessUnity\Quotation.cs" />
     <Compile Include="DataUnity\BusinessUnity\ScheduleSetting.cs" />
     <Compile Include="DataUnity\BusinessUnity\SwipeInfo.cs" />
     <Compile Include="DataUnity\BusinessUnity\UserManagement.cs" />
     <Compile Include="DataUnity\BusinessUnity\VendorManagement.cs" />
+    <Compile Include="DataUnity\Interface\IDepartmentManagement.cs" />
     <Compile Include="DataUnity\Interface\ILisenceManagement.cs" />
     <Compile Include="DataUnity\Interface\IQuotation.cs" />
     <Compile Include="DataUnity\Interface\IScheduleSetting.cs" />
@@ -274,6 +277,7 @@
     <Content Include="Views\Quotation\Index.cshtml" />
     <Content Include="Views\VendorManagement\Index.cshtml" />
     <Content Include="Views\ScheduleSetting\Index.cshtml" />
+    <Content Include="Views\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -309,7 +313,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58627</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

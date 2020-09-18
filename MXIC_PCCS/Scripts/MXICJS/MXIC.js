@@ -2,8 +2,9 @@
 //該頁面表格需使用之api請先定義
 var ajaxUrl = [];
 var seachobj = '';
-generateUrl = 'http://localhost:58627/Webpage/PageGenerate';
+generateUrl = '/Webpage/PageGenerate';
 var tablename = ""
+//var navUrl = '/Webpage/Nav';
 var navUrl = '.../api/api-1';
 var title = document.title;
 if (title == 'MXIC') {
@@ -45,8 +46,10 @@ if (title == 'MXIC') {
     //table名稱
     tablename = "MXIC_Quotation"
 } else if (title == '班表設定') {
-    ajaxUrl = '.../api/api-6'
-    generateUrl = '.../api/api-6'
+    //搜尋url這個要先寫
+    ajaxUrl = "/ScheduleSetting/ScheduleList"
+    //table名稱
+    tablename = "MXIC_ScheduleSetting"
 } else if (title == '證照管理') {
     //搜尋url這個要先寫
     ajaxUrl = "/LisenceManagement/SearchLisence"
@@ -80,13 +83,13 @@ var dataList = [
 ]
 //navBar & indexBTN 資料格式範例 
 var navData = [
-    { 'name': '人員管理', 'url': '人員管理.html', 'commonly_used': '1' },
+    { 'name': '人員管理', 'url': '../UserManagement/', 'commonly_used': '1' },
     { 'name': '部門管理', 'url': '部門管理.html', 'commonly_used': '1' },
     { 'name': '廠商管理', 'url': '廠商管理.html', 'commonly_used': '1' },
     { 'name': '報價單', 'url': '報價單.html', 'commonly_used': '1' },
     { 'name': '班表設定', 'url': '班表設定.html', 'commonly_used': '1' },
-    { 'name': '證照管理', 'url': '證照管理.html', 'commonly_used': '1' },
-    { 'name': '刷卡紀錄', 'url': '刷卡紀錄.html', 'commonly_used': '1' },
+    { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
+    { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },
     { 'name': '匯出計價單', 'url': '匯出計價單.html', 'commonly_used': '0' }
 ]
 
@@ -131,9 +134,10 @@ $.ajax({
     // },
     success: function (data) {
         navData = [];
-        navData = data;
+        navData = JSON.parse(data);
     }
 })
+console.log(navData)
 
 //搜尋欄位生成 更改ajax url屬性與篩選條件
 $.ajax({

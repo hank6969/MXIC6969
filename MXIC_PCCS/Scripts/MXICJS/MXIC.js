@@ -27,8 +27,18 @@ if (title == 'MXIC') {
     ajaxUrl = '.../api/api-3'
     generateUrl = '.../api/api-3'
 } else if (title == '廠商管理') {
-    ajaxUrl = '.../api/api-4'
-    generateUrl = '.../api/api-4'
+    //搜尋url這個要先寫
+    ajaxUrl = "/VendorManagement/VendorList"
+    //編輯資料取的url
+    editDetailUrl = "/VendorManagement/EditVendorDetail",
+        //編輯Url
+        editUrl = "/VendorManagement/EditVendor"
+    //刪除url
+    deleteurl = "/VendorManagement/DeleteVendor"
+    //新增url
+    inserturl = "/VendorManagement/AddVendor"
+    //table名稱
+    tablename = "MXIC_VendorManagement"
 } else if (title == '報價單') {
     //搜尋url這個要先寫
     ajaxUrl = "/Quotation/SearchQuotation"

@@ -278,6 +278,7 @@
     <Content Include="Views\VendorManagement\Index.cshtml" />
     <Content Include="Views\ScheduleSetting\Index.cshtml" />
     <Content Include="Views\Index.cshtml" />
+    <Content Include="Views\DepartmentManagement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

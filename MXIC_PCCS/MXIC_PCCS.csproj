@@ -165,7 +165,10 @@
     <Compile Include="DataUnity\BusinessUnity\Quotation.cs" />
     <Compile Include="DataUnity\BusinessUnity\SwipeInfo.cs" />
     <Compile Include="DataUnity\BusinessUnity\UserManagement.cs" />
+<<<<<<< HEAD
     <Compile Include="DataUnity\BusinessUnity\VendorManagement.cs" />
+=======
+>>>>>>> 8cd57f1668f4c36b0d33782dcde4b294fa6a5d7b
     <Compile Include="DataUnity\Interface\ILisenceManagement.cs" />
     <Compile Include="DataUnity\Interface\IQuotation.cs" />
     <Compile Include="DataUnity\Interface\ISwipeInfo.cs" />
@@ -263,7 +266,10 @@
     <Content Include="Views\SwipeInfo\Index.cshtml" />
     <Content Include="Views\LisenceManagement\Index.cshtml" />
     <Content Include="Views\Quotation\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\VendorManagement\Index.cshtml" />
+=======
+>>>>>>> 8cd57f1668f4c36b0d33782dcde4b294fa6a5d7b
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

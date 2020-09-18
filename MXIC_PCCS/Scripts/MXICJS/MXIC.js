@@ -415,14 +415,14 @@ $(document).ready(function () {
                     var rowData = rowDatas[i];
                     var electricityCondition = rowData.AttendType;
                     if (electricityCondition == '異常')
-                        $("#" + ids[i]).find("td").css("background-color", "#ff4040");
+                        $("#" + ids[i]).find("td").css({"background-color":"#ff4040","color":"white"});
 
                     var electricityCondition_LisenceDiff = new Date(rowData.EndDate);
                     var Today = new Date();
                     var DateDiff = parseInt(Math.abs(Today - electricityCondition_LisenceDiff)) / 86400000;
 
                     if (DateDiff < 30)
-                        $("#" + ids[i]).find("td").css("background-color", "#ff4040");
+                        $("#" + ids[i]).find("td").css({"background-color":"#ff4040","color":"white"});
                 }
             }
         });

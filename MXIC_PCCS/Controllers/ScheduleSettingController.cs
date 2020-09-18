@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MXIC_PCCS.DataUnity.Interface;
 using MXIC_PCCS.DataUnity.BusinessUnity;
+using System.IO;
 
 namespace MXIC_PCCS.Controllers
 {
@@ -31,6 +32,21 @@ namespace MXIC_PCCS.Controllers
             string ff = _IScheduleSetting.ImportSchedul(file);
 
             return ff;
+        }
+
+        public ActionResult DownloadScheduleExample()
+        {
+            try
+            {
+                string filepath = Server.MapPath("~/Content/出勤表範本.xlsx");
+                string filename = Path.GetFileName(filepath);
+                Stream iStream = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                return File(iStream, "application/xlsx", filename);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index");
+            }
         }
     }
 }

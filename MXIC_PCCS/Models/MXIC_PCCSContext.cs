@@ -22,6 +22,8 @@ namespace MXIC_PCCS.Models
 
         public virtual DbSet<MXIC_View_Swipe> MXIC_View_Swipes { get; set; }
 
+        public virtual DbSet<NavData> NavDatas { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

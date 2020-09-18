@@ -46,8 +46,10 @@ if (title == 'MXIC') {
     //table名稱
     tablename = "MXIC_Quotation"
 } else if (title == '班表設定') {
-    ajaxUrl = '.../api/api-6'
-    generateUrl = '.../api/api-6'
+    //搜尋url這個要先寫
+    ajaxUrl = "/ScheduleSetting/ScheduleList"
+    //table名稱
+    tablename = "MXIC_ScheduleSetting"
 } else if (title == '證照管理') {
     //搜尋url這個要先寫
     ajaxUrl = "/LisenceManagement/SearchLisence"

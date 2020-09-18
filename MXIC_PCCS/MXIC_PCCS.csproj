@@ -193,6 +193,7 @@
     <Compile Include="Models\MXIC_UserManagement.cs" />
     <Compile Include="Models\MXIC_VendorManagement.cs" />
     <Compile Include="Models\MXIC_View_Swipe.cs" />
+    <Compile Include="Models\NavData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +231,7 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Content\報價單範本.xlsx" />
     <Content Include="Content\證照範本.xlsx" />
+    <Content Include="Content\出勤班表範本.xlsx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

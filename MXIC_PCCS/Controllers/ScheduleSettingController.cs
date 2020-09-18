@@ -46,6 +46,7 @@ namespace MXIC_PCCS.Controllers
             catch (Exception ex)
             {
                 return RedirectToAction("Index");
+
             }
         }
     }

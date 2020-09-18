@@ -115,10 +115,10 @@ i~.marqueeContant{
 .seachBox{
     display: flex;
     width: 100%;
-    height: 10%; 
+    height: 15%; 
 }
 label{
-    width:80px; 
+    width:100px; 
     font-size:14px; 
     margin:0 10px 0 0 ;
 }
@@ -157,13 +157,17 @@ select:focus{
 }
 input[type="text"]{
     width: 150px;
+    height: 35px;
     border-radius: 5px;
     margin: 0px 10px 5px 0;
 }
 .inputBox{
-    width: 60%;
-    padding: 2% 0% 2% 9%;
+    width: 70%;
+    padding: 10px 0% 10px 9%;
     z-index:999 !important;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 input {
     width: 100%;
@@ -200,16 +204,15 @@ input:focus{
 }
 
 .editBox{
-    width: 40%;
-
+    width: 30%;
     display: flex;
     align-items: FLEX-END;
     justify-content: center;
-    padding: 0 0 10PX 0;
+    padding: 0 5% 10PX 0;
 }
 .popEditBox {
-    width: 300px;
-    height: 350px;
+    width: 350px;
+    height: 400px;
 }
 
 ul {
@@ -331,7 +334,7 @@ li a:hover:after {
 
 .tableContant {
     width: 100%;
-    height: 90%;
+    height: 85%;
     overflow: auto;
     display: flex !important;
     align-items: center;
@@ -358,9 +361,7 @@ tbody {
 .ui-jqgrid-labels{
     height: 35px;
 }
-#gbox_grid {
-    margin: 5% 3% 0 3%;
-}
+
 tr{
     height: 25px;
 }
@@ -647,8 +648,8 @@ svg {
     transform: translate(50%, -50%) rotate(135deg) scale(1);
 }
 .insertBox{
-    width: 300px;
-    height: 350px;
+    width: 350px;
+    height: 400px;
 }
 .delectBox{
     width: 300px;
@@ -773,13 +774,10 @@ svg {
         margin: 10px 0;
     }
     .inputBox {        
-        padding: 0 0 0 7%;
+        padding: 0 2% 0 8%;
         display: flex;
         align-items: center;
         z-index:2 !important;
-    }
-    .editBox {
-        padding: 0 0 25PX 0;
     }
     .seachBox {
         height: 20%;

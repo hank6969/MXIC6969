@@ -30,14 +30,26 @@ if (title == 'MXIC') {
     ajaxUrl = '.../api/api-4'
     generateUrl = '.../api/api-4'
 } else if (title == '報價單') {
-    ajaxUrl = '.../api/api-5'
-    generateUrl = '.../api/api-5'
+    //搜尋url這個要先寫
+    ajaxUrl = "/Quotation/SearchQuotation"
+    //table名稱
+    tablename = "MXIC_Quotation"
 } else if (title == '班表設定') {
     ajaxUrl = '.../api/api-6'
     generateUrl = '.../api/api-6'
 } else if (title == '證照管理') {
-    ajaxUrl = '.../api/api-7'
-    generateUrl = '.../api/api-7'
+    //搜尋url這個要先寫
+    ajaxUrl = "/LisenceManagement/SearchLisence"
+    //編輯資料取的url
+    editDetailUrl = "/LisenceManagement/EditLisenceDetail",
+    //編輯Url
+    editUrl = "/LisenceManagement/EditLisence"
+    //刪除url
+    deleteurl = "/LisenceManagement/DeleteLisence"
+    //新增url
+    inserturl = "/LisenceManagement/AddLisence"
+    //table名稱
+    tablename = "MXIC_LisenceManagement"
 } else if (title == '刷卡紀錄') {
     tablename = "MXIC_View_Swipe"
     ajaxUrl = "/SwipeInfo/CheckinList"
@@ -389,6 +401,13 @@ $(document).ready(function () {
                     var rowData = rowDatas[i];
                     var electricityCondition = rowData.AttendType;
                     if (electricityCondition == '異常')
+                        $("#" + ids[i]).find("td").css("background-color", "#ff4040");
+
+                    var electricityCondition_LisenceDiff = new Date(rowData.EndDate);
+                    var Today = new Date();
+                    var DateDiff = parseInt(Math.abs(Today - electricityCondition_LisenceDiff)) / 86400000;
+
+                    if (DateDiff < 30)
                         $("#" + ids[i]).find("td").css("background-color", "#ff4040");
                 }
             }

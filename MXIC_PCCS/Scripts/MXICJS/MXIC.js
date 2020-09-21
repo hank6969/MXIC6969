@@ -45,8 +45,10 @@ if (title == 'MXIC') {
     //table名稱
     tablename = "MXIC_Quotation"
 } else if (title == '班表設定') {
-    ajaxUrl = '.../api/api-6'
-    generateUrl = '.../api/api-6'
+    //搜尋url這個要先寫
+    ajaxUrl = "/ScheduleSetting/ScheduleList"
+    //table名稱
+    tablename = "MXIC_ScheduleSetting"
 } else if (title == '證照管理') {
     //搜尋url這個要先寫
     ajaxUrl = "/LisenceManagement/SearchLisence"
@@ -412,14 +414,14 @@ $(document).ready(function () {
                     var rowData = rowDatas[i];
                     var electricityCondition = rowData.AttendType;
                     if (electricityCondition == '異常')
-                        $("#" + ids[i]).find("td").css("background-color", "#ff4040");
+                        $("#" + ids[i]).find("td").css({"background-color":"#ff4040","color":"white"});
 
                     var electricityCondition_LisenceDiff = new Date(rowData.EndDate);
                     var Today = new Date();
                     var DateDiff = parseInt(Math.abs(Today - electricityCondition_LisenceDiff)) / 86400000;
 
                     if (DateDiff < 30)
-                        $("#" + ids[i]).find("td").css("background-color", "#ff4040");
+                        $("#" + ids[i]).find("td").css({"background-color":"#ff4040","color":"white"});
                 }
             }
         });

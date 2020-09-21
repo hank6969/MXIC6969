@@ -29,6 +29,11 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// <param name="Model"></param>
         /// <returns></returns>
         string AddSchedul(MXIC_ScheduleProperty Model);
+        /// <summary>
+        /// 清除當月般表
+        /// </summary>
+        /// <returns></returns>
+        void CleanSchedul(string Year,string Month);
 
     }
 }

@@ -38,7 +38,7 @@ namespace MXIC_PCCS.Controllers
         {
             try
             {
-                string filepath = Server.MapPath("~/Content/出勤表範本.xlsx");
+                string filepath = Server.MapPath("~/Content/出勤班表範本.xlsx");
                 string filename = Path.GetFileName(filepath);
                 Stream iStream = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 return File(iStream, "application/xlsx", filename);

@@ -81,7 +81,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
         public string AddUser(string DepNo, string DepName, string UserID, string UserName, string Admin, string PassWord)
         {
             string Str = "新增成功";
-
+            //SHA1加密
+            string hash = GetSHA1.GetSHA1Hash(PassWord);
             var AddUser = new MXIC_UserManagement()
             {
                 UserListID = Guid.NewGuid(),
@@ -90,7 +91,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 UserID = UserID,
                 UserName = UserName,
                 Admin = Admin,
-                PassWord = PassWord,
+                PassWord = hash,
                 UserDisable = true,
                 EditID = Guid.NewGuid(),
                 DeleteID = Guid.NewGuid()
@@ -125,7 +126,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             {
                 if (!string.IsNullOrWhiteSpace(PassWord))
                 {
-                    EditUser.PassWord = PassWord;
+                    string hash = GetSHA1.GetSHA1Hash(PassWord);
+                    EditUser.PassWord = hash;
 
                 }
 

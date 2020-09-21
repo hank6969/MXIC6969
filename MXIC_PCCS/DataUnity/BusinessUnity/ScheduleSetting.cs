@@ -133,7 +133,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             }
             
             string str = JsonConvert.SerializeObject(_ScheduleList, Formatting.Indented);
-
+            str = str.Replace("T00:00:00", "");
             return str;
 
         }

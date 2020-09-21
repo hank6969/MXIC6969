@@ -24,8 +24,12 @@ if (title == 'MXIC') {
     //table名稱
     tablename = "MXIC_UserManagement"
 } else if (title == '部門管理') {
-    ajaxUrl = '.../api/api-3'
-    generateUrl = '.../api/api-3'
+    //搜尋url這個要先寫
+    ajaxUrl = '/DepartmentManagement/SearchDepToVen'
+    //刪除url
+    deleteurl = "/DepartmentManagement/DeleteDepToVen"
+    //table名稱
+    tablename = "MXIC_DepartmentManagement"
 } else if (title == '廠商管理') {
     //搜尋url這個要先寫
     ajaxUrl = "/VendorManagement/VendorList"
@@ -83,10 +87,10 @@ var dataList = [
 //navBar & indexBTN 資料格式範例 
 var navData = [
     { 'name': '人員管理', 'url': '../UserManagement/', 'commonly_used': '1' },
-    { 'name': '部門管理', 'url': '部門管理.html', 'commonly_used': '1' },
+    { 'name': '部門管理', 'url': '../DepartmentManagement/', 'commonly_used': '1' },
     { 'name': '廠商管理', 'url': '../VendorManagement/', 'commonly_used': '1' },
     { 'name': '報價單', 'url': '../Quotation/', 'commonly_used': '1' },
-    { 'name': '班表設定', 'url': '班表設定.html', 'commonly_used': '1' },
+    { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1' },
     { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
     { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },
     { 'name': '匯出計價單', 'url': '匯出計價單.html', 'commonly_used': '0' }

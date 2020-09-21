@@ -25,7 +25,6 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -316,9 +315,6 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
-    <Content Include="Content\出勤班表範本.xlsx" />
-    <Content Include="Content\報價單範本.xlsx" />
-    <Content Include="Content\證照範本.xlsx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -362,8 +358,8 @@
     <Content Include="Views\VendorManagement\Index.cshtml" />
     <Content Include="Views\Webpage\Index.cshtml" />
     <Content Include="Views\DepartmentManagement\Index.cshtml" />
-    <Content Include="Views\Index.cshtml" />
     <Content Include="Views\ScheduleSetting\Index.cshtml" />
+    <Content Include="Views\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

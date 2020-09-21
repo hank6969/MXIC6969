@@ -14,7 +14,8 @@ namespace MXIC_PCCS.Controllers
         // GET: Webpage
         public ActionResult Index()
         {
-            return View();
+            var list = _db.MXIC_InputGenerates;
+            return View(list);
         }
 
         public string PageGenerate(string tablename,string COLUMN_NAME)

@@ -51,6 +51,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 {
                     //年,月,PO號碼
                     string Year, Month, PoNo;
+                    
 
                     //以下是讀檔
                     using (var excelPkg = new ExcelPackage(file.InputStream))
@@ -67,6 +68,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         Year = sheet.Cells[3, 14].Text;
                         Month = sheet.Cells[3, 17].Text;
                         PoNo = sheet.Cells[3, 2].Text;
+                        //清除當月資料
+                        CleanSchedul(Year, Month);
                         for (int currentRow = startRowIndex; currentRow <= endRowIndex; currentRow++)
                         {
                             //組別,姓名,班別,上班日期,星期
@@ -87,7 +90,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                 }
                                 if (currentColumn >= 3)
                                 {
-                                    WorkShift = sheet.Cells[currentRow, currentRow].Text;
+                                    WorkShift = sheet.Cells[currentRow, currentColumn].Text;
                                     DayWeek = "星期" + sheet.Cells[5, currentColumn].Text;
                                     workdate = Year +'/'+ Month +'/'+ sheet.Cells[4, currentColumn].Text;
 
@@ -97,6 +100,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                     model.DayWeek = DayWeek;
                                     model.EmpName = EmpName;
                                     model.WorkShift = WorkShift;
+                                    //新增進資料庫
                                     str = AddSchedul(model);
                                 }
                                 
@@ -131,6 +135,17 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             string str = JsonConvert.SerializeObject(_ScheduleList, Formatting.Indented);
 
             return str;
+
+        }
+
+        public void CleanSchedul(string Year, string Month)
+        {
+            var _ScheduleList = _db.MXIC_ScheduleSettings.Where(x => x.Date.Year.ToString() == Year && x.Date.Month.ToString() == Month);
+
+
+            _db.MXIC_ScheduleSettings.RemoveRange(_ScheduleList);
+            _db.SaveChanges();
+
 
         }
     }

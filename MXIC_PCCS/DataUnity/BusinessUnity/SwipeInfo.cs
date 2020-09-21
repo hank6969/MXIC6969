@@ -133,10 +133,15 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         AttendType = "異常";
                     }
                     else
-                    {
+                    {if(WorkShift=="休"|| WorkShift=="代早"|| WorkShift == "代晚")
+                        {
+                            AttendType = "異常";
+
+                        }
+                        else { 
                         switch (WorkShift)
                         {
-                            case "日":
+                            case "早":
                                 DateTime StartTimeDay = Convert.ToDateTime("06:30");
                                 DateTime EndTimeDay = Convert.ToDateTime("19:30");
                                 DateTime LateTimeDay = Convert.ToDateTime("07:00");
@@ -149,7 +154,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
                                 break;
 
-                            case "常日":
+                            case "日":
                                 DateTime StartTimeNormal = Convert.ToDateTime("08:00");
                                 DateTime EndTimeNormal = Convert.ToDateTime("18:00");
                                 DateTime LateTimeNormal = Convert.ToDateTime("08:30");
@@ -173,11 +178,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                 }
                                 break;
 
-                            case "休":
-
-                                AttendType = "異常";
-
-                                break;
+                           
+                        }
                         }
                     }
                     for (int i = 0; i < 2; i++)

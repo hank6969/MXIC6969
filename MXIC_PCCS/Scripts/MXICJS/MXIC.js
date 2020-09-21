@@ -11,12 +11,11 @@ if (title == 'MXIC') {
     ajaxUrl = '.../api/api-1'
     generateUrl = '.../api/api-1'
 } else if (title == '人員管理') {
-
     //搜尋url這個要先寫
     ajaxUrl = "/UserManagement/UserList"
     //編輯資料取的url
     editDetailUrl = "/UserManagement/EditUserDetail",
-        //編輯Url
+    //編輯Url
     editUrl = "/UserManagement/EditUser"
     //刪除url
     deleteurl = "/UserManagement/DeleteUser"
@@ -32,8 +31,8 @@ if (title == 'MXIC') {
     ajaxUrl = "/VendorManagement/VendorList"
     //編輯資料取的url
     editDetailUrl = "/VendorManagement/EditVendorDetail",
-        //編輯Url
-        editUrl = "/VendorManagement/EditVendor"
+    //編輯Url
+    editUrl = "/VendorManagement/EditVendor"
     //刪除url
     deleteurl = "/VendorManagement/DeleteVendor"
     //新增url
@@ -83,8 +82,8 @@ var dataList = [
 var navData = [
     { 'name': '人員管理', 'url': '../UserManagement/', 'commonly_used': '1' },
     { 'name': '部門管理', 'url': '部門管理.html', 'commonly_used': '1' },
-    { 'name': '廠商管理', 'url': '廠商管理.html', 'commonly_used': '1' },
-    { 'name': '報價單', 'url': '報價單.html', 'commonly_used': '1' },
+    { 'name': '廠商管理', 'url': '../VendorManagement/', 'commonly_used': '1' },
+    { 'name': '報價單', 'url': '../Quotation/', 'commonly_used': '1' },
     { 'name': '班表設定', 'url': '班表設定.html', 'commonly_used': '1' },
     { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
     { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },

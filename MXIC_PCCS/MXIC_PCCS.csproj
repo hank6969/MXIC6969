@@ -349,11 +349,11 @@
     <Content Include="Views\LisenceManagement\Index.cshtml" />
     <Content Include="Views\Quotation\Index.cshtml" />
     <Content Include="Views\VendorManagement\Index.cshtml" />
+    <Content Include="Views\Webpage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Page\" />
-    <Folder Include="Views\Webpage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -23,7 +23,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
             var _LisenceSearchCondition = _db.MXIC_LisenceManagements.Select(x => new { x.PoNo, x.EmpName, x.LicName, x.EndDate,x.EditID,x.DeleteID });
 
-
+        
             //如果PoNo不為空
             if (!string.IsNullOrWhiteSpace(PoNo))
             {
@@ -40,12 +40,14 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             if (!string.IsNullOrWhiteSpace(LicName))
             {
                 _LisenceSearchCondition = _LisenceSearchCondition.Where(x => x.LicName.Contains(LicName));
-
             }
 
-            //_LisenceList轉換成json字串
-            string responseStr = JsonConvert.SerializeObject(_LisenceSearchCondition, Formatting.Indented);
 
+                
+
+            //_LisenceList轉換成json字串
+                string responseStr = JsonConvert.SerializeObject(_LisenceSearchCondition, Formatting.Indented);
+            responseStr = responseStr.Replace("T00:00:00", "");
             return (responseStr);
 
         }
@@ -103,7 +105,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             var LisenceDetail = _db.MXIC_LisenceManagements.Where(x => x.EditID.ToString() == EditID).Select(x => new { x.PoNo, x.EmpName, x.LicName, x.EndDate });
 
             string responseStr = JsonConvert.SerializeObject(LisenceDetail, Formatting.Indented);
-
+            responseStr= responseStr.Replace("T00:00:00", "");
             return (responseStr);
         }
 

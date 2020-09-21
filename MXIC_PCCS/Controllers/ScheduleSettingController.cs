@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MXIC_PCCS.DataUnity.Interface;
 using MXIC_PCCS.DataUnity.BusinessUnity;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace MXIC_PCCS.Controllers
 {
@@ -27,11 +28,13 @@ namespace MXIC_PCCS.Controllers
         }
 
         [HttpPost]
-        public string UploadSchedule(HttpPostedFileBase file)
+        public ActionResult UploadSchedule(HttpPostedFileBase file)
         {
-            string ff = _IScheduleSetting.ImportSchedul(file);
+            string Result = _IScheduleSetting.ImportSchedul(file);
 
-            return ff;
+            TempData["message"] = Result;
+
+            return RedirectToAction("Index", "ScheduleSetting");
         }
 
         public ActionResult DownloadScheduleExample()

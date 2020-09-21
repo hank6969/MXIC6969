@@ -86,7 +86,7 @@ var navData = [
     { 'name': '部門管理', 'url': '部門管理.html', 'commonly_used': '1' },
     { 'name': '廠商管理', 'url': '../VendorManagement/', 'commonly_used': '1' },
     { 'name': '報價單', 'url': '../Quotation/', 'commonly_used': '1' },
-    { 'name': '班表設定', 'url': '班表設定.html', 'commonly_used': '1' },
+    { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1' },
     { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
     { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },
     { 'name': '匯出計價單', 'url': '匯出計價單.html', 'commonly_used': '0' }

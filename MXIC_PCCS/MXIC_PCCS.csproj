@@ -156,20 +156,26 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DepartmentManagementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LisenceManagementController.cs" />
     <Compile Include="Controllers\QuotationController.cs" />
+    <Compile Include="Controllers\ScheduleSettingController.cs" />
     <Compile Include="Controllers\SwipeInfoController.cs" />
     <Compile Include="Controllers\UserManagementController.cs" />
     <Compile Include="Controllers\VendorManagementController.cs" />
     <Compile Include="Controllers\WebpageController.cs" />
+    <Compile Include="DataUnity\BusinessUnity\DepartmentManagement.cs" />
     <Compile Include="DataUnity\BusinessUnity\LisenceManagement.cs" />
     <Compile Include="DataUnity\BusinessUnity\Quotation.cs" />
+    <Compile Include="DataUnity\BusinessUnity\ScheduleSetting.cs" />
     <Compile Include="DataUnity\BusinessUnity\SwipeInfo.cs" />
     <Compile Include="DataUnity\BusinessUnity\UserManagement.cs" />
     <Compile Include="DataUnity\BusinessUnity\VendorManagement.cs" />
+    <Compile Include="DataUnity\Interface\IDepartmentManagement.cs" />
     <Compile Include="DataUnity\Interface\ILisenceManagement.cs" />
     <Compile Include="DataUnity\Interface\IQuotation.cs" />
+    <Compile Include="DataUnity\Interface\IScheduleSetting.cs" />
     <Compile Include="DataUnity\Interface\ISwipeInfo.cs" />
     <Compile Include="DataUnity\Interface\IUserManagement.cs" />
     <Compile Include="DataUnity\Interface\IVendorManagement.cs" />
@@ -185,6 +191,7 @@
     <Compile Include="Models\MXIC_PCCSContext.cs" />
     <Compile Include="Models\MXIC_Quotation.cs" />
     <Compile Include="Models\MXIC_QuotationProperty.cs" />
+    <Compile Include="Models\MXIC_ScheduleProperty.cs" />
     <Compile Include="Models\MXIC_ScheduleSetting.cs" />
     <Compile Include="Models\MXIC_SwipeInfo.cs" />
     <Compile Include="Models\MXIC_UserManagement.cs" />
@@ -350,6 +357,9 @@
     <Content Include="Views\Quotation\Index.cshtml" />
     <Content Include="Views\VendorManagement\Index.cshtml" />
     <Content Include="Views\Webpage\Index.cshtml" />
+    <Content Include="Views\DepartmentManagement\Index.cshtml" />
+    <Content Include="Views\ScheduleSetting\Index.cshtml" />
+    <Content Include="Views\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

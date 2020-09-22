@@ -30,7 +30,9 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 DayWeek = Model.DayWeek,
                 PoNo = Model.PoNo,
                 WorkShift = Model.WorkShift,
-                ScheduleID = Guid.NewGuid()
+                ScheduleID = Guid.NewGuid(),
+                WorkGroup = Model.WorkGroup
+                
             };
 
             _db.MXIC_ScheduleSettings.Add(AddSchedul);
@@ -72,8 +74,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         CleanSchedul(Year, Month);
                         for (int currentRow = startRowIndex; currentRow <= endRowIndex; currentRow++)
                         {
-                            //組別,姓名,班別,上班日期,星期
-                            string Jobgrade = "", EmpName = "", WorkShift = "", workdate = "", DayWeek = "";
+                            //排班組別,姓名,班別,上班日期,星期
+                            string WorkGroup = "", EmpName = "", WorkShift = "", workdate = "", DayWeek = "";
                             for (int currentColumn = startColumn; currentColumn <= endColumn; currentColumn++)
                             {
                                 if(string.IsNullOrWhiteSpace(sheet.Cells[currentRow, 1].Text))
@@ -82,7 +84,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                 }
                                 if (currentColumn == 1)
                                 {
-                                    Jobgrade = sheet.Cells[currentRow, currentColumn].Text;
+                                    WorkGroup = sheet.Cells[currentRow, currentColumn].Text;
                                 }
                                 if (currentColumn == 2)
                                 {
@@ -100,6 +102,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                     model.DayWeek = DayWeek;
                                     model.EmpName = EmpName;
                                     model.WorkShift = WorkShift;
+                                    model.WorkGroup = WorkGroup;
                                     //新增進資料庫
                                     str = AddSchedul(model);
                                 }

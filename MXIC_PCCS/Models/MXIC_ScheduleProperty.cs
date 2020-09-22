@@ -16,5 +16,7 @@ namespace MXIC_PCCS.Models
         public string EmpName { get; set; }
 
         public string WorkShift { get; set; }
+
+        public string WorkGroup { get; set; }
     }
 }

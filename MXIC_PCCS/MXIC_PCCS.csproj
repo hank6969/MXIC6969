@@ -184,6 +184,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\FAC_ATTENDLIST.cs" />
+    <Compile Include="Models\GetSHA1.cs" />
     <Compile Include="Models\MxicTestContext.cs" />
     <Compile Include="Models\MXIC_DepartmentManagement.cs" />
     <Compile Include="Models\MXIC_InputGenerate.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Models\MXIC_VendorManagement.cs" />
     <Compile Include="Models\MXIC_View_Swipe.cs" />
     <Compile Include="Models\NavData.cs" />
+    <Compile Include="Models\SelectViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -335,7 +337,10 @@
     <Content Include="Scripts\MXICJS\MXIC.js" />
     <Content Include="Scripts\MXICJS\MXIC_old.js" />
     <Content Include="Scripts\MXICJS\popper.min.js" />
+    <Content Include="Scripts\MXICJS\Quotation.js" />
+    <Content Include="Scripts\MXICJS\SwipeInfo.js" />
     <Content Include="Scripts\MXICJS\UserManagement_old.js" />
+    <Content Include="Scripts\MXICJS\VendorManagement.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config">

@@ -44,5 +44,57 @@ namespace MXIC_PCCS.Controllers
             return (Str);
 
         }
-    }
+
+        public string VendorManagementSelect()
+        {
+            List<SelectViewModel> SelectListx = new List<SelectViewModel>();
+
+
+            var list = _db.MXIC_VendorManagements.Select(x => new { x.VendorName }).Distinct().OrderBy(x => x.VendorName).ToList();
+
+            foreach (var item in list)
+            {
+                var SelectItem = new SelectViewModel()
+                {
+                    name = item.VendorName,
+                    value = item.VendorName
+
+
+                };
+                SelectListx.Add(SelectItem);
+
+            }
+
+            string Str = JsonConvert.SerializeObject(SelectListx, Formatting.Indented);
+
+            return (Str);
+        }
+
+
+            public string QuotationSelect()
+            {
+                List<SelectViewModel> SelectListx = new List<SelectViewModel>();
+
+
+                var list = _db.MXIC_Quotations.Select(x => new { x.VendorName }).Distinct().OrderBy(x => x.VendorName).ToList();
+
+                foreach (var item in list)
+                {
+                    var SelectItem = new SelectViewModel()
+                    {
+                        name = item.VendorName,
+                        value = item.VendorName
+
+
+                    };
+                    SelectListx.Add(SelectItem);
+
+                }
+
+                string Str = JsonConvert.SerializeObject(SelectListx, Formatting.Indented);
+
+                return (Str);
+
+            }
+        }
 }

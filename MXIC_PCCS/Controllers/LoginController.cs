@@ -12,7 +12,7 @@ namespace MXIC_PCCS.Controllers
     {
         public MXIC_PCCSContext _db = new MXIC_PCCSContext();
         // GET: Login
-        public ActionResult Index()
+        public ActionResult Login()
         {
             return View();
         }
@@ -32,8 +32,8 @@ namespace MXIC_PCCS.Controllers
             if (UserData == null)
             {   // 找不到這一筆記錄（帳號與密碼有錯，沒有這個會員）
                 //return HttpNotFound();
-
-                return RedirectToAction("Index", "Login");
+                ViewData["ErrorMessage"] = "帳號或密碼有錯";
+                return View();
             }
             else
             {   //*************************************************************(start)
@@ -103,7 +103,7 @@ namespace MXIC_PCCS.Controllers
             //};
             //Response.Cookies.Add(cookie2);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Login");
             // 回到 登入畫面（Login動作）
         }
     }

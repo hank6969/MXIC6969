@@ -342,6 +342,7 @@
     <Content Include="Scripts\MXICJS\jquery.jqgrid.min.js" />
     <Content Include="Scripts\MXICJS\jquery.min.js" />
     <Content Include="Scripts\MXICJS\MXIC.js" />
+    <Content Include="Scripts\MXICJS\MXICIndex.js" />
     <Content Include="Scripts\MXICJS\MXIC_old.js" />
     <Content Include="Scripts\MXICJS\popper.min.js" />
     <Content Include="Scripts\MXICJS\Quotation.js" />
@@ -376,7 +377,7 @@
     <Content Include="Views\DepartmentManagement\Index.cshtml" />
     <Content Include="Views\ScheduleSetting\Index.cshtml" />
     <Content Include="Views\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

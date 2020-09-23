@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace MXIC_PCCS.Controllers
 {
+    [Authorize]
     public class QuotationController : Controller
     {
         IQuotation _IQuotation = new Quotation();

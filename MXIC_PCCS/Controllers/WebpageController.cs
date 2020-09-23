@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MXIC_PCCS.Controllers
 {
+    [Authorize]
     public class WebpageController : Controller
     {
         public MXIC_PCCSContext _db = new MXIC_PCCSContext();

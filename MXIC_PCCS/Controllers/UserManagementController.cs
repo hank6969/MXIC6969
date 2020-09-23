@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MXIC_PCCS.Controllers
 {
+    [Authorize]
     public class UserManagementController : Controller
     {
         IUserManagement _IUserManagement = new UserManagement();

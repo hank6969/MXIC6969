@@ -8,6 +8,7 @@ using MXIC_PCCS.DataUnity.BusinessUnity;
 
 namespace MXIC_PCCS.Controllers
 {
+    [Authorize]
     public class VendorManagementController : Controller
     {
         IVendorManagement _IVendorManagement = new VendorManagement();

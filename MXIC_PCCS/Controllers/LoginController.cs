@@ -33,7 +33,7 @@ namespace MXIC_PCCS.Controllers
             {   // 找不到這一筆記錄（帳號與密碼有錯，沒有這個會員）
                 //return HttpNotFound();
 
-                return View();
+                return RedirectToAction("Index", "Login");
             }
             else
             {   //*************************************************************(start)
@@ -83,6 +83,28 @@ namespace MXIC_PCCS.Controllers
                 // https://blogs.msdn.microsoft.com/webdev/2013/07/03/understanding-owin-forms-authentication-in-mvc-5/
             }
 
+        }
+
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();  // 登出
+            Session.Abandon();   // 不光是清除 Session裡面的資料，把 Session也取消了！
+
+            //// 參考資料 http://kevintsengtw.blogspot.com/2013/11/aspnet-mvc.html
+            //// 建立一個同名的 Cookie 來覆蓋原本的 Cookie
+            //HttpCookie cookie1 = new HttpCookie(FormsAuthentication.FormsCookieName, "")   {
+            //    Expires = DateTime.Now.AddYears(-1)   // 設定過期日（已過期一年）
+            //};
+            //Response.Cookies.Add(cookie1);
+
+            //// 建立 ASP.NET 的 Session Cookie 同樣是為了覆蓋
+            //HttpCookie cookie2 = new HttpCookie("ASP.NET_SessionId", "")   {
+            //    Expires = DateTime.Now.AddYears(-1)   // 設定過期日（已過期一年）
+            //};
+            //Response.Cookies.Add(cookie2);
+
+            return RedirectToAction("Index");
+            // 回到 登入畫面（Login動作）
         }
     }
 }

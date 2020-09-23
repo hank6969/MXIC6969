@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace MXIC_PCCS.Controllers
 {
+    [Authorize]
     public class ScheduleSettingController : Controller
     {
 

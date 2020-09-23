@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace MXIC_PCCS.Controllers
 {
+    [Authorize]
     public class LisenceManagementController : Controller
     {
         ILisenceManagement _ILisenceManagement = new LisenceManagement();

@@ -30,5 +30,19 @@ namespace MXIC_PCCS.Controllers
 
             return str;
         }
+
+        public string Venderdata()
+        {
+            string str = _IDepartmentManagement.Venderdata();
+
+            return str;
+        }
+
+        public string AddDepToVen(string DepName, string VendorName)
+        {
+            string str = _IDepartmentManagement.AddDepToVen( DepName,  VendorName);
+
+            return str;
+        }
     }
 }

@@ -26,5 +26,18 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// <param name="DeleteID"></param>
         /// <returns></returns>
         string DeleteDepToVen(string DeleteID);
+        /// <summary>
+        /// 新增視窗grid資料
+        /// </summary>
+        /// <returns></returns>
+        string Venderdata();
+
+        /// <summary>
+        /// 部門管理供應商
+        /// </summary>
+        /// <param name="DepName"></param>
+        /// <param name="VendorName"></param>
+        /// <returns></returns>
+        string AddDepToVen(string DepName, string VendorName);
     }
 }

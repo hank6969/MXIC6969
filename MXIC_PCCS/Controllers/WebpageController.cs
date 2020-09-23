@@ -96,5 +96,57 @@ namespace MXIC_PCCS.Controllers
                 return (Str);
 
             }
+
+        public string DepartmentManagementSelect()
+        {
+            List<SelectViewModel> SelectListx = new List<SelectViewModel>();
+
+
+            var list = _db.MXIC_UserManagements.Select(x => new { x.DepName }).Distinct().OrderBy(x => x.DepName).ToList();
+
+            foreach (var item in list)
+            {
+                var SelectItem = new SelectViewModel()
+                {
+                    name = item.DepName,
+                    value = item.DepName
+
+
+                };
+                SelectListx.Add(SelectItem);
+
+            }
+
+            string Str = JsonConvert.SerializeObject(SelectListx, Formatting.Indented);
+
+            return (Str);
+
         }
+
+        public string SwipeInfoSelect()
+        {
+            List<SelectViewModel> SelectListx = new List<SelectViewModel>();
+
+
+            var list = _db.SwipeInfoSelects.Select(x => new { x.name }).Distinct().OrderBy(x => x.name).ToList();
+
+            foreach (var item in list)
+            {
+                var SelectItem = new SelectViewModel()
+                {
+                    name = item.name,
+                    value = item.name
+
+
+                };
+                SelectListx.Add(SelectItem);
+
+            }
+
+            string Str = JsonConvert.SerializeObject(SelectListx, Formatting.Indented);
+
+            return (Str);
+
+        }
+    }
 }

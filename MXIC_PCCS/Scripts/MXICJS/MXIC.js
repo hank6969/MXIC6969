@@ -15,8 +15,8 @@ if (title == 'MXIC') {
     ajaxUrl = "/UserManagement/UserList"
     //編輯資料取的url
     editDetailUrl = "/UserManagement/EditUserDetail",
-        //編輯Url
-        editUrl = "/UserManagement/EditUser"
+    //編輯Url
+    editUrl = "/UserManagement/EditUser"
     //刪除url
     deleteurl = "/UserManagement/DeleteUser"
     //新增url
@@ -37,8 +37,8 @@ if (title == 'MXIC') {
     ajaxUrl = "/VendorManagement/VendorList"
     //編輯資料取的url
     editDetailUrl = "/VendorManagement/EditVendorDetail",
-        //編輯Url
-        editUrl = "/VendorManagement/EditVendor"
+    //編輯Url
+    editUrl = "/VendorManagement/EditVendor"
     //刪除url
     deleteurl = "/VendorManagement/DeleteVendor"
     //新增url
@@ -64,8 +64,8 @@ if (title == 'MXIC') {
     ajaxUrl = "/LisenceManagement/SearchLisence"
     //編輯資料取的url
     editDetailUrl = "/LisenceManagement/EditLisenceDetail",
-        //編輯Url
-        editUrl = "/LisenceManagement/EditLisence"
+    //編輯Url
+    editUrl = "/LisenceManagement/EditLisence"
     //刪除url
     deleteurl = "/LisenceManagement/DeleteLisence"
     //新增url
@@ -310,7 +310,12 @@ $(document).ready(function () {
 
         }
     };
-
+    //畫面select選單資料
+    for (i = 0; i < GenerateResult.length; i++) {
+        if (GenerateTypeResult[i] == "select") {
+            inputOption('seachInputOption' + [i], dataList, '', '');
+        }
+    }
     //動態生成新增Pop INPUT
     inputGenerate('insertPopUpContant', PopGenerateResult, PopGenerateTypeResult, 'insertTextInput');
 
@@ -324,16 +329,12 @@ $(document).ready(function () {
 
             $('.' + location).append('<div class="PopSeachBox" stlye="display:flex;"><label>' + result[i] + '</label><input type="' + resultType[i] + '" name="' + inputname + '" placeholder="' + result[i] + '" required="required" /></div>')
             $('input[type=select]').replaceWith('</label><input type="text" name="' + inputname + '" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
-            //$('input[type=checkbox]').replaceWith('<input type="checkbox" checked="checked" value="" onclick="' + checkboxFuntiom + '">')
+           
         };
     }
 
-    //指地select選單資料
-    for (i = 0; i < GenerateResult.length; i++) {
-        if (GenerateTypeResult[i] == "select") {
-            inputOption('seachInputOption' + [i], dataList, '', '');
-        }
-    }
+
+    
 
     //指定 下拉選單選項
     // function inputOption(inputID, DT, PrefixValue, PrefixText) {
@@ -449,6 +450,8 @@ $(document).ready(function () {
 
 ////指定 下拉選單選項
 function inputOption(inputID, DT, PrefixValue, PrefixText) {
+
+
     if (DT.length == 1) {
         $('#' + inputID).append('<option value="' + PrefixValue + '' + DT[0].name + '" />' + PrefixText + '' + DT[0].value + '</option>')
 
@@ -460,21 +463,9 @@ function inputOption(inputID, DT, PrefixValue, PrefixText) {
     }
 
 };
-//彈跳視窗 input生成
-function inputGenerate(location, result, resultType, inputname) {
-    $('.' + location).html('');
-    for (i = 0; i < result.length; i++) {
 
-        $('.' + location).append('<div class="PopSeachBox" stlye="display:flex;"><label>' + result[i] + '</label><input type="' + resultType[i] + '" name="' + inputname + '" placeholder="' + result[i] + '" required="required" /></div>')
-        $('input[type=select]').replaceWith('</label><input type="text" name="' + inputname + '" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
-        //$('input[type=checkbox]').replaceWith('<input type="checkbox" checked="checked" value="" onclick="' + checkboxFuntiom + '">')
-    };
-}
 
-//表格返回自訂物件
-function imageFormat(cellvalue, options, rowObject) {
-    return ' <a href="#" class="seachBTN btn-1" onclick="delect()">刪除</a>';
-}
+
 //navbar 導覽列自動生成排列
 function navbarItem(e) {
     var arrLength = e.length;
@@ -503,33 +494,7 @@ function iconMenu(e) {
     }
 }
 
-// var marqueeTop = 0;
-// //跑馬燈 按鈕向下
-// function marqueeDown() {
-//     if (marqueeTop <= -72) {
-//         marqueeTop = -72;
-//     } else {
-//         marqueeTop -= 18
-//     }
-//     $('.marqueeContant').css('transform', 'translateY(' + marqueeTop + 'px)')
-// }
-// //跑馬燈 按鈕向上
-// function marqueeUp() {
-//     if (marqueeTop < 0) {
-//         marqueeTop += 18;
-//     } else {
-//         marqueeTop = 0;
-//     }
-//     $('.marqueeContant').css('transform', 'translateY(' + marqueeTop + 'px)')
-// }
-// //跑馬燈 內容
-// function marquee(e) {
-//     for (i = 0; i <= e.length; i++) {
-//         if (e.length <= 5) {
-//             $('.marqueeContant').append('<div style="display:flex; height:18px;"><p style="color:red; margin-right:10px">' + e[i].type + '</p><p style="line-height: 18px;">' + e[i].contant + '</p></div>')
-//         }
-//     }
-// }
+
 //跑馬燈 內容
 function marquee(e) {
     i = 0;
@@ -606,9 +571,13 @@ function GridData() {
 }
 //開啟"新增"彈窗
 function insert() {
+   
+    inputOption('editInputOption0', dataList, '', '');
     $("#insert input").val("");
     $('.insertBox').fadeIn(700);
     $('.cover').removeClass('blur-out').addClass('blur-in')
+   
+   
 }
 //開啟"刪除"彈窗
 function delect(e) {
@@ -621,13 +590,14 @@ function delect(e) {
 //開啟"修改"彈窗
 function edit(e) {
     inputOption('editInputOption0', dataList, '', '');
+
     $('.popEditBox').fadeIn(700);
     $('.cover').removeClass('blur-out').addClass('blur-in')
 
     EditID = e.id;
 
     EditData(EditID)
-
+   
 
 }
 
@@ -883,11 +853,27 @@ function CheckBox(cellvalue, options, rowObject) {
 }
 function ResetInput() {
 
+    $('.insertPopUpContant').empty();
+
+    
     $('.editPopUpContant').empty();
 
     for (i = 0; i < editPopGenerateResult.length; i++) {
         $('.editPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + editPopGenerateResult[i] + '</label><input type="' + editPopGenerateTypeResult[i] + '" name="editTextInput" placeholder="' + editPopGenerateResult[i] + '" required="required" /></div>')
         $('input[type=Select]').replaceWith('<input type="text" name="editTextInput" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
     }
-    inputOption('editInputOption0', dataList, '', '')
+
+    for (i = 0; i < PopGenerateResult.length; i++) {
+        $('.insertPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + PopGenerateResult[i] + '</label><input type="' + PopGenerateTypeResult[i] + '" name="editTextInput" placeholder="' + PopGenerateResult[i] + '" required="required" /></div>')
+        $('input[type=Select]').replaceWith('<input type="text" name="editTextInput" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
+    }
+    // for (i = 0; i < editPopGenerateResult.length; i++) {
+    //     if (editPopGenerateTypeResult[i] == "select") {
+    //         inputOption('editInputOption' + [i], dataList, '', '');
+    //     }
+    // }
+
+  
 }
+
+

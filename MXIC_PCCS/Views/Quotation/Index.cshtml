@@ -37,9 +37,10 @@
             <div class="editBox cover">
                 <a href="#" class="seachBTN btn-1" onclick="seachBtn()">查詢</a>
                 <a href="#" class="seachBTN btn-1" onclick="DownloadExample()">匯入範本</a>
-                <form action="@Url.Action("UploadQuotation")" method="post" enctype="multipart/form-data">
+                <a href='javascript:document.form1.submit();' class="seachBTN btn-1">提交</a>
+                <form name='form1' action="@Url.Action("UploadQuotation")" method="post" enctype="multipart/form-data">
                     <input type="file" name="file" id="file" />
-                    <input type="submit" />
+                   
                 </form>
             </div>
         </div>

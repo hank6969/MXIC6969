@@ -311,10 +311,11 @@ $(document).ready(function () {
             $('.inputBox').append(GenerateResult[i] + '<input type="' + GenerateTypeResult[i] + '" name="seachTextInput" placeholder="' + GenerateResult[i] + '" required="required" />')
         } else {
             $('.inputBox').append('<input type="' + GenerateTypeResult[i] + '" name="seachTextInput" placeholder="' + GenerateResult[i] + '" required="required" />')
-            $('input[type=select]').replaceWith(GenerateResult[i] + '<input type="text" name="seachTextInput" id="" class="editInputOption" list="seachInputOption' + [i] + '"><datalist id="seachInputOption' + [i] + '"></datalist>')
-
+            $('input[type=select]').replaceWith(GenerateResult[i] + '<input  onfocus=this.value="" type="text" name="seachTextInput" id="" class="editInputOption" list="seachInputOption' + [i] + '"><datalist id="seachInputOption' + [i] + '"></datalist>')
+            
         }
     };
+ 
     //畫面select選單資料
     for (i = 0; i < GenerateResult.length; i++) {
         if (GenerateTypeResult[i] == "select") {
@@ -333,7 +334,7 @@ $(document).ready(function () {
         for (i = 0; i < result.length; i++) {
 
             $('.' + location).append('<div class="PopSeachBox" stlye="display:flex;"><label>' + result[i] + '</label><input type="' + resultType[i] + '" name="' + inputname + '" placeholder="' + result[i] + '" required="required" /></div>')
-            $('input[type=select]').replaceWith('</label><input type="text" name="' + inputname + '" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
+            $('input[type=select]').replaceWith('</label><input type="text" onfocus=this.value=""  name="' + inputname + '" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
            
         };
     }
@@ -868,12 +869,12 @@ function ResetInput() {
 
     for (i = 0; i < editPopGenerateResult.length; i++) {
         $('.editPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + editPopGenerateResult[i] + '</label><input type="' + editPopGenerateTypeResult[i] + '" name="editTextInput" placeholder="' + editPopGenerateResult[i] + '" required="required" /></div>')
-        $('input[type=Select]').replaceWith('<input type="text" name="editTextInput" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
+        $('input[type=Select]').replaceWith('<input type="text" onfocus=this.value="" name="editTextInput" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
     }
 
     for (i = 0; i < PopGenerateResult.length; i++) {
         $('.insertPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + PopGenerateResult[i] + '</label><input type="' + PopGenerateTypeResult[i] + '" name="editTextInput" placeholder="' + PopGenerateResult[i] + '" required="required" /></div>')
-        $('input[type=Select]').replaceWith('<input type="text" name="editTextInput" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
+        $('input[type=Select]').replaceWith('<input type="text" onfocus=this.value="" name="editTextInput" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
     }
     // for (i = 0; i < editPopGenerateResult.length; i++) {
     //     if (editPopGenerateTypeResult[i] == "select") {

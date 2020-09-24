@@ -65,7 +65,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     PoClassName = Property_ListModel[i].PoClassName,
                     LicPossess = "有",
                     Unit = Property_ListModel[i].Unit,
-                    Amount = Property_ListModel[i].Amount
+                    Amount = Property_ListModel[i].Amount,
+                    Sequence = 1+i
                 };
 
                 _db.MXIC_Quotations.Add(AddQuotationItem);

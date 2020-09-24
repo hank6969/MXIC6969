@@ -111,7 +111,7 @@ namespace MXIC_PCCS.Controllers
                             }
                             Property_ListModel.Add(Property_Model);
                         }
-                        string MessageStr = _IQuotation.ImportQuotation(VendorName, PoNo, Property_ListModel);
+                        _IQuotation.ImportQuotation(VendorName, PoNo, Property_ListModel);
                     }
                 }
             }

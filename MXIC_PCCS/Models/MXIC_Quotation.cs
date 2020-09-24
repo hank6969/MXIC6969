@@ -38,5 +38,8 @@ namespace MXIC_PCCS.Models
         [Required]
         [StringLength(50)]
         public string Amount { get; set; }
+
+       
+        public int Sequence { get; set; }
     }
 }

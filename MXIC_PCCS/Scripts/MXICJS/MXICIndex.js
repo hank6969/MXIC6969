@@ -5,14 +5,14 @@ var marqueeContant=[];
 var marqueeUrl="/Webpage/marqueeUrl";
 //navBar & indexBTN 資料格式範例 
 var navData = [
-    { 'name': '人員管理', 'url': '../UserManagement/', 'commonly_used': '1' },
-    { 'name': '部門管理', 'url': '../DepartmentManagement/', 'commonly_used': '1' },
-    { 'name': '廠商管理', 'url': '../VendorManagement/', 'commonly_used': '1' },
-    { 'name': '報價單', 'url': '../Quotation/', 'commonly_used': '1' },
-    { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1' },
-    { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
-    { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },
-    { 'name': '匯出計價單', 'url': '匯出計價單.html', 'commonly_used': '0' }
+    { 'name': '人員管理', 'url': '../UserManagement/', 'commonly_used': '1' ,'Img':'人員權限管理1x'},
+    { 'name': '部門管理', 'url': '../DepartmentManagement/', 'commonly_used': '1','Img':'部門權限管理1x' },
+    { 'name': '廠商管理', 'url': '../VendorManagement/', 'commonly_used': '1','Img':'廠商權限管理1x' },
+    { 'name': '報價單', 'url': '../Quotation/', 'commonly_used': '1','Img':'報價單1x' },
+    { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1','Img':'班表1x' },
+    { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1','Img':'證照管理1x' },
+    { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1','Img':'刷卡紀錄1x' },
+    { 'name': '匯出計價單', 'url': '匯出計價單.html', 'commonly_used': '0','Img':'計價單1x' }
 ]
 
 //跑馬燈資料格式範例
@@ -67,9 +67,9 @@ function iconMenu(e) {
     var menuWidth = $('.indexBTN').width();
     for (i = 0; i < arrLength; i++) {
         if(i == 3){
-            $('.indexBTN').append('<div class="btn"><div class="btnBackground link-container"><a class="link" href="./' + e[i].url + '">' + e[i].name + '</a></div></div><br>')
+            $('.indexBTN').append('<div class="btn"><div class="btnBackground link-container"><a class="link" href="./' + e[i].url + '"><img src="../Img/ICON/'+e[i].Img+'.png"  title="'+e[i].name+'"/></a></div></div><br>')
         }else{
-            $('.indexBTN').append('<div class="btn"><div class="btnBackground link-container"><a class="link" href="./' + e[i].url + '">' + e[i].name + '</a></div></div>')
+            $('.indexBTN').append('<div class="btn"><div class="btnBackground link-container"><a class="link" href="./' + e[i].url + '"><img src="../Img/ICON/'+e[i].Img+'.png"   title="'+e[i].name+'" /></a></div></div>')
         }
     }
 }

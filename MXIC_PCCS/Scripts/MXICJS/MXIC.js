@@ -1,5 +1,6 @@
 //頁面變動依據資料庫生成 無須更改前端架構 樣式如需修改僅需修改MXIC.css檔
 //該頁面表格需使用之api請先定義
+
 var dataList = [];
 var ajaxUrl = [];
 var seachobj = '';
@@ -273,32 +274,36 @@ var jsonItemList = mydata.map(item => Object.keys(item));
 var dataColume = []
 dataColume.push(jsonItemList[0])
 var ColumeWid = dataColume[0].length;
-
+//---------------------------------------------------------------------------------------------------------------------
 $(document).ready(function () {
 
+    UserID = $('#UserID').val();
+    Admin="";
+
+    $.ajax({
+        async: false,
+        cache: false,
+        type: "post",
+        datatype: "json",
+        url: '/Webpage/Admin',
+        data: { UserID: UserID },
+        // error: function () {
+        //     alert('欄位生成異常，目前為範例資料')
+        // },
+        success: function (data) {
+            Admin="";
+
+            Admin=data;
+            if(Admin=="false"){
+
+                $('.Manager').attr("style", "display:none;");
+
+            }
+           
+        }
+    })
     $('.title').html(title);
-    //動態生成INPUT
-    // $('.inputBox').html('');
-    // for (i = 0; i < GenerateResult.length; i++) {
-    //     $('.inputBox').append('<input type="' + GenerateTypeResult[i] + '" name="seachTextInput" placeholder="' + GenerateResult[i] + '" required="required" />')
-    // }
 
-    // //動態生成新增Pop INPUT
-    // $('.insertPopUpContant').html('');
-
-    // for (i = 0; i < PopGenerateResult.length; i++) {
-    //     $('.insertPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + PopGenerateResult[i] + '</label><input type="' + PopGenerateTypeResult[i] + '" name="insertTextInput" placeholder="' + PopGenerateResult[i] + '" required="required" /></div>')
-    //     $('input[type=select]').replaceWith('<select></select>')
-    // }
-
-
-    // //動態生成修改Pop INPUT
-    // $('.editPopUpContant').html('');
-
-    // for (i = 0; i < editPopGenerateResult.length; i++) {
-    //     $('.editPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + editPopGenerateResult[i] + '</label><input type="' + editPopGenerateTypeResult[i] + '" name="editTextInput" placeholder="' + editPopGenerateResult[i] + '" required="required" /></div>')
-    //     $('input[type=select]').replaceWith('<select ></select>')
-    // }
 
     //-----------------------------------------------------以下新版動態生成
     for (i = 0; i < GenerateResult.length; i++) {
@@ -379,19 +384,22 @@ $(document).ready(function () {
             }
         })
         testb = Object.values(inputGenerate2).map(item => item.GridFormatter);
-        //console.log(testb);
+        console.log(inputGenerate2);
         if (testb == 'CheckBox') {
 
             testdata = { name: testA[i], index: testA[i], width: gridColume, align: "center", formatter: CheckBox }
-        } else if (testb == 'DeleteBtn') {
+        } else if (testb == 'DeleteBtn'&&Admin=="true") {
             testdata = { name: testA[i], index: testA[i], width: gridColume * 0.5, align: "center", formatter: DeleteBtn }
 
         }
-        else if (testb == 'EditBtn') {
+        else if (testb == 'EditBtn'&&Admin=="true") {
             testdata = { name: testA[i], index: testA[i], width: gridColume * 0.7, align: "center", formatter: EditBtn }
 
-        } else if (testb == 'Hidden') {
+        } else if (testb == 'Hidden'||(testb == 'EditBtn'&&Admin=="false")||(testb == 'DeleteBtn'&&Admin=="false")) {
             testdata = { name: testA[i], index: testA[i], width: gridColume * 0.5, align: "center", hidden: true }
+
+        }else if (testb == 'SwipeEditBtn') {
+            testdata = { name: testA[i], index: testA[i], width: gridColume * 0.7, align: "center", formatter: EditBtn }
 
         }
 
@@ -823,7 +831,7 @@ function delectCheck() {
 
 function EditBtn(cellvalue, options, rowObject) {
     if (title == '刷卡紀錄') {
-        if (rowObject.AttendType !== "正常") {
+        if (rowObject.AttendType !== "正常"&&Admin=="true") {
             return ' <a href="#" id=' + rowObject.EditID + ' class="seachBTN btn-1" style="width:50px" onclick="edit(this)">' + rowObject.AttendType + '</a>';
 
         } else {

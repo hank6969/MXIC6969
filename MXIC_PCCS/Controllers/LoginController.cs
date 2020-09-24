@@ -46,13 +46,13 @@ namespace MXIC_PCCS.Controllers
                 // 以下需要搭配 System.Web.Security 命名空間。                
                 var authTicket = new FormsAuthenticationTicket(   // 登入成功，取得門票 (票證)。請自行填寫以下資訊。
                     version: 1,   //版本號（Ver.）
-                    name: UserData.UserID,  // ***自行放入資料（如：使用者帳號、真實名稱）
+                    name: UserData.UserListID.ToString(),  // ***自行放入資料（如：使用者帳號、真實名稱）
 
                     issueDate: DTnow,  // 登入成功後，核發此票證的本機日期和時間（資料格式 DateTime）
                     expiration: DTnow.AddDays(1),  //  "一天"內都有效（票證到期的本機日期和時間。）
                     isPersistent: true,  // 記住我？ true or false（畫面上通常會用 CheckBox表示）
 
-                    userData: UserData.UserID.ToString(),   // ***自行放入資料（如：會員權限、等級、群組） 
+                    userData: UserData.Admin,   // ***自行放入資料（如：會員權限、等級、群組） 
                                                         // 與票證一起存放的使用者特定資料。
                                                         // 需搭配 Global.asax設定檔 - Application_AuthenticateRequest事件。
 

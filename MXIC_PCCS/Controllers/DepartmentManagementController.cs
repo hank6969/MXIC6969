@@ -15,6 +15,8 @@ namespace MXIC_PCCS.Controllers
         // GET: DepartmentManagement
         public ActionResult Index()
         {
+            var id = HttpContext.User.Identity.Name;
+            ViewBag.ID = id;
             return View();
         }
 
@@ -38,7 +40,7 @@ namespace MXIC_PCCS.Controllers
 
             return str;
         }
-
+        [Authorize(Roles = "true")]
         public string AddDepToVen(string DepName, string VendorName)
         {
             string str = _IDepartmentManagement.AddDepToVen( DepName,  VendorName);

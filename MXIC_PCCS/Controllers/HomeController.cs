@@ -11,6 +11,8 @@ namespace MXIC_PCCS.Controllers
     {
         public ActionResult Index()
         {
+            var id = HttpContext.User.Identity.Name;
+            ViewBag.ID = id;
             return View();
         }
 

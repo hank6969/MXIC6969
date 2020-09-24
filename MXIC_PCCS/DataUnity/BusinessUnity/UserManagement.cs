@@ -24,8 +24,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
         {
            
             var _UserList = _db.MXIC_UserManagements.Where(x=>x.UserDisable==true).Select(x => new { x.DepNo, x.DepName, x.UserID, x.UserName, x.Admin, x.EditID, x.DeleteID });
+          
 
-           
             //如果DepNo不為空
             if (!string.IsNullOrWhiteSpace(DepNo))
             {

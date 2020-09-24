@@ -15,6 +15,8 @@ namespace MXIC_PCCS.Controllers
         // GET: SwipeInfo
         public ActionResult Index()
         {
+            var id = HttpContext.User.Identity.Name;
+            ViewBag.ID = id;
             return View();
         }
 

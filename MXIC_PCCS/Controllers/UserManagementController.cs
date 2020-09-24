@@ -14,7 +14,9 @@ namespace MXIC_PCCS.Controllers
         IUserManagement _IUserManagement = new UserManagement();
         // GET: UserManagement
         public ActionResult Index()
-        {   
+        {
+            var id = HttpContext.User.Identity.Name;
+            ViewBag.ID = id;
             return View();
         }
         public string UserList(string DepNo, string DepName, string UserID, string UserName)

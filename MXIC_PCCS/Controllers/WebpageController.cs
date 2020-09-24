@@ -16,13 +16,20 @@ namespace MXIC_PCCS.Controllers
         public ActionResult Index()
         {
             var list = _db.MXIC_InputGenerates;
+
             return View(list);
         }
 
         public string PageGenerate(string tablename,string COLUMN_NAME)
         {
-            
-               var list = _db.MXIC_InputGenerates.Where(x => x.TableName == tablename).OrderBy(x=>x.Sequence);
+            var Admin = HttpContext.User.IsInRole("true");
+
+            var list = _db.MXIC_InputGenerates.Where(x => x.TableName == tablename).OrderBy(x => x.Sequence);
+          
+            //if (Admin != true) {
+
+            //     list = list.Where(x =>x.Admin==false).OrderBy(x => x.Sequence);
+            //}
 
             if (!string.IsNullOrWhiteSpace(COLUMN_NAME))
             {
@@ -160,6 +167,16 @@ namespace MXIC_PCCS.Controllers
             Str= Str.Replace("T00:00:00", "");
 
             return (Str);
+
+        }
+
+        public string Admin(string UserID)
+        {
+            var Admin = _db.MXIC_UserManagements.Where(x => x.UserListID.ToString() == UserID).Select(x=>x.Admin).FirstOrDefault().ToString();
+
+        
+
+            return (Admin);
 
         }
     }

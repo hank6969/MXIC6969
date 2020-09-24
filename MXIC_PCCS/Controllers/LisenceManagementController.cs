@@ -18,6 +18,8 @@ namespace MXIC_PCCS.Controllers
         // GET: LisenceManagement
         public ActionResult Index()
         {
+            var id = HttpContext.User.Identity.Name;
+            ViewBag.ID = id;
             return View();
         }
 

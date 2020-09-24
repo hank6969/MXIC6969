@@ -21,18 +21,18 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string SearchDepToVen(string DepNo, string DepName)
         {
-            var _DepSearchCondition = _db.MXIC_DepartmentManagements.Select(x => new { x.DepName, x.VendorName, x.DeleteID, x.DepNo });
+            var _DepSearchCondition = _db.MXIC_DepartmentManagements.Select(x => new { x.DepName, x.VendorName, x.DeleteID, x.DepNo }).OrderBy(x=>x.DepName);
 
             //如果DepNo不為空
             if (!string.IsNullOrWhiteSpace(DepNo))
             {
-                _DepSearchCondition = _DepSearchCondition.Where(x => x.DepNo.Contains(DepNo));
+                _DepSearchCondition = _DepSearchCondition.Where(x => x.DepNo.Contains(DepNo)).OrderBy(x => x.DepName);
             }
 
             //如果DepName不為空
             if (!string.IsNullOrWhiteSpace(DepName))
             {
-                _DepSearchCondition = _DepSearchCondition.Where(x => x.DepName.Contains(DepName));
+                _DepSearchCondition = _DepSearchCondition.Where(x => x.DepName.Contains(DepName)).OrderBy(x => x.DepName);
             }
 
             string responseStr = JsonConvert.SerializeObject(_DepSearchCondition, Formatting.Indented);

@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>匯出計價單</title>
+
+    @*//請按照順訊*@
+    <link href="~/Content/MXIC/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/MXIC/MXIC.css" rel="stylesheet" />
+
+    @*自己寫的js放這裡*@
+    <script src="~/Scripts/MXICJS/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/MXICJS/MXIC.js"></script>
+
+    @*自己寫的js放這裡*@
+    <script src="~/Scripts/MXICJS/jquery.jqgrid.min.js"></script>
+</head>
+
+<body>
+    <div class="head cover">
+        <div class="banner"></div>
+        <div class="navber">
+            <ul></ul>
+        </div>
+    </div>
+    <div class="body">
+        <h1 class="title cover"></h1>
+        <div class="seachBox cover">
+            <div class="inputBox">
+            </div>
+            <div class="editBox cover">
+                <a href="#" class="seachBTN btn-1" onclick="ExportFunc()">匯出</a>
+            </div>
+        </div>
+        <div class="tableContant hidden cover">
+            <table id="grid" cellpadding="0" cellspacing="0" border="0"></table>
+        </div>
+    </div>
+    <div class="footer cover">
+        <p>© 2020 -YU-CHEN System Technology</p>
+    </div>
+</body>
+</html>
+<script>
+    function ExportFunc()
+    {
+        window.location = '/ExportPO/DownloadQuotation';
+    }
+</script>

@@ -231,8 +231,18 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string transform2()
         {
+            DateTime Date = DateTime.Now;
+
+            DateTime TheMonthStart = new DateTime(Date.Year, Date.Month, 1);//本月初1號
+
+            //本月底
+            DateTime TheMonthEnd = new DateTime(Date.Year, Date.Month, DateTime.DaysInMonth(Date.Year, Date.Month));//本月初月底
+
+            // 設定查詢月份
+            DateTime StartDate = TheMonthStart;
+            DateTime EndDate = TheMonthEnd;
             //班表
-            var UserSchedule = _db.MXIC_ScheduleSettings;
+            var UserSchedule = _db.MXIC_ScheduleSettings.Where(x=> x.Date >= StartDate && x.Date <= EndDate);
 
             string InAttendType = "正常";
             string OutAttendType = "正常";

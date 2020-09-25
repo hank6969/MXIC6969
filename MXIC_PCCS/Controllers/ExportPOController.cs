@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace MXIC_PCCS.Controllers
 {
+    [Authorize(Roles ="true")]
     public class ExportPOController : Controller
     {
         IExportPO _ExportPO = new ExportPO();

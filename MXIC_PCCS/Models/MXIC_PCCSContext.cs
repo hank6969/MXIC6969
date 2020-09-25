@@ -19,6 +19,7 @@ namespace MXIC_PCCS.Models
         public virtual DbSet<MXIC_UserManagement> MXIC_UserManagements { get; set; }
         public virtual DbSet<MXIC_InputGenerate> MXIC_InputGenerates { get; set; }
         public virtual DbSet<MXIC_VendorManagement> MXIC_VendorManagements { get; set; }
+        public virtual DbSet<FAC_ATTENDLIST> FAC_ATTENDLISTs { get; set; }
 
         public virtual DbSet<MXIC_View_Swipe> MXIC_View_Swipes { get; set; }
 

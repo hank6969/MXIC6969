@@ -195,9 +195,14 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             string reponseStr = "寫入成功";
             string PoNumber="", VendorName="";
             var AttendError = _db.MXIC_SwipeInfos.Where(x => x.AttendType == "異常");
+            var Order = _db.MXIC_Quotations.Where(x => x.PoNo == PoNo);
             if (AttendError.Any())
             {
                 reponseStr = "刷卡有異常資料未修改";
+            }
+            if (!Order.Any())
+            {
+                reponseStr = "無此PO";
             }
             else
             {

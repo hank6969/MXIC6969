@@ -56,8 +56,10 @@ namespace MXIC_PCCS.Controllers
             }
         }
 
-        public ActionResult ExportSchedule()
+        public ActionResult ExportSchedule(string PoNo,string Date)
         {
+            
+
 
             MemoryStream aa = _IScheduleSetting.ExportSchedul("2020", "09", "4500090268");
             return File(aa, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "班表產出.xlsx");

@@ -106,5 +106,11 @@ namespace MXIC_PCCS.Controllers
             return RedirectToAction("Login");
             // 回到 登入畫面（Login動作）
         }
+
+        public ActionResult Permissiodenied()
+        {
+            return View();
+
+        }
     }
 }

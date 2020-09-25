@@ -25,31 +25,46 @@ namespace MXIC_PCCS.Controllers
         }
 
         public ActionResult DownloadQuotation(string PONumber, string Month)
-        {
-            string responseStr; 
+        {   string responseStr; 
              StringBuilder SB = new StringBuilder();
-            try
+
+            if (string.IsNullOrWhiteSpace(PONumber)|| string.IsNullOrWhiteSpace(Month))
             {
-                System.IO.File.Copy(Properties.Resources.ExampleDirectory, Properties.Resources.DowloadDirectory, true);
-                responseStr = ExportPO(PONumber,Month);
-                if (responseStr == "寫入成功")
+                responseStr = "欄位未填";
+
+                SB.AppendFormat("<script>alert('{0}');window.location.href='../ExportPO/Index';</script>", responseStr);
+            }
+            else
+            {
+               
+
+
+                try
                 {
-                    string filepath = Server.MapPath("~/Content/計價單.xlsx");
-                    string filename = Path.GetFileName(filepath);
-                    Stream iStream = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                    return File(iStream, "application/xlsx", filename);
+                    System.IO.File.Copy(Properties.Resources.ExampleDirectory, Properties.Resources.DowloadDirectory, true);
+                    responseStr = ExportPO(PONumber, Month);
+                    if (responseStr == "寫入成功")
+                    {
+                        string filepath = Server.MapPath("~/Content/計價單.xlsx");
+                        string filename = Path.GetFileName(filepath);
+                        Stream iStream = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                        return File(iStream, "application/xlsx", filename);
+                    }
+                    else
+                    {
+                        SB.Clear();
+                        SB.AppendFormat("<script>alert('{0}');window.location.href='../ExportPO/Index';</script>", responseStr);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    SB.AppendFormat("<script>alert('{0}');window.location.href='../ExportPO/Index';</script>", responseStr);
+                    SB.Clear();
+                    responseStr = "匯出失敗";
+                    SB.AppendFormat(ex.ToString());
                 }
             }
-            catch (Exception ex)
-            {
-                SB.Clear();
-                responseStr = "匯出失敗";
-                SB.AppendFormat(ex.ToString());
-            }
+         
+           
             return Content(SB.ToString());
         }
 

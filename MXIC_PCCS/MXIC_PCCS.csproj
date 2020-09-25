@@ -362,6 +362,7 @@
     <Content Include="Scripts\MXICJS\jquery.jqgrid.min.js" />
     <Content Include="Scripts\MXICJS\jquery.min.js" />
     <Content Include="Scripts\MXICJS\MXIC.js" />
+    <Content Include="Scripts\MXICJS\MXICExportPO.js" />
     <Content Include="Scripts\MXICJS\MXICIndex.js" />
     <Content Include="Scripts\MXICJS\MXIC_old.js" />
     <Content Include="Scripts\MXICJS\popper.min.js" />

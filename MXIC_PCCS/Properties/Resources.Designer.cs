@@ -61,7 +61,7 @@ namespace MXIC_PCCS.Properties {
         }
         
         /// <summary>
-        ///   查詢類似 C:\Users\jeremypeng\Desktop\MXIC6969 - 複製\MXIC_PCCS\Content\計價單.xlsx 的當地語系化字串。
+        ///   查詢類似 C:\Users\user\Documents\MXIC6969 \MXIC_PCCS\Content\計價單.xlsx 的當地語系化字串。
         /// </summary>
         internal static string DowloadDirectory {
             get {
@@ -70,7 +70,7 @@ namespace MXIC_PCCS.Properties {
         }
         
         /// <summary>
-        ///   查詢類似 C:\Users\jeremypeng\Desktop\MXIC6969 - 複製\MXIC_PCCS\Content\MXIC\計價單.xlsx 的當地語系化字串。
+        ///   查詢類似 C:\Users\user\Documents\MXIC6969 \MXIC_PCCS\Content\MXIC\計價單.xlsx 的當地語系化字串。
         /// </summary>
         internal static string ExampleDirectory {
             get {

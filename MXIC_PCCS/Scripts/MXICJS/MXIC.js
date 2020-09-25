@@ -79,8 +79,9 @@ if (title == 'MXIC') {
     editDetailUrl = "/SwipeInfo/SwipeInfoDetail"
     editUrl = "/SwipeInfo/EditSwipe"
 } else if (title == '匯出計價單') {
-    ajaxUrl = '.../api/api-9'
-    generateUrl = '.../api/api-9'
+    
+    tablename="MXIC_ExportPO"
+   
 }
 //dataList
 // var dataList = [

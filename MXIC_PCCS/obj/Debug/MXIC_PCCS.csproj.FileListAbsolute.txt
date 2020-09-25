@@ -221,3 +221,5 @@ D:\MXIC6969\MXIC_PCCS\bin\zh-Hant\System.Web.WebPages.Razor.resources.dll
 D:\MXIC6969\MXIC_PCCS\obj\Debug\MXIC_PCCS.csproj.CopyComplete
 C:\Users\user\Documents\MXIC6969\MXIC_PCCS\bin\EPPlus.xml
 C:\Users\user\Documents\MXIC6969\MXIC_PCCS\bin\zh-Hant\EntityFramework.SqlServer.resources.dll
+C:\Users\user\Documents\MXIC6969\MXIC_PCCS\obj\Debug\MXIC_PCCS.Properties.Resources.resources
+C:\Users\user\Documents\MXIC6969\MXIC_PCCS\obj\Debug\MXIC_PCCS.csproj.GenerateResource.Cache

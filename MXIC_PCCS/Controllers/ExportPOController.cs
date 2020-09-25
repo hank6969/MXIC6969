@@ -18,17 +18,19 @@ namespace MXIC_PCCS.Controllers
         // GET: Test
         public ActionResult Index()
         {
+            var id = HttpContext.User.Identity.Name;
+            ViewBag.ID = id;
             return View();
         }
 
-        public ActionResult DownloadQuotation()
+        public ActionResult DownloadQuotation(string PONumber, string Month)
         {
-            string responseStr;
-            StringBuilder SB = new StringBuilder();
+            string responseStr; 
+             StringBuilder SB = new StringBuilder();
             try
             {
                 System.IO.File.Copy(Properties.Resources.ExampleDirectory, Properties.Resources.DowloadDirectory, true);
-                responseStr = ExportPO();
+                responseStr = ExportPO(PONumber,Month);
                 if (responseStr == "寫入成功")
                 {
                     string filepath = Server.MapPath("~/Content/計價單.xlsx");
@@ -45,14 +47,14 @@ namespace MXIC_PCCS.Controllers
             {
                 SB.Clear();
                 responseStr = "匯出失敗";
-                SB.AppendFormat("<script>alert('{0}');window.location.href='../ExportPO/Index';</script>", responseStr);
+                SB.AppendFormat(ex.ToString());
             }
             return Content(SB.ToString());
         }
 
-        public string ExportPO()
+        public string ExportPO(string PONumber, string Month)
         {
-            var responseStr = _ExportPO.CalcuationPO("4088440", Convert.ToDateTime("2020/08/01"));
+            var responseStr = _ExportPO.CalcuationPO(PONumber, Convert.ToDateTime(Month));
             return responseStr;
         }
     }

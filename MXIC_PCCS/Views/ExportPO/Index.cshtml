@@ -17,26 +17,45 @@
 
     @*自己寫的js放這裡*@
     <script src="~/Scripts/MXICJS/jquery-3.5.1.js"></script>
-    <script src="~/Scripts/MXICJS/MXIC.js"></script>
+    <script src="~/Scripts/MXICJS/MXICExportPO.js"></script>
 
     @*自己寫的js放這裡*@
     <script src="~/Scripts/MXICJS/jquery.jqgrid.min.js"></script>
 </head>
 
-<body>
+<body><input type="hidden" id="UserID" value="@ViewBag.ID">
     <div class="head cover">
         <div class="banner"></div>
         <div class="navber">
             <ul></ul>
         </div>
+        <div class="userLogin">
+            <div class="ulBtn">
+                <i class="fa fa-home" aria-hidden="true"></i><a class="admin" href="\Home\">Home</a>
+            </div>
+            <div class="ulBtn">
+                <i class="fa fa-cogs" aria-hidden="true"></i><a class="admin" href="">Setting</a>
+            </div>
+            <div class="ulBtn">
+                <i class="fa fa-user-circle" aria-hidden="true"></i><a class="admin" href="\Login\LogOut">LogOut</a>
+            </div>
+        </div>
     </div>
     <div class="body">
         <h1 class="title cover"></h1>
         <div class="seachBox cover">
-            <div class="inputBox">
-            </div>
+            @using (Html.BeginForm("DownloadQuotation", "ExportPO", FormMethod.Post, new { name = "form1" }))
+            {
+             
+                    <div class="inputBox" style="padding: 0% ;width: 100%;">
+                        選擇年月<input type="date" name="Month"  required="required">
+                        <input type="text" name="PONumber" placeholder="PONumber" required="required">
+                    </div>
+                  
+                
+            } 
             <div class="editBox cover">
-                <a href="#" class="seachBTN btn-1" onclick="ExportFunc()">匯出</a>
+                <a href='javascript:document.form1.submit();' class="seachBTN btn-1 Manager" onclick="ExportFunc()">匯出</a>
             </div>
         </div>
         <div class="tableContant hidden cover">
@@ -48,9 +67,3 @@
     </div>
 </body>
 </html>
-<script>
-    function ExportFunc()
-    {
-        window.location = '/ExportPO/DownloadQuotation';
-    }
-</script>

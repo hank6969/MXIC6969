@@ -39,5 +39,8 @@ namespace MXIC_PCCS.Models
        
         [Column(Order = 6)]
         public Guid EditID { get; set; }
+
+        [StringLength(50)]
+        public string Shifts { get; set; }
     }
 }

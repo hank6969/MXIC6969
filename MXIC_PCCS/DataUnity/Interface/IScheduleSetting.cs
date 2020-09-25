@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,13 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// </summary>
         /// <returns></returns>
         void CleanSchedul(string Year,string Month);
-
+        /// <summary>
+        /// 產出班表
+        /// </summary>
+        /// <param name="Year"></param>
+        /// <param name="Month"></param>
+        /// <param name="PoNo"></param>
+        /// <returns></returns>
+        MemoryStream ExportSchedul(string Year, string Month, string PoNo);
     }
 }

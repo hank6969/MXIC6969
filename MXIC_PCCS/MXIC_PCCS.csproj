@@ -158,6 +158,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DepartmentManagementController.cs" />
+    <Compile Include="Controllers\ExportPOController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LisenceManagementController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Controllers\VendorManagementController.cs" />
     <Compile Include="Controllers\WebpageController.cs" />
     <Compile Include="DataUnity\BusinessUnity\DepartmentManagement.cs" />
+    <Compile Include="DataUnity\BusinessUnity\ExportPO.cs" />
     <Compile Include="DataUnity\BusinessUnity\LisenceManagement.cs" />
     <Compile Include="DataUnity\BusinessUnity\Quotation.cs" />
     <Compile Include="DataUnity\BusinessUnity\ScheduleSetting.cs" />
@@ -175,6 +177,7 @@
     <Compile Include="DataUnity\BusinessUnity\UserManagement.cs" />
     <Compile Include="DataUnity\BusinessUnity\VendorManagement.cs" />
     <Compile Include="DataUnity\Interface\IDepartmentManagement.cs" />
+    <Compile Include="DataUnity\Interface\IExportPO.cs" />
     <Compile Include="DataUnity\Interface\ILisenceManagement.cs" />
     <Compile Include="DataUnity\Interface\IQuotation.cs" />
     <Compile Include="DataUnity\Interface\IScheduleSetting.cs" />
@@ -187,6 +190,7 @@
     <Compile Include="Models\FAC_ATTENDLIST.cs" />
     <Compile Include="Models\GetSHA1.cs" />
     <Compile Include="Models\MxicTestContext.cs" />
+    <Compile Include="Models\MXIC_CalculationQuotation.cs" />
     <Compile Include="Models\MXIC_DepartmentManagement.cs" />
     <Compile Include="Models\MXIC_InputGenerate.cs" />
     <Compile Include="Models\MXIC_LisenceManagement.cs" />
@@ -207,6 +211,11 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Antlr3.Runtime.dll" />
@@ -334,8 +343,10 @@
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
     <Content Include="Content\出勤班表範本.xlsx" />
-    <Content Include="Content\報價單範本.xlsx" />
     <Content Include="Content\證照範本.xlsx" />
+    <Content Include="Content\MXIC\計價單.xlsx" />
+    <Content Include="Content\報價單範本.xlsx" />
+    <Content Include="Content\計價單.xlsx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -387,6 +398,7 @@
     <Content Include="Views\ScheduleSetting\Index.cshtml" />
     <Content Include="Views\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\ExportPO\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -406,6 +418,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

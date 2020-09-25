@@ -193,9 +193,13 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             // 這個月一半有證照 一半沒有的(X) 還不會寫 QQ 
 
             string reponseStr = "寫入成功";
+
             string PoNumber="", VendorName="";
+
             var AttendError = _db.MXIC_SwipeInfos.Where(x => x.AttendType == "異常");
+
             var Order = _db.MXIC_Quotations.Where(x => x.PoNo == PoNo);
+
             if (AttendError.Any())
             {
                 reponseStr = "刷卡有異常資料未修改";
@@ -211,7 +215,9 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                    
                     // 撈出報價單資料
                     var QuotationList = _db.MXIC_Quotations.OrderBy(x => x.Sequence).Where(x => x.PoNo == PoNo).Select(x => new { x.PoNo, x.VendorName, x.PoClassID, x.Amount });
+
                     List<MXIC_CalculationQuotation> CalculationQuotation_ListModel = new List<MXIC_CalculationQuotation>();
+
                     foreach (var QuotationRow in QuotationList)
                     {
                         MXIC_CalculationQuotation CalculationQuotation_Model = new MXIC_CalculationQuotation();
@@ -222,18 +228,18 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         PoNumber = QuotationRow.PoNo;
                         VendorName = QuotationRow.VendorName;
                     }
-
-                    // 知道人 + 班別
-                    var EmpList = _db.MXIC_ScheduleSettings.Where(x => x.PoNo == PoNo).Select(x => new { x.EmpName, x.WorkGroup }).Distinct();
                     //本月初
                     DateTime TheMonthStart = new DateTime(Date.Year, Date.Month, 1);//本月初1號
-                 
+
                     //本月底
                     DateTime TheMonthEnd = new DateTime(Date.Year, Date.Month, DateTime.DaysInMonth(Date.Year, Date.Month));//本月初月底
-                   
+
                     // 設定查詢月份
                     DateTime StartDate = TheMonthStart;
                     DateTime EndDate = TheMonthEnd;
+                    // 知道人 + 班別
+                    var EmpList = _db.MXIC_ScheduleSettings.Where(x => x.PoNo == PoNo&&x.Date>= StartDate && x.Date <= EndDate).Select(x => new { x.EmpName, x.WorkGroup });
+                 
 
                     // 給他查起來
                     foreach (var Emp in EmpList)

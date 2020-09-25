@@ -367,6 +367,7 @@
     <Content Include="Scripts\MXICJS\MXIC_old.js" />
     <Content Include="Scripts\MXICJS\popper.min.js" />
     <Content Include="Scripts\MXICJS\Quotation.js" />
+    <Content Include="Scripts\MXICJS\ScheduleSetting.js" />
     <Content Include="Scripts\MXICJS\SwipeInfo.js" />
     <Content Include="Scripts\MXICJS\UserManagement_old.js" />
     <Content Include="Scripts\MXICJS\VendorManagement.js" />

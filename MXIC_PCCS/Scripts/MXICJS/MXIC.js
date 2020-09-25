@@ -447,8 +447,14 @@ $(document).ready(function () {
                     var Today = new Date();
                     var DateDiff = parseInt(Math.abs(Today - electricityCondition_LisenceDiff)) / 86400000;
 
-                    if (DateDiff < 30)
-                        $("#" + ids[i]).find("td").css({ "background-color": "#ff4040", "color": "white" });
+                    if (DateDiff < 90)
+                    {  
+                        $("#" + ids[i]).find("td").css({ "background-color": "#FF0000","font-weight":"bold" });
+                    }else if(DateDiff < 180)
+                    {
+                        $("#" + ids[i]).find("td").css({ "background-color": "#FFFF37","font-weight":"bold" });
+                    }
+                      
                 }
             }
         });

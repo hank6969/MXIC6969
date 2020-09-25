@@ -110,7 +110,7 @@ namespace MXIC_PCCS.Controllers
             List<SelectViewModel> SelectListx = new List<SelectViewModel>();
 
 
-            var list = _db.MXIC_UserManagements.Select(x => new { x.DepName }).Distinct().OrderBy(x => x.DepName).ToList();
+            var list = _db.MXIC_UserManagements.Where(x=>x.UserDisable==true).Select(x => new { x.DepName }).Distinct().OrderBy(x => x.DepName).ToList();
 
             foreach (var item in list)
             {

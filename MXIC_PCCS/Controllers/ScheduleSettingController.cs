@@ -56,7 +56,7 @@ namespace MXIC_PCCS.Controllers
             }
         }
 
-        public ActionResult ExportSchedule()
+        public ActionResult ExportSchedule(string Date, string PoNo)
         {
 
             MemoryStream aa = _IScheduleSetting.ExportSchedul("2020", "09", "4500090268");

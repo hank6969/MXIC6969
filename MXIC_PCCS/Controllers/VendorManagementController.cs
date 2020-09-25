@@ -12,10 +12,14 @@ namespace MXIC_PCCS.Controllers
     public class VendorManagementController : Controller
     {
         IVendorManagement _IVendorManagement = new VendorManagement();
-
+        
         // GET: VendorManagement
         public ActionResult Index()
         {
+            var id = HttpContext.User.Identity.Name;
+            ViewBag.ID = id;
+
+
             return View();
         }
 

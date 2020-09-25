@@ -33,7 +33,7 @@
         [Display(Name = "排序")]
         public int? Sequence { get; set; }
 
-
+        public bool Admin { get; set; }
 
     }
 }

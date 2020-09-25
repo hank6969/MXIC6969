@@ -23,7 +23,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string SearchQuotation(string VendorName, string PoNo, string PoClassID)
         {
-            var _QuotationSearchCondition = _db.MXIC_Quotations.OrderBy(x => x.Sequence).Select(x=>new { x.PoNo , x.PoClassID, x.PoClassName, x.LicPossess, x.Unit, x.Amount,x.VendorName});
+            var _QuotationSearchCondition = _db.MXIC_Quotations.OrderBy(x => new { x.PoNo ,x.Sequence }).Select(x=>new { x.PoNo , x.PoClassID, x.PoClassName, x.LicPossess, x.Unit, x.Amount,x.VendorName});
             
             //如果VendorName不為空
             if (!string.IsNullOrWhiteSpace(VendorName))

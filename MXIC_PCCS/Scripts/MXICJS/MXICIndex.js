@@ -1,6 +1,6 @@
 ﻿//頁面變動依據資料庫生成 無須更改前端架構 樣式如需修改僅需修改MXIC.css檔
 //該頁面表格需使用之api請先定義
- 
+
 var marqueeContant=[];
 var marqueeUrl="/Webpage/marqueeUrl";
 //navBar & indexBTN 資料格式範例 
@@ -39,7 +39,8 @@ $.ajax({
 
 
 $(document).ready(function () {
-    
+    UserID = $('#UserID').val();
+ 
     navbarItem(navData);
     iconMenu(navData);
     marquee(marqueeContant);

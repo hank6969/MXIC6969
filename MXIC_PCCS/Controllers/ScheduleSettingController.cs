@@ -59,10 +59,20 @@ namespace MXIC_PCCS.Controllers
         public ActionResult ExportSchedule(string PoNo,string Date)
         {
             
+            if(!string.IsNullOrEmpty(PoNo) && !string.IsNullOrEmpty(Date))
+            {
+                //"2020", "09", "4500090268"
+                MemoryStream aa = _IScheduleSetting.ExportSchedul(Date.Split('-')[0], Date.Split('-')[1], PoNo);
+                return File(aa, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "班表產出.xlsx");
+            }
+            else
+            {
+                TempData["message"] = "請填入PoNo及年月";
 
+                return RedirectToAction("Index", "ScheduleSetting");
+            }
 
-            MemoryStream aa = _IScheduleSetting.ExportSchedul("2020", "09", "4500090268");
-            return File(aa, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "班表產出.xlsx");
+            
 
 
             //return View();

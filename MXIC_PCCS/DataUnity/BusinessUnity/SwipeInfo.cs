@@ -231,9 +231,9 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string transform2()
         {
-            //DateTime Date = DateTime.Now;
+            DateTime Date = DateTime.Now.AddMonths(-1);
 
-            DateTime Date = Convert.ToDateTime("2020-08-01");
+            //DateTime Date = Convert.ToDateTime("2020-08-01");
 
             DateTime TheMonthStart = new DateTime(Date.Year, Date.Month, 1);//本月初1號
 
@@ -241,19 +241,20 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             DateTime TheMonthEnd = new DateTime(Date.Year, Date.Month, DateTime.DaysInMonth(Date.Year, Date.Month));//本月初月底
 
             // 設定查詢月份
-            DateTime StartDate = Convert.ToDateTime("2020-08-10");
-            //DateTime StartDate = TheMonthStart;
-            DateTime EndDate = Convert.ToDateTime("2020-09-08");
+            //DateTime StartDate = Convert.ToDateTime("2020-08-10");
+            DateTime StartDate = TheMonthStart;
+            //DateTime EndDate = Convert.ToDateTime("2020-09-08");
 
-            //DateTime EndDate = TheMonthEnd.AddDays(1);
+            DateTime EndDate = TheMonthEnd.AddDays(1);
             //班表
-            var UserSchedule = _db.MXIC_ScheduleSettings.Where(x => x.Date >= StartDate && x.Date <= EndDate);
+            var UserSchedule = _db.MXIC_ScheduleSettings.Where(x => x.Date >= StartDate && x.Date < EndDate);
            // var UserSchedule = _db.MXIC_ScheduleSettings;
-            string InAttendType = "正常";
-            string OutAttendType = "正常";
+           
 
             foreach (var item in UserSchedule)
             {
+                string InAttendType = "正常";
+                string OutAttendType = "正常";
                 //某人某天的打卡紀錄
                 var ATTENDLIST = _dbMXIC.FAC_ATTENDLISTs.Where(x=>x.WORKER_NAME==item.EmpName&&x.WORK_DATETIME==item.Date).FirstOrDefault();
 
@@ -285,6 +286,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         DateTime CHECKOUTtime = Convert.ToDateTime(ATTENDLIST.EXIT_DATETIME.Value.ToString("HH:mm"));
 
                          ENTRANCE = ATTENDLIST.ENTRANCE_DATETIME.Value;
+
                          EXIT = ATTENDLIST.EXIT_DATETIME.Value;
 
                         switch (item.WorkShift)

@@ -73,7 +73,7 @@ namespace MXIC_PCCS.Controllers
                         else
                         {
                             SB.Clear();
-                            SB.AppendFormat("<script>alert('找不到PO Number!');window.location.href='../Quotation/Index';</script>", responseStr);
+                            SB.AppendFormat("<script>alert('找不到PO Number!');window.location.href='../Quotation/Index';</script>");
                             return Content(SB.ToString());
                         }
 

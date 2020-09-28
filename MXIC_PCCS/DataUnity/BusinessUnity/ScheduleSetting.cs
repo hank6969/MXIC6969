@@ -8,6 +8,7 @@ using MXIC_PCCS.DataUnity.Interface;
 using MXIC_PCCS.Models;
 using Newtonsoft.Json;
 using OfficeOpenXml;
+using OfficeOpenXml.Drawing;
 using OfficeOpenXml.Style;
 
 namespace MXIC_PCCS.DataUnity.BusinessUnity
@@ -166,13 +167,13 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             var colStart = 1; //設定起始欄
             sheet.DefaultColWidth = 4; //預設列寬
             sheet.Column(1).Width = 5.5; //第一列列寬
-            sheet.Cells.Style.Font.Name = "新細明體"; //預設字體
-            sheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center; //文字水平置中
-            sheet.Cells.Style.VerticalAlignment = ExcelVerticalAlignment.Center;//文字垂直置中
+            //sheet.Cells.Style.Font.Name = "新細明體"; //預設字體
+            //sheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center; //文字水平置中
+            //sheet.Cells.Style.VerticalAlignment = ExcelVerticalAlignment.Center;//文字垂直置中
 
             #region 有年月的那一行
             sheet.Row(rowStart).Height = 30; //第一行行高
-            sheet.Row(rowStart).Style.Font.Size = 18; //第一行字體
+            sheet.Row(rowStart).Style.Font.Size = 18; //第一行字體大小
             sheet.Cells[rowStart, 19, rowStart, 23].Merge = true;
             sheet.Cells[rowStart, 19].Value = "TGCM";
             sheet.Cells[rowStart, 25, rowStart, 29].Merge = true;
@@ -294,20 +295,73 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 #endregion
 
                 var _FAC_ATTENDLIST = _db.FAC_ATTENDLISTs.OrderBy(x => x.WORK_DATETIME).Where(x => x.WORK_DATETIME <= LastDayShiftDate && x.WORK_DATETIME >= FirstShiftDate && x.WORKER_NAME == ListVendorName.EmpName).Select(x => new { x.ENTRANCE_DATETIME, x.EXIT_DATETIME, x.WORK_DATETIME, x.WORKER_NAME });
+                //var _ScheduleSetting = _db.MXIC_ScheduleSettings.OrderBy(x => x.Date).Where(x => x.EmpName == ListVendorName.EmpName && x.Date >= FirstShiftDate && x.Date <= LastDayShiftDate);
                 foreach (var ListAttendlist in _FAC_ATTENDLIST)
                 {
-                    var ColAttendant = 3; //3是日期那行的第三列,就是有日期的那一格,前面的變數被用掉了，所以不能共用
-                    string WORK_DATE = ListAttendlist.WORK_DATETIME.ToString("dd");
+                    var ColAttendant = 3; //3是日期那行的第三列,就是有日期的那一格,前面的變數ColDate被用掉了，所以不能共用
+
+                    string WORK_DATE = ListAttendlist.WORK_DATETIME.ToString("dd"); //從刷卡紀錄取得日期
+
                     for (int i = 1; i <= DaysInMonth; i++)
                     {
+                        sheet.Cells[RowAttendant + 1, ColAttendant, RowAttendant + 1, ColAttendant + 1].Merge = true; //上下班時間下面那格合併
                         if (ChangeBackColor)//每兩團變色
                         {
                             sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(199, 235, 250));//設定背景顏色
-
                         }
+                        
                         if (sheet.Cells[RowDate, ColAttendant].Value.ToString() == WORK_DATE)
                         {
+                            int _Year = Convert.ToInt32(Year);
+                            int _Month = Convert.ToInt32(Month);
+                            int _WORK_DATE = Convert.ToInt32(WORK_DATE);
+                            var _MXIC_SwipeInfos = _db.MXIC_SwipeInfos.Where(x => x.EmpName == ListVendorName.EmpName && x.SwipeTime.Value.Year == _Year && x.SwipeTime.Value.Month == _Month && x.SwipeTime.Value.Day == _WORK_DATE).Select(x => new { x.EmpName, x.CheckType, x.AttendType });
+                            string _AttendType = "正常";
+                            foreach (var ListSwipeInfos in _MXIC_SwipeInfos)
+                            {
+                                if (ListSwipeInfos.AttendType != "正常")
+                                {
+                                    _AttendType = ListSwipeInfos.AttendType;
+                                    break;
+                                }
+                                
+                            }
+                            switch (_AttendType)
+                            {
+                                case "異常":
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 90, 90));//設定背景顏色
+                                    break;
+                                case "代日":
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 163, 223));//設定背景顏色
+                                    break;
+                                case "代早":
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(11, 158, 0));//設定背景顏色
+                                    break;
+                                case "代夜":
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(200, 148, 255));//設定背景顏色
+                                    break;
+                                case "請假":
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(212, 212, 212));//設定背景顏色
+                                    break;
+                                case "遲到":
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 251, 36));//設定背景顏色
+                                    break;
+                                case "加班":
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(61, 103, 255));//設定背景顏色
+                                    break;
+                                default:
+                                    break;
+                            }
+                            sheet.Cells[RowAttendant + 1, ColAttendant].Value = _AttendType;
+
                             DateTime _ENTRANCE_DATETIME = Convert.ToDateTime(ListAttendlist.ENTRANCE_DATETIME); //上班時間
                             sheet.Cells[RowAttendant, ColAttendant].Value = _ENTRANCE_DATETIME.ToString("HH:mm");
                             sheet.Cells[RowAttendant, ColAttendant].Style.Font.Size = 8;
@@ -315,7 +369,6 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             DateTime _EXIT_DATETIME = Convert.ToDateTime(ListAttendlist.EXIT_DATETIME); //下班時間
                             sheet.Cells[RowAttendant, ColAttendant + 1].Value = _EXIT_DATETIME.ToString("HH:mm");
                             sheet.Cells[RowAttendant, ColAttendant + 1].Style.Font.Size = 8;
-
                         }
                         //因為有合併要一次跳兩格
                         ColAttendant += 2;
@@ -325,8 +378,27 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 RowAttendant += 2; //有合併所以一次跳兩行
                 ChangeBackColor = !ChangeBackColor;//每兩行換一次背景顏色
             }
+
+            #endregion
+
+            #region 最後的備註處與圖例
+
+            //從最後一行給合併起來
+            sheet.Cells[sheet.Dimension.End.Row + 1, 1, sheet.Dimension.End.Row + 6, sheet.Dimension.End.Column].Merge = true;
+            //插入圖片
+            Image img = Image.FromFile(HttpContext.Current.Server.MapPath(@"~\Content\image\產出班表圖例.png"));
+            ExcelPicture pic = sheet.Drawings.AddPicture("圖例", img);
+            pic.From.Row = sheet.Dimension.End.Row + 1;
+            pic.From.Column = 20;
+            //pic.SetPosition(sheet.Dimension.End.Row + 1, 1);
+            #endregion
+
+            //邊框顏色與文字置中
             using (ExcelRange range = sheet.Cells[sheet.Dimension.Start.Row + 1, sheet.Dimension.Start.Column, sheet.Dimension.End.Row, sheet.Dimension.End.Column])
             {
+                range.Style.Font.Name = "新細明體"; //預設字體
+                range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center; //文字水平置中
+                range.Style.VerticalAlignment = ExcelVerticalAlignment.Center;//文字垂直置中
                 range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
                 range.Style.Border.Top.Color.SetColor(Color.FromArgb(56, 172, 255));
                 range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
@@ -338,7 +410,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             }
 
 
-            #endregion
+            
 
             MemoryStream fileStream = new MemoryStream();
             ep.SaveAs(fileStream);

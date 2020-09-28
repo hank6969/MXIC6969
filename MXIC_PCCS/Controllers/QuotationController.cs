@@ -55,7 +55,7 @@ namespace MXIC_PCCS.Controllers
 
                         //廠商和PO 直接讀取對應位置的內容
                         //抓不到就先直接return 
-                        if (sheet.Cells[5, 7].Text.Contains("供應商Vendor") && string.IsNullOrWhiteSpace(sheet.Cells[5, 9].Text))
+                        if (sheet.Cells[5, 7].Text.Contains("供應商Vendor") && !string.IsNullOrWhiteSpace(sheet.Cells[5, 9].Text))
                         {
                             VendorName = sheet.Cells[5, 9].Text;
                         }
@@ -66,7 +66,7 @@ namespace MXIC_PCCS.Controllers
                             return Content(SB.ToString());
                         }
                         
-                        if (sheet.Cells[7, 7].Text.Contains("PO NO.") && string.IsNullOrWhiteSpace(sheet.Cells[7, 9].Text))
+                        if (sheet.Cells[7, 7].Text.Contains("PO NO.") && !string.IsNullOrWhiteSpace(sheet.Cells[7, 9].Text))
                         {
                             PoNo = sheet.Cells[7, 9].Text;
                         }

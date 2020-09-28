@@ -231,7 +231,9 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string transform2()
         {
-            DateTime Date = DateTime.Now;
+            //DateTime Date = DateTime.Now;
+
+            DateTime Date = Convert.ToDateTime("2020-08-01");
 
             DateTime TheMonthStart = new DateTime(Date.Year, Date.Month, 1);//本月初1號
 
@@ -239,102 +241,129 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             DateTime TheMonthEnd = new DateTime(Date.Year, Date.Month, DateTime.DaysInMonth(Date.Year, Date.Month));//本月初月底
 
             // 設定查詢月份
-            DateTime StartDate = TheMonthStart;
-            DateTime EndDate = TheMonthEnd;
-            //班表
-            var UserSchedule = _db.MXIC_ScheduleSettings.Where(x=> x.Date >= StartDate && x.Date <= EndDate);
+            DateTime StartDate = Convert.ToDateTime("2020-08-10");
+            //DateTime StartDate = TheMonthStart;
+            DateTime EndDate = Convert.ToDateTime("2020-09-08");
 
+            //DateTime EndDate = TheMonthEnd.AddDays(1);
+            //班表
+            var UserSchedule = _db.MXIC_ScheduleSettings.Where(x => x.Date >= StartDate && x.Date <= EndDate);
+           // var UserSchedule = _db.MXIC_ScheduleSettings;
             string InAttendType = "正常";
             string OutAttendType = "正常";
 
             foreach (var item in UserSchedule)
             {
-                //打卡紀錄某人某天的打卡紀錄
+                //某人某天的打卡紀錄
                 var ATTENDLIST = _dbMXIC.FAC_ATTENDLISTs.Where(x=>x.WORKER_NAME==item.EmpName&&x.WORK_DATETIME==item.Date).FirstOrDefault();
-                //如果某人某天無打卡紀錄又不是休假的話出席狀態異常
-                if (ATTENDLIST == null&&item.WorkShift!="休")
+
+                if (ATTENDLIST == null && item.WorkShift == "休")
                 {
-                    InAttendType = "異常";
-                    OutAttendType = "異常";
+
                 }
-                //有打卡紀錄
                 else
-                {   //上班時間
-                    DateTime CHECKINtime = Convert.ToDateTime(ATTENDLIST.ENTRANCE_DATETIME.Value.ToString("HH:mm"));
-                    //下班時間
-                    DateTime CHECKOUTtime = Convert.ToDateTime(ATTENDLIST.EXIT_DATETIME.Value.ToString("HH:mm"));
+                {
+                    DateTime ENTRANCE ;
 
-                    switch (item.WorkShift)
-                    {   //如果此人是早班
-                        case "早":
-                            DateTime StartTimeDay = Convert.ToDateTime("06:30");
-                            DateTime EndTimeDay = Convert.ToDateTime("19:30");
-                            DateTime LateTimeDay = Convert.ToDateTime("07:00");
-                            DateTime EarlyTimeDay = Convert.ToDateTime("19:00");
-                            //上班時間比06:30早=加班 上班時間比07:00晚=遲到
-                            if (CHECKINtime < StartTimeDay || CHECKINtime > LateTimeDay) 
-                            {
-                                InAttendType = "異常";
-                            }
-                            //下班時間比19:30晚=加班 下班時間比19:00早=早退
-                            if (CHECKOUTtime > EndTimeDay || CHECKOUTtime < EarlyTimeDay)
-                            {
-                                OutAttendType = "異常";
-                            }
-                             break;
-                        //如果此人是常日班
-                        case "日":
-                            DateTime StartTimeNormal = Convert.ToDateTime("08:00");
-                            DateTime EndTimeNormal = Convert.ToDateTime("18:00");
-                            DateTime LateTimeNormal = Convert.ToDateTime("08:30");
-                            DateTime EarlyTimeNormal = Convert.ToDateTime("17:30");
-                            //上班時間比08:00早=加班 上班時間比08:30晚=遲到
-                            if (CHECKINtime < StartTimeNormal || CHECKINtime > LateTimeNormal)  
-                            {
-                                InAttendType = "異常";
-                            }
-                            //下班時間比18:00晚=加班 下班時間比17:30早=早退
-                            if (CHECKOUTtime > EndTimeNormal || CHECKOUTtime < EarlyTimeNormal)
-                            {
-                                OutAttendType = "異常";
-                            }
+                    DateTime EXIT;
+                    //如果某人某天無打卡紀錄又不是休假的話出席狀態異常
+                    if (ATTENDLIST == null && item.WorkShift != "休")
+                    {
+                         ENTRANCE = item.Date;
 
-                            break;
-                        //如果此人是夜班
-                        case "夜":
-                            DateTime StartTimeNight = Convert.ToDateTime("18:30");
-                            DateTime EndTimeNight = Convert.ToDateTime("07:30");
-                            DateTime LateTimeNight = Convert.ToDateTime("19;00");
-                            DateTime EarlyTimeNight = Convert.ToDateTime("07:00");
-                            //上班時間比18:30早=加班 上班時間比19:00晚=遲到
-                            if (CHECKINtime < StartTimeNight || CHECKINtime > LateTimeNight) 
-                            {
+                         EXIT = item.Date;
 
-                                InAttendType = "異常";
-                            }
-                            //下班時間比07:30晚=加班 下班時間比07:00早=早退
-                            if (CHECKOUTtime > EndTimeNight || CHECKOUTtime < EarlyTimeNight)
-                            {
-                                OutAttendType = "異常";
-                            }
+                        InAttendType = "異常";
+
+                       OutAttendType = "異常";
+                    }
+                    //有打卡紀錄
+                    else
+                    {   //上班時間
+                        DateTime CHECKINtime = Convert.ToDateTime(ATTENDLIST.ENTRANCE_DATETIME.Value.ToString("HH:mm"));
+                        //下班時間
+                        DateTime CHECKOUTtime = Convert.ToDateTime(ATTENDLIST.EXIT_DATETIME.Value.ToString("HH:mm"));
+
+                         ENTRANCE = ATTENDLIST.ENTRANCE_DATETIME.Value;
+                         EXIT = ATTENDLIST.EXIT_DATETIME.Value;
+
+                        switch (item.WorkShift)
+                        {   //如果此人是早班
+                            case "早":
+                                DateTime StartTimeDay = Convert.ToDateTime("06:30");
+                                DateTime EndTimeDay = Convert.ToDateTime("19:30");
+                                DateTime LateTimeDay = Convert.ToDateTime("07:00");
+                                DateTime EarlyTimeDay = Convert.ToDateTime("19:00");
+                                //上班時間比06:30早=加班 上班時間比07:00晚=遲到
+                                if (CHECKINtime < StartTimeDay || CHECKINtime > LateTimeDay)
+                                {
+                                    InAttendType = "異常";
+                                }
+                                //下班時間比19:30晚=加班 下班時間比19:00早=早退
+                                if (CHECKOUTtime > EndTimeDay || CHECKOUTtime < EarlyTimeDay)
+                                {
+                                    OutAttendType = "異常";
+                                }
                                 break;
-                      //如果此人是代早代晚或是班表休假但是有打卡紀錄
-                        default:
+                            //如果此人是常日班
+                            case "日":
+                                DateTime StartTimeNormal = Convert.ToDateTime("08:00");
+                                DateTime EndTimeNormal = Convert.ToDateTime("18:00");
+                                DateTime LateTimeNormal = Convert.ToDateTime("08:30");
+                                DateTime EarlyTimeNormal = Convert.ToDateTime("17:30");
+                                //上班時間比08:00早=加班 上班時間比08:30晚=遲到
+                                if (CHECKINtime < StartTimeNormal || CHECKINtime > LateTimeNormal)
+                                {
+                                    InAttendType = "異常";
+                                }
+                                //下班時間比18:00晚=加班 下班時間比17:30早=早退
+                                if (CHECKOUTtime > EndTimeNormal || CHECKOUTtime < EarlyTimeNormal)
+                                {
+                                    OutAttendType = "異常";
+                                }
 
-                            InAttendType = "異常";
-                            OutAttendType = "異常";
+                                break;
+                            //如果此人是夜班
+                            case "夜":
+                                DateTime StartTimeNight = Convert.ToDateTime("18:30");
+                                DateTime EndTimeNight = Convert.ToDateTime("07:30");
+                                DateTime LateTimeNight = Convert.ToDateTime("19;00");
+                                DateTime EarlyTimeNight = Convert.ToDateTime("07:00");
+                                //上班時間比18:30早=加班 上班時間比19:00晚=遲到
+                                if (CHECKINtime < StartTimeNight || CHECKINtime > LateTimeNight)
+                                {
 
-                            break;
+                                    InAttendType = "異常";
+                                }
+                                //下班時間比07:30晚=加班 下班時間比07:00早=早退
+                                if (CHECKOUTtime > EndTimeNight || CHECKOUTtime < EarlyTimeNight)
+                                {
+                                    OutAttendType = "異常";
+                                }
+                                break;
+                            //如果此人是代早代晚或是班表休假但是有打卡紀錄
+                            default:
+
+                                InAttendType = "異常";
+                                OutAttendType = "異常";
+
+                                break;
+
+                        }
+
+                    
+
+
+
 
                     }
-
                     for (int i = 0; i < 2; i++)
                     {
                         var Swipe = new MXIC_SwipeInfo();
                         if (i == 0)
                         {
                             Swipe.CheckType = "CHECKIN";
-                            Swipe.SwipeTime = ATTENDLIST.ENTRANCE_DATETIME;
+                            Swipe.SwipeTime = ENTRANCE;
                             Swipe.EmpName = item.EmpName;
                             Swipe.EditID = Guid.NewGuid();
                             Swipe.SwipID = Guid.NewGuid();
@@ -345,7 +374,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         else
                         {
                             Swipe.CheckType = "CHECKOUT";
-                            Swipe.SwipeTime = ATTENDLIST.EXIT_DATETIME;
+                            Swipe.SwipeTime = EXIT;
                             Swipe.EmpName = item.EmpName;
                             Swipe.EditID = Guid.NewGuid();
                             Swipe.SwipID = Guid.NewGuid();
@@ -355,19 +384,13 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         }
                         _db.MXIC_SwipeInfos.Add(Swipe);
 
-                        _db.SaveChanges();
 
                     }
-
-
-
-
                 }
-
-               
             }
 
 
+            _db.SaveChanges();
 
 
 

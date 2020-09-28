@@ -159,7 +159,7 @@ namespace MXIC_PCCS.Controllers
 
 
         public string marqueeUrl()
-        { DateTime Today = DateTime.Now.AddDays(31);
+        { DateTime Today = DateTime.Now.AddDays(100);
             var Maturity = _db.MXIC_LisenceManagements.Where(x => x.EndDate <Today).Select(x=>new { x.EmpName,x.LicName,x.EndDate});
 
             string Str = JsonConvert.SerializeObject(Maturity, Formatting.Indented);

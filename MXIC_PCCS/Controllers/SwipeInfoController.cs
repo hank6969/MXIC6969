@@ -45,7 +45,7 @@ namespace MXIC_PCCS.Controllers
       
         public void transform()
         {
-            _ISwipeInfo.transform();
+            _ISwipeInfo.transform2();
         }
     }
 }

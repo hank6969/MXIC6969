@@ -57,6 +57,7 @@
             <div class="inputBox">
             </div>
             <div class="editBox cover" style="width: 40%;">
+                <a href="#" class="seachBTN btn-1" onclick=" transform()" style="width: 150px;">關帳轉檔</a>
                 <a href="#" class="seachBTN btn-1" onclick="seachBtn()">查詢</a>
                 <a href="#" class="seachBTN btn-1 Manager" onclick="DownloadExample()" style="width: 150px;">匯入範本</a>
                 <a href="#" class="seachBTN btn-1 Manager" onclick="ExportSchedule()" style="width: 150px;">產出報表</a>
@@ -157,5 +158,9 @@
         console.log(seachobj)
 
         window.location = '/ScheduleSetting/ExportSchedule?' + seachobj;
+    }
+
+    function transform() {
+        window.location = '/SwipeInfo/transform';
     }
 </script>

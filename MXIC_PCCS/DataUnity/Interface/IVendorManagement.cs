@@ -19,7 +19,7 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// <param name="DeleteVenID"></param>
         /// <param name="EditVenID"></param>
         /// <returns></returns>
-        string VendorList(string PoNo, string VendorName, string EmpID, string EmpName);
+        string VendorList(string PoNo, string VendorName, string EmpID, string EmpName,string Shifts);
         /// <summary>
         /// 新增廠商人員
         /// </summary>
@@ -31,7 +31,7 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// <param name="DeleteVenID"></param>
         /// <param name="EditVenID"></param>
         /// <returns></returns>
-        string AddVendor(string PoNo, string VendorName, string EmpID, string EmpName);
+        string AddVendor(string PoNo, string VendorName, string EmpID, string EmpName, string Shifts);
         /// <summary>
         /// 刪除廠商人員
         /// </summary>
@@ -55,7 +55,7 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// <param name="DeleteVenID"></param>
         /// <param name="EditVenID"></param>
         /// <returns></returns>
-        string EditVendor(string EditID, string PoNo, string VendorName, string EmpID, string EmpName);
+        string EditVendor(string EditID, string PoNo, string VendorName, string EmpID, string EmpName, string Shifts);
         /// <summary>
         /// 修改廠商人員細節
         /// </summary>

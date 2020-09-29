@@ -75,7 +75,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         Month = sheet.Cells[3, 17].Text;
                         PoNo = sheet.Cells[3, 2].Text;
                         //清除當月資料
-                        CleanSchedul(Year, Month);
+                        CleanSchedul(Year, Month, PoNo);
                         for (int currentRow = startRowIndex; currentRow <= endRowIndex; currentRow++)
                         {
                             //排班組別,姓名,班別,上班日期,星期
@@ -145,9 +145,9 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         }
 
-        public void CleanSchedul(string Year, string Month)
+        public void CleanSchedul(string Year, string Month, string PoNo)
         {
-            var _ScheduleList = _db.MXIC_ScheduleSettings.Where(x => x.Date.Year.ToString() == Year && x.Date.Month.ToString() == Month);
+            var _ScheduleList = _db.MXIC_ScheduleSettings.Where(x => x.Date.Year.ToString() == Year && x.Date.Month.ToString() == Month && x.PoNo == PoNo);
 
 
             _db.MXIC_ScheduleSettings.RemoveRange(_ScheduleList);

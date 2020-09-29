@@ -18,7 +18,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             ((IDisposable)_db).Dispose();
         }
 
-        public string AddVendor(string PoNo, string VendorName, string EmpID, string EmpName)
+        public string AddVendor(string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
         {
             string Str = "新增成功";
 
@@ -29,6 +29,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 VendorName = VendorName,
                 EmpID = EmpID,
                 EmpName = EmpName,
+                Shifts = Shifts,
                 DeleteID = Guid.NewGuid(),
                 EditID = Guid.NewGuid()
 
@@ -63,7 +64,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         }
 
-        public string EditVendor(string EditID, string PoNo, string VendorName, string EmpID, string EmpName)
+        public string EditVendor(string EditID, string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
         {
             string Str = "修改成功";
 
@@ -91,6 +92,11 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     EditVendor.EmpName = EmpName;
                 }
 
+                if (!string.IsNullOrWhiteSpace(Shifts))
+                {
+                    EditVendor.Shifts = Shifts;
+                }
+
                 _db.SaveChanges();
             }
             catch (Exception e)
@@ -107,9 +113,9 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         }
 
-        public string VendorList( string PoNo, string VendorName, string EmpID, string EmpName)
+        public string VendorList( string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
         {
-            var _VenderList = _db.MXIC_VendorManagements.Select(x=>new { x.PoNo,x.VendorName,x.EmpID,x.EmpName,x.EditID,x.DeleteID});
+            var _VenderList = _db.MXIC_VendorManagements.Select(x=>new { x.PoNo,x.VendorName,x.EmpID,x.EmpName,x.Shifts,x.EditID,x.DeleteID});
 
             //如果PoNo不為空
             if (!string.IsNullOrWhiteSpace(PoNo))
@@ -131,6 +137,10 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             {
                 _VenderList = _VenderList.Where(x => x.EmpName.ToLower().Contains(EmpName.ToLower()));
             }
+            if (!string.IsNullOrWhiteSpace(Shifts))
+            {
+                _VenderList = _VenderList.Where(x => x.Shifts.ToLower().Contains(Shifts.ToLower()));
+            }
 
             string Str = JsonConvert.SerializeObject(_VenderList, Formatting.Indented);
 
@@ -141,7 +151,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string EditVendorDetail (string EditID)
         {
-            var VendorDetail = _db.MXIC_VendorManagements.Where(x => x.EditID.ToString() == EditID).Select(x => new { x.PoNo, x.VendorName, x.EmpID, x.EmpName });
+            var VendorDetail = _db.MXIC_VendorManagements.Where(x => x.EditID.ToString() == EditID).Select(x => new { x.PoNo, x.VendorName, x.EmpID, x.EmpName,x.Shifts });
 
             string Str = JsonConvert.SerializeObject(VendorDetail, Formatting.Indented);
 

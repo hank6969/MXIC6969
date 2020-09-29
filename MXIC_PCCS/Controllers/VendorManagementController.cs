@@ -23,16 +23,16 @@ namespace MXIC_PCCS.Controllers
             return View();
         }
 
-        public string VendorList(string PoNo, string VendorName, string EmpID, string EmpName)
+        public string VendorList(string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
         {
-            var str = _IVendorManagement.VendorList(PoNo, VendorName, EmpID, EmpName);
+            var str = _IVendorManagement.VendorList(PoNo, VendorName, EmpID, EmpName,Shifts);
 
             return str;
         }
 
-        public string AddVendor(string PoNo, string VendorName, string EmpID, string EmpName)
+        public string AddVendor(string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
         {
-            string str = _IVendorManagement.AddVendor(PoNo, VendorName, EmpID, EmpName);
+            string str = _IVendorManagement.AddVendor(PoNo, VendorName, EmpID, EmpName, Shifts);
 
             return str;
         }
@@ -44,9 +44,9 @@ namespace MXIC_PCCS.Controllers
             return str;
         }
 
-        public string EditVendor(string EditID, string PoNo, string VendorName, string EmpID, string EmpName)
+        public string EditVendor(string EditID, string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
         {
-            string str = _IVendorManagement.EditVendor(EditID, PoNo, VendorName, EmpID, EmpName);
+            string str = _IVendorManagement.EditVendor(EditID, PoNo, VendorName, EmpID, EmpName, Shifts);
 
             return str;
         }

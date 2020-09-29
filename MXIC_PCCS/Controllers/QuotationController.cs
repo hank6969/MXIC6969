@@ -32,9 +32,6 @@ namespace MXIC_PCCS.Controllers
         {
             try
             {
-                //先清空資料庫
-                _IQuotation.ClearTable();
-
                 //再匯入EXCEL
                 //EPPLUS 授權 (不可註解刪除)
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial; 
@@ -74,6 +71,15 @@ namespace MXIC_PCCS.Controllers
                         {
                             SB.Clear();
                             SB.AppendFormat("<script>alert('找不到PO Number!');window.location.href='../Quotation/Index';</script>");
+                            return Content(SB.ToString());
+                        }
+
+                        //判斷資料是否重複並清空資料庫
+                        var MessageStr = _IQuotation.ClearTable(PoNo);
+                        if (!MessageStr.Contains("判讀結束!"))
+                        {
+                            SB.Clear();
+                            SB.AppendFormat("<script>alert('判讀資料發生錯誤!');window.location.href='../Quotation/Index';</script>");
                             return Content(SB.ToString());
                         }
 
@@ -127,8 +133,9 @@ namespace MXIC_PCCS.Controllers
             {
                 SB.Clear();
                 SB.AppendFormat(ex.ToString());
+                return Content(SB.ToString());
             }
-            return Content(SB.ToString());
+            return RedirectToAction("Index");
         }
 
         public string SearchQuotation(string VendorName, string PoNo, string PoClassID)

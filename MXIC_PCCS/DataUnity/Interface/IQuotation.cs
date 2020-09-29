@@ -26,10 +26,11 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// <param name="Property_ListModel"></param>
         /// <returns></returns>
         string ImportQuotation(string VendorName, string PoNo, List<MXIC_QuotationProperty> Property_ListModel);
-        /// <summary>
-        /// 匯入之前先清空資料
-        /// </summary>
-        /// <returns></returns>
-        string ClearTable();
+       /// <summary>
+       /// 匯入之前判斷資料是否重複
+       /// </summary>
+       /// <param name="PoNo"></param>
+       /// <returns></returns>
+        string ClearTable(string PoNo);
     }
 }

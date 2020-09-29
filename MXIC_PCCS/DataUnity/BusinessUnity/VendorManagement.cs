@@ -137,6 +137,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             {
                 _VenderList = _VenderList.Where(x => x.EmpName.ToLower().Contains(EmpName.ToLower()));
             }
+            //如果Shifts不為空
             if (!string.IsNullOrWhiteSpace(Shifts))
             {
                 _VenderList = _VenderList.Where(x => x.Shifts.ToLower().Contains(Shifts.ToLower()));

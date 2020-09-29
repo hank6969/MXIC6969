@@ -25,20 +25,18 @@ namespace MXIC_PCCS.Controllers
         }
 
         public ActionResult DownloadQuotation(string PONumber, string Month)
-        {   string responseStr; 
+        {
+             string responseStr; 
              StringBuilder SB = new StringBuilder();
 
-            if (string.IsNullOrWhiteSpace(PONumber)|| string.IsNullOrWhiteSpace(Month))
+            if (string.IsNullOrWhiteSpace(PONumber) || string.IsNullOrWhiteSpace(Month))
             {
-                responseStr = "欄位未填";
-
+                responseStr = "欄位未填!";
+                SB.Clear();
                 SB.AppendFormat("<script>alert('{0}');window.location.href='../ExportPO/Index';</script>", responseStr);
             }
             else
             {
-               
-
-
                 try
                 {
                     System.IO.File.Copy(Properties.Resources.ExampleDirectory, Properties.Resources.DowloadDirectory, true);
@@ -58,13 +56,11 @@ namespace MXIC_PCCS.Controllers
                 }
                 catch (Exception ex)
                 {
+                    responseStr = "匯出失敗!";
                     SB.Clear();
-                    responseStr = "匯出失敗";
-                    SB.AppendFormat(ex.ToString());
+                    SB.AppendFormat("<script>alert('{0}');window.location.href='../ExportPO/Index';</script>", responseStr);
                 }
-            }
-         
-           
+            }           
             return Content(SB.ToString());
         }
 

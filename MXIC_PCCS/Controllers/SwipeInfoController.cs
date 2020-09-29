@@ -12,6 +12,7 @@ namespace MXIC_PCCS.Controllers
     public class SwipeInfoController : Controller
     {
         ISwipeInfo _ISwipeInfo = new SwipeInfo();
+
         // GET: SwipeInfo
         public ActionResult Index()
         {
@@ -21,9 +22,8 @@ namespace MXIC_PCCS.Controllers
         }
 
         public string CheckinList(string VendorName, string EmpID, string EmpName, DateTime? StartTime, DateTime? EndTime, string AttendTypeSelect)
-        {               //使用ISwipeInfo UserList方法
-            string str = _ISwipeInfo.CheckinList( VendorName,  EmpID,  EmpName, StartTime,  EndTime,  AttendTypeSelect);
-
+        {              
+            string str = _ISwipeInfo.CheckinList(VendorName, EmpID, EmpName, StartTime, EndTime, AttendTypeSelect);
 
             return str;
         }
@@ -33,11 +33,9 @@ namespace MXIC_PCCS.Controllers
             string str = _ISwipeInfo.SwipeInfoDetail(EditID);
 
             return str;
-
         }
-        public string EditSwipe(string EditID,string AttendTypeSelect,string Hour)
+        public string EditSwipe(string EditID, string AttendTypeSelect, string Hour)
         {
-
             string str = _ISwipeInfo.EditSwipe(EditID, AttendTypeSelect, Hour);
 
             return str;

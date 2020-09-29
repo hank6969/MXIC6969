@@ -18,8 +18,6 @@ namespace MXIC_PCCS.Controllers
         {
             var id = HttpContext.User.Identity.Name;
             ViewBag.ID = id;
-
-
             return View();
         }
 

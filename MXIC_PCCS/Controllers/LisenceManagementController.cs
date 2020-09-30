@@ -95,6 +95,15 @@ namespace MXIC_PCCS.Controllers
                             return Content(SB.ToString());
                         }
 
+                        //判讀是否有資料重複 
+                        var MessageStr = _ILisenceManagement.ClearTable(PoNo);
+                        if (!MessageStr.Contains("判讀結束!"))
+                        {
+                            SB.Clear();
+                            SB.AppendFormat("<script>alert('判讀資料發生錯誤!');window.location.href='../LisenceManagement/Index';</script>");
+                            return Content(SB.ToString());
+                        }
+
                         //剩下的資料範圍
                         int startRowIndex = 3;//起始列
                         int endRowIndex = sheet.Dimension.Rows;//結束列

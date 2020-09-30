@@ -40,15 +40,14 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             return (responseStr);
         }
 
-        public string AddDepToVen( string DepName, string VendorName)
+        public string AddDepToVen(string DepName, string VendorName)
         {
-            string MessageStr = "新增成功";
+            string MessageStr = "新增成功!";
+
             if (!string.IsNullOrWhiteSpace(DepName) && !string.IsNullOrWhiteSpace(VendorName))
             {
-
                 try
                 {
-
                     string[] VendorList = null;
 
                     var DepNo = _db.MXIC_UserManagements.Where(x => x.DepName == DepName).Select(x => x.DepNo).FirstOrDefault();
@@ -58,10 +57,10 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         VendorName = VendorName.Substring(0, VendorName.Length - 1);
                         VendorList = VendorName.Split(',');
                     }
+
                     for (int x = 0; x < VendorList.Length; x++)
                     {
                         var AddVendor = new MXIC_DepartmentManagement();
-
                         AddVendor.DepName = DepName;
                         AddVendor.DepNo = DepNo;
                         AddVendor.VendorName = VendorList[x];
@@ -70,17 +69,15 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         AddVendor.EditID= Guid.NewGuid();
                         _db.MXIC_DepartmentManagements.Add(AddVendor);
                     }
+
                     _db.SaveChanges();
-
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-
-
+                    MessageStr = ex.ToString();
                 }
             }
             else { MessageStr = "欄位未填"; }
-
 
             return (MessageStr);
         }
@@ -106,7 +103,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string DeleteDepToVen(string DeleteID)
         {
-            string MessageStr = "刪除失敗";
+            string MessageStr = "刪除失敗!";
 
             try
             {
@@ -115,26 +112,22 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 _db.MXIC_DepartmentManagements.Remove(DeleteDepToVenList);
                 _db.SaveChanges();
 
-                MessageStr = "刪除成功";
+                MessageStr = "刪除成功!";
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageStr = e.ToString();
+                MessageStr = ex.ToString();
             }
 
             return (MessageStr);
         }
         public string Venderdata()
         {
-
             var _Venderdata = _db.MXIC_VendorManagements.Select(x => new { x.VendorName }).Distinct().OrderBy(x => x.VendorName).ToList();
 
             string responseStr = JsonConvert.SerializeObject(_Venderdata, Formatting.Indented);
 
             return (responseStr);
-
         }
-
-        
     }
 }

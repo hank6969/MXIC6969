@@ -17,6 +17,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
     {
 
         public MXIC_PCCSContext _db = new MXIC_PCCSContext();
+
         //關閉資料庫
         public void Dispose()
         {
@@ -36,7 +37,6 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 WorkShift = Model.WorkShift,
                 ScheduleID = Guid.NewGuid(),
                 WorkGroup = Model.WorkGroup
-                
             };
 
             _db.MXIC_ScheduleSettings.Add(AddSchedul);
@@ -44,12 +44,12 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             _db.SaveChanges();
 
             return (Str);
-
         }
 
         public string ImportSchedul(HttpPostedFileBase file)
         {
             string str = "匯入成功";
+
             try
             {
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -58,12 +58,10 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     //年,月,PO號碼
                     string Year, Month, PoNo;
                     
-
                     //以下是讀檔
                     using (var excelPkg = new ExcelPackage(file.InputStream))
                     {
                         ExcelWorksheet sheet = excelPkg.Workbook.Worksheets["出勤班表"];//取得Sheet
-
 
                         int startRowIndex = sheet.Dimension.Start.Row + 5;//起始列
                         int endRowIndex = sheet.Dimension.End.Row;//結束列
@@ -74,8 +72,10 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         Year = sheet.Cells[3, 14].Text;
                         Month = sheet.Cells[3, 17].Text;
                         PoNo = sheet.Cells[3, 2].Text;
+
                         //清除當月資料
                         CleanSchedul(Year, Month, PoNo);
+
                         for (int currentRow = startRowIndex; currentRow <= endRowIndex; currentRow++)
                         {
                             //排班組別,姓名,班別,上班日期,星期
@@ -107,11 +107,10 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                     model.EmpName = EmpName;
                                     model.WorkShift = WorkShift;
                                     model.WorkGroup = WorkGroup;
+
                                     //新增進資料庫
                                     str = AddSchedul(model);
                                 }
-                                
-
                             }
                         }
                     }
@@ -122,6 +121,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             {
                 str = ex.ToString();
             }
+
             return str;
         }
 
@@ -142,22 +142,18 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             string str = JsonConvert.SerializeObject(_ScheduleList, Formatting.Indented);
             str = str.Replace("T00:00:00", "");
             return str;
-
         }
 
         public void CleanSchedul(string Year, string Month, string PoNo)
         {
             var _ScheduleList = _db.MXIC_ScheduleSettings.Where(x => x.Date.Year.ToString() == Year && x.Date.Month.ToString() == Month && x.PoNo == PoNo);
 
-
             _db.MXIC_ScheduleSettings.RemoveRange(_ScheduleList);
             _db.SaveChanges();
-
         }
 
         public MemoryStream ExportSchedul(string Year, string Month, string PoNo)
         {
-
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             ExcelPackage ep = new ExcelPackage();
             ep.Workbook.Worksheets.Add("班表產出");
@@ -408,9 +404,6 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                 range.Style.Border.Bottom.Color.SetColor(Color.FromArgb(56, 172, 255));
             }
-
-
-            
 
             MemoryStream fileStream = new MemoryStream();
             ep.SaveAs(fileStream);

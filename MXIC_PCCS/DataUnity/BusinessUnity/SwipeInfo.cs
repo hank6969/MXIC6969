@@ -19,43 +19,36 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
         {
             ((IDisposable)_db).Dispose();
         }
-        public string CheckinList(string VendorName, string EmpID, string EmpName, DateTime? StartTime, DateTime? EndTime,string AttendTypeSelect)
+        public string CheckinList(string VendorName, string EmpID, string EmpName, DateTime? StartTime, DateTime? EndTime, string AttendTypeSelect)
         {
-            var _List = _db.MXIC_View_Swipes.Select(x=>new { x.PoNo ,x.VendorName ,x.EmpID ,x.EmpName ,x.CheckType,x.SwipeTime ,x.EditID ,x.AttendType}).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime});
+            var _List = _db.MXIC_View_Swipes.Select(x => new { x.PoNo, x.VendorName, x.EmpID, x.EmpName, x.CheckType, x.SwipeTime, x.EditID, x.AttendType }).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
 
             if (!string.IsNullOrWhiteSpace(VendorName))
             {
                 _List = _List.Where(x => x.VendorName.ToLower().Contains(VendorName.ToLower())).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
-
             }
 
             if (!string.IsNullOrWhiteSpace(EmpID))
             {
                 _List = _List.Where(x => x.EmpID.ToLower().Contains(EmpID.ToLower())).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
-
             }
 
             if (!string.IsNullOrWhiteSpace(EmpName))
             {
                 _List = _List.Where(x => x.EmpName.ToLower().Contains(EmpName.ToLower())).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
-
             }
 
             if (!string.IsNullOrWhiteSpace(StartTime.ToString()) && !string.IsNullOrWhiteSpace(EndTime.ToString()))
             {
-
                 _List = _List.Where(x => x.SwipeTime >= StartTime && x.SwipeTime <= EndTime).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
-
             }
 
             if (!string.IsNullOrWhiteSpace(AttendTypeSelect))
             {
-                _List = _List.Where(x => x.AttendType== AttendTypeSelect).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
-
+                _List = _List.Where(x => x.AttendType == AttendTypeSelect).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
             }
 
             string Str = JsonConvert.SerializeObject(_List, Formatting.Indented);
-
 
             return (Str);
         }
@@ -66,65 +59,54 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
             string Str = JsonConvert.SerializeObject(SwipeInfoDetail, Formatting.Indented);
 
-
             return (Str);
         }
 
         public string EditSwipe(string EditID, string AttendTypeSelect, string Hour)
         {
             string str = "修改失敗";
-                
-            try {
+
+            try
+            {
                 var EditSwipeInfo = _db.MXIC_SwipeInfos.Where(x => x.EditID.ToString() == EditID).FirstOrDefault();
+
                 double time;
-                if (double.TryParse(Hour, out time)) {
+
+                if (double.TryParse(Hour, out time))
+                {
                     EditSwipeInfo.AttendType = AttendTypeSelect;
 
                     EditSwipeInfo.Hour = time;
                 }
                 else
                 {
-
                     str = "時數格式錯誤";
                 }
 
                 _db.SaveChanges();
 
-
-                 str = "修改成功";
-
+                str = "修改成功";
             }
-
-            catch(Exception e)
+            catch (Exception e)
             {
-
-                str= e.ToString();
+                str = e.ToString();
             }
-            
-            
-            
-         
-
 
             return (str);
         }
 
-        public string transform() {
-
+        public string transform()
+        {
             var ATTENDLIST = _dbMXIC.FAC_ATTENDLISTs;
-
-           
 
             string AttendType = "正常";
 
             foreach (var item in ATTENDLIST)
-            { 
-                MXIC_ScheduleSetting UserSchedule = _db.MXIC_ScheduleSettings.Where(x => x.Date == item.WORK_DATETIME&&x.EmpName==item.WORKER_NAME).FirstOrDefault();
+            {
+                MXIC_ScheduleSetting UserSchedule = _db.MXIC_ScheduleSettings.Where(x => x.Date == item.WORK_DATETIME && x.EmpName == item.WORKER_NAME).FirstOrDefault();
 
-              
-
-                if (UserSchedule != null) {
-
+                if (UserSchedule != null)
+                {
                     string WorkShift = UserSchedule.WorkShift.ToString();
 
                     DateTime CHECKINtime = Convert.ToDateTime(item.ENTRANCE_DATETIME.Value.ToString("HH:mm"));
@@ -137,60 +119,57 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     }
                     else
                     {
-                        if (WorkShift=="休"|| WorkShift=="代早"|| WorkShift == "代晚")
+                        if (WorkShift == "休" || WorkShift == "代早" || WorkShift == "代晚")
                         {
                             AttendType = "異常";
-
                         }
-                        else { 
-                        switch (WorkShift)
+                        else
                         {
-                            case "早":
-                                DateTime StartTimeDay = Convert.ToDateTime("06:30");
-                                DateTime EndTimeDay = Convert.ToDateTime("19:30");
-                                DateTime LateTimeDay = Convert.ToDateTime("07:00");
-                                DateTime EarlyTimeDay = Convert.ToDateTime("19:00");
-                                if (CHECKINtime < StartTimeDay || CHECKINtime > LateTimeDay || CHECKOUTtime > EndTimeDay || CHECKOUTtime < EarlyTimeDay)
-                                {
+                            switch (WorkShift)
+                            {
+                                case "早":
+                                    DateTime StartTimeDay = Convert.ToDateTime("06:30");
+                                    DateTime EndTimeDay = Convert.ToDateTime("19:30");
+                                    DateTime LateTimeDay = Convert.ToDateTime("07:00");
+                                    DateTime EarlyTimeDay = Convert.ToDateTime("19:00");
+                                    if (CHECKINtime < StartTimeDay || CHECKINtime > LateTimeDay || CHECKOUTtime > EndTimeDay || CHECKOUTtime < EarlyTimeDay)
+                                    {
 
-                                    AttendType = "異常";
-                                }
+                                        AttendType = "異常";
+                                    }
+                                    break;
 
-                                break;
+                                case "日":
+                                    DateTime StartTimeNormal = Convert.ToDateTime("08:00");
+                                    DateTime EndTimeNormal = Convert.ToDateTime("18:00");
+                                    DateTime LateTimeNormal = Convert.ToDateTime("08:30");
+                                    DateTime EarlyTimeNormal = Convert.ToDateTime("17:30");
+                                    if (CHECKINtime < StartTimeNormal || CHECKINtime > LateTimeNormal || CHECKOUTtime > EndTimeNormal || CHECKOUTtime < EarlyTimeNormal)
+                                    {
 
-                            case "日":
-                                DateTime StartTimeNormal = Convert.ToDateTime("08:00");
-                                DateTime EndTimeNormal = Convert.ToDateTime("18:00");
-                                DateTime LateTimeNormal = Convert.ToDateTime("08:30");
-                                DateTime EarlyTimeNormal = Convert.ToDateTime("17:30");
-                                if (CHECKINtime < StartTimeNormal || CHECKINtime > LateTimeNormal || CHECKOUTtime > EndTimeNormal || CHECKOUTtime < EarlyTimeNormal)
-                                {
+                                        AttendType = "異常";
+                                    }
+                                    break;
 
-                                    AttendType = "異常";
-                                }
-                                break;
+                                case "夜":
+                                    DateTime StartTimeNight = Convert.ToDateTime("18:30");
+                                    DateTime EndTimeNight = Convert.ToDateTime("07:30");
+                                    DateTime LateTimeNight = Convert.ToDateTime("19;00");
+                                    DateTime EarlyTimeNight = Convert.ToDateTime("07:00");
+                                    if (CHECKINtime < StartTimeNight || CHECKINtime > LateTimeNight || CHECKOUTtime > EndTimeNight || CHECKOUTtime < EarlyTimeNight)
+                                    {
 
-                            case "夜":
-                                DateTime StartTimeNight = Convert.ToDateTime("18:30");
-                                DateTime EndTimeNight = Convert.ToDateTime("07:30");
-                                DateTime LateTimeNight = Convert.ToDateTime("19;00");
-                                DateTime EarlyTimeNight = Convert.ToDateTime("07:00");
-                                if (CHECKINtime < StartTimeNight || CHECKINtime > LateTimeNight || CHECKOUTtime > EndTimeNight || CHECKOUTtime < EarlyTimeNight)
-                                {
-
-                                    AttendType = "異常";
-                                }
-                                break;
-
-                           
-                        }
+                                        AttendType = "異常";
+                                    }
+                                    break;
+                            }
                         }
                     }
                     for (int i = 0; i < 2; i++)
                     {
                         var Swipe = new MXIC_SwipeInfo();
                         if (i == 0)
-                    {   
+                        {
                             Swipe.CheckType = "CHECKIN";
                             Swipe.SwipeTime = item.ENTRANCE_DATETIME;
                             Swipe.EmpName = item.WORKER_NAME;
@@ -200,8 +179,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             Swipe.AttendType = AttendType;
                             Swipe.valid = "true";
                         }
-                    else
-                    {
+                        else
+                        {
                             Swipe.CheckType = "CHECKOUT";
                             Swipe.SwipeTime = item.EXIT_DATETIME;
                             Swipe.EmpName = item.WORKER_NAME;
@@ -213,18 +192,11 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         }
                         _db.MXIC_SwipeInfos.Add(Swipe);
                         _db.SaveChanges();
-
                     }
+                }
             }
-            }
-
-           
-         
-         
-
 
             string str = "修改失敗";
-
 
             return (str);
         }
@@ -232,31 +204,28 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
         public string transform2()
         {
             DateTime Date = DateTime.Now.AddMonths(-1);
-
-            //DateTime Date = Convert.ToDateTime("2020-08-01");
+          //DateTime Date = Convert.ToDateTime("2020-08-01");
 
             DateTime TheMonthStart = new DateTime(Date.Year, Date.Month, 1);//本月初1號
-
-            //本月底
             DateTime TheMonthEnd = new DateTime(Date.Year, Date.Month, DateTime.DaysInMonth(Date.Year, Date.Month));//本月初月底
 
             // 設定查詢月份
-            //DateTime StartDate = Convert.ToDateTime("2020-08-10");
+          //DateTime StartDate = Convert.ToDateTime("2020-08-10");
             DateTime StartDate = TheMonthStart;
-            //DateTime EndDate = Convert.ToDateTime("2020-09-08");
-
+          //DateTime EndDate = Convert.ToDateTime("2020-09-08");
             DateTime EndDate = TheMonthEnd.AddDays(1);
-            //班表
+            
+            // 班表
             var UserSchedule = _db.MXIC_ScheduleSettings.Where(x => x.Date >= StartDate && x.Date < EndDate);
-           // var UserSchedule = _db.MXIC_ScheduleSettings;
-           
+         // var UserSchedule = _db.MXIC_ScheduleSettings;
 
             foreach (var item in UserSchedule)
             {
                 string InAttendType = "正常";
                 string OutAttendType = "正常";
+
                 //某人某天的打卡紀錄
-                var ATTENDLIST = _dbMXIC.FAC_ATTENDLISTs.Where(x=>x.WORKER_NAME==item.EmpName&&x.WORK_DATETIME==item.Date).FirstOrDefault();
+                var ATTENDLIST = _dbMXIC.FAC_ATTENDLISTs.Where(x => x.WORKER_NAME == item.EmpName && x.WORK_DATETIME == item.Date).FirstOrDefault();
 
                 if (ATTENDLIST == null && item.WorkShift == "休")
                 {
@@ -264,19 +233,20 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 }
                 else
                 {
-                    DateTime ENTRANCE ;
+                    DateTime ENTRANCE;
 
                     DateTime EXIT;
+
                     //如果某人某天無打卡紀錄又不是休假的話出席狀態異常
                     if (ATTENDLIST == null && item.WorkShift != "休")
                     {
-                         ENTRANCE = item.Date;
+                        ENTRANCE = item.Date;
 
-                         EXIT = item.Date;
+                        EXIT = item.Date;
 
                         InAttendType = "異常";
 
-                       OutAttendType = "異常";
+                        OutAttendType = "異常";
                     }
                     //有打卡紀錄
                     else
@@ -285,9 +255,9 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         //下班時間
                         DateTime CHECKOUTtime = Convert.ToDateTime(ATTENDLIST.EXIT_DATETIME.Value.ToString("HH:mm"));
 
-                         ENTRANCE = ATTENDLIST.ENTRANCE_DATETIME.Value;
+                        ENTRANCE = ATTENDLIST.ENTRANCE_DATETIME.Value;
 
-                         EXIT = ATTENDLIST.EXIT_DATETIME.Value;
+                        EXIT = ATTENDLIST.EXIT_DATETIME.Value;
 
                         switch (item.WorkShift)
                         {   //如果此人是早班
@@ -323,7 +293,6 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                 {
                                     OutAttendType = "異常";
                                 }
-
                                 break;
                             //如果此人是夜班
                             case "夜":
@@ -334,7 +303,6 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                 //上班時間比18:30早=加班 上班時間比19:00晚=遲到
                                 if (CHECKINtime < StartTimeNight || CHECKINtime > LateTimeNight)
                                 {
-
                                     InAttendType = "異常";
                                 }
                                 //下班時間比07:30晚=加班 下班時間比07:00早=早退
@@ -345,19 +313,10 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                 break;
                             //如果此人是代早代晚或是班表休假但是有打卡紀錄
                             default:
-
                                 InAttendType = "異常";
                                 OutAttendType = "異常";
-
                                 break;
-
                         }
-
-                    
-
-
-
-
                     }
                     for (int i = 0; i < 2; i++)
                     {
@@ -385,23 +344,14 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             Swipe.valid = "true";
                         }
                         _db.MXIC_SwipeInfos.Add(Swipe);
-
-
                     }
                 }
             }
-
-
             _db.SaveChanges();
-
-
-
 
             string str = "修改失敗";
 
-
             return (str);
         }
-
     }
 }

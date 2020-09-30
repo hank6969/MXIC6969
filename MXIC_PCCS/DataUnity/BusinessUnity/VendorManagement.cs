@@ -12,6 +12,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
     {
         //開啟資料庫連結
         public MXIC_PCCSContext _db = new MXIC_PCCSContext();
+
         //關閉資料庫
         public void Dispose()
         {
@@ -39,7 +40,6 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             _db.SaveChanges();
 
             return (Str);
-
         }
 
         public string DeleteVendor(string DeleteID)
@@ -48,7 +48,6 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             try
             {
                 MXIC_VendorManagement Vendor = _db.MXIC_VendorManagements.Where(x => x.DeleteID.ToString() == DeleteID).FirstOrDefault();
-
                 //User.UserDisable = false;
                 _db.MXIC_VendorManagements.Remove(Vendor);
                 _db.SaveChanges();
@@ -56,12 +55,9 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             }
             catch (Exception e)
             {
-
                 Str = e.ToString();
-
             }
             return (Str);
-
         }
 
         public string EditVendor(string EditID, string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
@@ -96,21 +92,13 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 {
                     EditVendor.Shifts = Shifts;
                 }
-
                 _db.SaveChanges();
             }
             catch (Exception e)
             {
-
                 Str = e.ToString();
             }
-
-
             return (Str);
-        
-
-
-
         }
 
         public string VendorList( string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
@@ -145,9 +133,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
             string Str = JsonConvert.SerializeObject(_VenderList, Formatting.Indented);
 
-
             return (Str);
-
         }
 
         public string EditVendorDetail (string EditID)
@@ -157,7 +143,6 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             string Str = JsonConvert.SerializeObject(VendorDetail, Formatting.Indented);
 
             return (Str);
-
         }
     }
 }

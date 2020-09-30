@@ -292,6 +292,7 @@
     <Content Include="Content\image\MXIC_Login_Bg.jpg" />
     <Content Include="Content\image\MXIC_Logo.png" />
     <Content Include="Content\image\MXIC_Title.jpg" />
+    <Content Include="Content\image\產出班表圖例.png" />
     <Content Include="Content\mxicfilm.css" />
     <Content Include="Content\MXIC\font-awesome.min.css" />
     <Content Include="Content\MXIC\jquery-ui.css" />

@@ -879,8 +879,8 @@ function ResetInput() {
     }
 
     for (i = 0; i < PopGenerateResult.length; i++) {
-        $('.insertPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + PopGenerateResult[i] + '</label><input type="' + PopGenerateTypeResult[i] + '" name="editTextInput" placeholder="' + PopGenerateResult[i] + '" required="required" /></div>')
-        $('input[type=Select]').replaceWith('<input type="text" onfocus=this.value="" name="editTextInput" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
+        $('.insertPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + PopGenerateResult[i] + '</label><input type="' + PopGenerateTypeResult[i] + '" name="insertTextInput" placeholder="' + PopGenerateResult[i] + '" required="required" /></div>')
+        $('input[type=Select]').replaceWith('<input type="text" onfocus=this.value="" name="insertTextInput" id="editPopInput' + i + '" class="insertInputOption" list="insertInputOption' + [i] + '"><datalist id="insertInputOption' + [i] + '"></datalist>')
     }
     // for (i = 0; i < editPopGenerateResult.length; i++) {
     //     if (editPopGenerateTypeResult[i] == "select") {

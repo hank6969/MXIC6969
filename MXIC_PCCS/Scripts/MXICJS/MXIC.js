@@ -393,19 +393,18 @@ $(document).ready(function () {
         } else if (testb == 'DeleteBtn'&&Admin=="true") {
             testdata = { name: testA[i], index: testA[i], width: gridColume * 0.5, align: "center", formatter: DeleteBtn }
 
-        }
-        else if (testb == 'EditBtn'&&Admin=="true") {
+        } else if (testb == 'EditBtn'&&Admin=="true") {
             testdata = { name: testA[i], index: testA[i], width: gridColume * 0.7, align: "center", formatter: EditBtn }
 
         } else if (testb == 'Hidden'||(testb == 'EditBtn'&&Admin=="false")||(testb == 'DeleteBtn'&&Admin=="false")) {
             testdata = { name: testA[i], index: testA[i], width: gridColume * 0.5, align: "center", hidden: true }
 
-        }else if (testb == 'SwipeEditBtn') {
+        } else if (testb == 'SwipeEditBtn') {
             testdata = { name: testA[i], index: testA[i], width: gridColume * 0.7, align: "center", formatter: EditBtn }
 
-        }
-
-        else {
+        } else if (testb == 'jqWidthQPCN') {
+            testdata = { name: testA[i], index: testA[i], width: gridColume * 2.2, align: "center" }
+        } else {
             testdata = { name: testA[i], index: testA[i], width: gridColume, align: "center" }
         }
         // 追加する新しいレコードを作成

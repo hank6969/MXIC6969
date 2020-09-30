@@ -23,7 +23,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string SearchQuotation(string VendorName, string PoNo, string PoClassID)
         {
-            var _QuotationSearchCondition = _db.MXIC_Quotations.OrderBy(x => new { x.PoNo ,x.Sequence }).Select(x=>new { x.PoNo , x.PoClassID, x.PoClassName, x.LicPossess, x.Unit, x.Amount,x.VendorName});
+            var _QuotationSearchCondition = _db.MXIC_Quotations.OrderBy(x => new { x.PoNo ,x.Sequence }).Select(x=>new { x.PoNo , x.PoClassID, x.PoClassName, x.Unit, x.Amount, x.VendorName});
             
             //如果VendorName不為空
             if (!string.IsNullOrWhiteSpace(VendorName))
@@ -76,24 +76,25 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             return (MessageStr);
         }
 
-        public string ClearTable()
+        public string ClearTable(string PoNo)
         {
-            string MessageStr = "刪除成功";
+            string MessageStr = "判讀結束!";
             try
             {
-                var Rows = from x in _db.MXIC_Quotations
-                           select x;
+                var Rows = _db.MXIC_Quotations.Where(x => x.PoNo == PoNo);
 
-                foreach (var DataRow in Rows)
+                if (Rows.Count() > 0)
                 {
-                    _db.MXIC_Quotations.Remove(DataRow);
+                    foreach (var DataRow in Rows)
+                    {
+                        _db.MXIC_Quotations.Remove(DataRow);
+                    }
+                    _db.SaveChanges();
                 }
-
-                _db.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageStr = e.ToString();
+                MessageStr = ex.ToString();
             }
             return (MessageStr);
         }

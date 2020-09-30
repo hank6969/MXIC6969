@@ -34,7 +34,7 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// 清除當月般表
         /// </summary>
         /// <returns></returns>
-        void CleanSchedul(string Year,string Month);
+        void CleanSchedul(string Year, string Month, string PoNo);
         /// <summary>
         /// 產出班表
         /// </summary>

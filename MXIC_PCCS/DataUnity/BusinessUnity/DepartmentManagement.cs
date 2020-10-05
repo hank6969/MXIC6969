@@ -52,14 +52,28 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
                     var DepNo = _db.MXIC_UserManagements.Where(x => x.DepName == DepName).Select(x => x.DepNo).FirstOrDefault();
 
-                    if (!string.IsNullOrWhiteSpace(VendorName))
-                    {
+                    
                         VendorName = VendorName.Substring(0, VendorName.Length - 1);
+
                         VendorList = VendorName.Split(',');
-                    }
+
+                    var OriginalVendor = _db.MXIC_DepartmentManagements.Where(y => y.DepName == DepName );
+
+
 
                     for (int x = 0; x < VendorList.Length; x++)
                     {
+                        var AddVendorName = VendorList[x];
+                        OriginalVendor = OriginalVendor.Where(y => y.VendorName == AddVendorName);
+                        if (OriginalVendor.Any())
+                        {
+                            MessageStr = VendorList[x]+"已加入!";
+
+                        }
+                        else { 
+                      
+
+
                         var AddVendor = new MXIC_DepartmentManagement();
                         AddVendor.DepName = DepName;
                         AddVendor.DepNo = DepNo;
@@ -68,6 +82,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         AddVendor.DeleteID= Guid.NewGuid();
                         AddVendor.EditID= Guid.NewGuid();
                         _db.MXIC_DepartmentManagements.Add(AddVendor);
+
+                        }
                     }
 
                     _db.SaveChanges();

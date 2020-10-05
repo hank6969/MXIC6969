@@ -50,10 +50,10 @@
             </div>
             <div class="editBox cover">
                 <a href="#" class="seachBTN btn-1" onclick="seachBtn()">查詢</a>
-                <a href="#" class="seachBTN btn-1 Manager" onclick="DownloadExample()" style="width: 150px;">匯入範本</a>
+                <a href="#" class="seachBTN btn-1 Manager" onclick="DownloadExample()" style="width: 200px;">匯入範本</a>
                 <a href='javascript:document.form1.submit();' class="seachBTN btn-1 Manager">提交</a>
                 <form name='form1' action="@Url.Action("UploadQuotation")" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" id="file" class="Manager" />
+                    <input type="file" name="file" id="file" class="seachBTN btn-1 Manager" style="width: 250px;height: 50px;"/>
                 </form>
             </div>
         </div>

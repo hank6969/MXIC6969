@@ -8,19 +8,22 @@ using System.Web.Mvc;
 
 namespace MXIC_PCCS.Controllers
 {
+    [Authorize]
     public class SwipeInfoController : Controller
     {
         ISwipeInfo _ISwipeInfo = new SwipeInfo();
+
         // GET: SwipeInfo
         public ActionResult Index()
         {
+            var id = HttpContext.User.Identity.Name;
+            ViewBag.ID = id;
             return View();
         }
 
         public string CheckinList(string VendorName, string EmpID, string EmpName, DateTime? StartTime, DateTime? EndTime, string AttendTypeSelect)
-        {               //使用ISwipeInfo UserList方法
-            string str = _ISwipeInfo.CheckinList( VendorName,  EmpID,  EmpName, StartTime,  EndTime,  AttendTypeSelect);
-
+        {              
+            string str = _ISwipeInfo.CheckinList(VendorName, EmpID, EmpName, StartTime, EndTime, AttendTypeSelect);
 
             return str;
         }
@@ -30,19 +33,19 @@ namespace MXIC_PCCS.Controllers
             string str = _ISwipeInfo.SwipeInfoDetail(EditID);
 
             return str;
-
         }
-        public string EditSwipe(string EditID,string AttendTypeSelect,string Hour)
+        public string EditSwipe(string EditID, string AttendTypeSelect, string Hour)
         {
-
             string str = _ISwipeInfo.EditSwipe(EditID, AttendTypeSelect, Hour);
 
             return str;
         }
       
-        public void transform()
+        public ActionResult transform()
         {
-            _ISwipeInfo.transform();
+            _ISwipeInfo.transform2();
+
+            return RedirectToAction("Index", "SwipeInfo");
         }
     }
 }

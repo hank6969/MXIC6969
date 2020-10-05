@@ -19,16 +19,36 @@
     <script src="~/Scripts/MXICJS/jquery-3.5.1.js"></script>
 
     <script src="~/Scripts/MXICJS/MXIC.js"></script>
+    <script src="~/Scripts/MXICJS/ScheduleSetting.js"></script>
     @*自己寫的js放這裡*@
 
     <script src="~/Scripts/MXICJS/jquery.jqgrid.min.js"></script>
 </head>
 
-<body>
+<body><input type="hidden" id="UserID" value="@ViewBag.ID">
+    @if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+            var message = @Html.Raw(Json.Encode(TempData["message"]));
+            alert(message);
+        </script>
+        TempData["message"] = null;
+    }
     <div class="head cover">
         <div class="banner"></div>
         <div class="navber">
             <ul></ul>
+        </div>
+        <div class="userLogin">
+            <div class="ulBtn">
+                <i class="fa fa-home" aria-hidden="true"></i><a class="admin" href="\Home\">Home</a>
+            </div>
+            <div class="ulBtn">
+                <i class="fa fa-cogs" aria-hidden="true"></i><a class="admin" href="">Setting</a>
+            </div>
+            <div class="ulBtn">
+                <i class="fa fa-user-circle" aria-hidden="true"></i><a class="admin" href="\Login\LogOut">LogOut</a>
+            </div>
         </div>
     </div>
     <div class="body">
@@ -36,12 +56,17 @@
         <div class="seachBox cover">
             <div class="inputBox">
             </div>
-            <div class="editBox cover">
+            <div class="editBox cover" style="width: 40%;">
+                <a href="#" class="seachBTN btn-1" onclick=" transform()" style="width: 150px;">關帳轉檔</a>
                 <a href="#" class="seachBTN btn-1" onclick="seachBtn()">查詢</a>
-                <a href="#" class="seachBTN btn-1" onclick="DownloadExample()">匯入範本</a>
-                <form action="@Url.Action("UploadSchedule")" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" id="file" />
-                    <input type="submit" />
+                <a href="#" class="seachBTN btn-1 Manager" onclick="DownloadExample()" style="width: 150px;">匯入範本</a>
+                <a href="#" class="seachBTN btn-1 Manager" onclick="ExportSchedule()" style="width: 150px;">產出報表</a>
+                <a href='javascript:document.form1.submit();' class="seachBTN btn-1 Manager">提交</a>
+                <form name='form1' action="@Url.Action("UploadSchedule")" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="file" class="Manager" />
+
+
+
                 </form>
             </div>
         </div>
@@ -112,5 +137,30 @@
     function DownloadExample()
     {
         window.location = '/ScheduleSetting/DownloadScheduleExample';
+    }
+    function ExportSchedule() {
+
+        seachInputValue = []
+        inputLength = document.querySelectorAll('input[name="seachTextInput"]').length;
+        for (i = 0; i < inputLength; i++) {
+           
+            value = document.querySelectorAll('input[name="seachTextInput"]')[i].value;
+            obj = value
+            seachInputValue.push(obj);
+        }
+        console.log(seachInputValue)
+        seachobj = '';
+        for (x = 0; x < AjaxSelect.length; x++) {
+
+            seachobj += AjaxSelect[x] + '=' + seachInputValue[x] + '&'
+
+        }
+        console.log(seachobj)
+
+        window.location = '/ScheduleSetting/ExportSchedule?' + seachobj;
+    }
+
+    function transform() {
+        window.location = '/SwipeInfo/transform';
     }
 </script>

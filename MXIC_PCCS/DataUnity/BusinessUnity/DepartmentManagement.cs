@@ -21,18 +21,18 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string SearchDepToVen(string DepNo, string DepName)
         {
-            var _DepSearchCondition = _db.MXIC_DepartmentManagements.Select(x => new { x.DepName, x.VendorName, x.EditID, x.DeleteID, x.DepNo });
+            var _DepSearchCondition = _db.MXIC_DepartmentManagements.Select(x => new { x.DepName, x.VendorName, x.DeleteID, x.DepNo }).OrderBy(x=>x.DepName);
 
             //如果DepNo不為空
             if (!string.IsNullOrWhiteSpace(DepNo))
             {
-                _DepSearchCondition = _DepSearchCondition.Where(x => x.DepNo.Contains(DepNo));
+                _DepSearchCondition = _DepSearchCondition.Where(x => x.DepNo.Contains(DepNo)).OrderBy(x => x.DepName);
             }
 
             //如果DepName不為空
             if (!string.IsNullOrWhiteSpace(DepName))
             {
-                _DepSearchCondition = _DepSearchCondition.Where(x => x.DepName.Contains(DepName));
+                _DepSearchCondition = _DepSearchCondition.Where(x => x.DepName.Contains(DepName)).OrderBy(x => x.DepName);
             }
 
             string responseStr = JsonConvert.SerializeObject(_DepSearchCondition, Formatting.Indented);
@@ -40,49 +40,70 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             return (responseStr);
         }
 
-        public string AddDepToVen(string DepNo, string DepName, string VendorName)
+        public string AddDepToVen(string DepName, string VendorName)
         {
-            string MessageStr = "新增成功";
+            string MessageStr = "新增成功!";
 
-            //var AddDepToVenItem = new MXIC_DepartmentManagement()
-            //{
-            //    DepID = Guid.NewGuid(),
-            //    DepNo = DepNo,
-            //    DepName = DepName,
-            //    VendorName = VendorName,
-            //    EditID = Guid.NewGuid(),
-            //    DeleteID = Guid.NewGuid()
+            if (!string.IsNullOrWhiteSpace(DepName) && !string.IsNullOrWhiteSpace(VendorName))
+            {
+                try
+                {
+                    string[] VendorList = null;
 
-            //};
+                    var DepNo = _db.MXIC_UserManagements.Where(x => x.DepName == DepName).Select(x => x.DepNo).FirstOrDefault();
 
-            //_db.MXIC_DepartmentManagements.Add(AddDepToVenItem);
-            //_db.SaveChanges();
+                    if (!string.IsNullOrWhiteSpace(VendorName))
+                    {
+                        VendorName = VendorName.Substring(0, VendorName.Length - 1);
+                        VendorList = VendorName.Split(',');
+                    }
+
+                    for (int x = 0; x < VendorList.Length; x++)
+                    {
+                        var AddVendor = new MXIC_DepartmentManagement();
+                        AddVendor.DepName = DepName;
+                        AddVendor.DepNo = DepNo;
+                        AddVendor.VendorName = VendorList[x];
+                        AddVendor.DepID = Guid.NewGuid();
+                        AddVendor.DeleteID= Guid.NewGuid();
+                        AddVendor.EditID= Guid.NewGuid();
+                        _db.MXIC_DepartmentManagements.Add(AddVendor);
+                    }
+
+                    _db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageStr = ex.ToString();
+                }
+            }
+            else { MessageStr = "欄位未填"; }
 
             return (MessageStr);
         }
 
-        public string EditDepToVen(string EditID, string VendorName)
-        {
-            string MessageStr = "修改成功";
+        //public string EditDepToVen(string EditID, string VendorName)
+        //{
+        //    string MessageStr = "修改成功";
 
-            //var EditDepToVenListItem = _db.MXIC_DepartmentManagements.Where(x => x.EditID.ToString() == EditID).FirstOrDefault();
+        //    //var EditDepToVenListItem = _db.MXIC_DepartmentManagements.Where(x => x.EditID.ToString() == EditID).FirstOrDefault();
 
-            //try
-            //{
-            //    EditDepToVenListItem.VendorName = VendorName;
-            //    _db.SaveChanges();
-            //}
-            //catch (Exception e)
-            //{
-            //    MessageStr = e.ToString();
-            //}
+        //    //try
+        //    //{
+        //    //    EditDepToVenListItem.VendorName = VendorName;
+        //    //    _db.SaveChanges();
+        //    //}
+        //    //catch (Exception e)
+        //    //{
+        //    //    MessageStr = e.ToString();
+        //    //}
 
-            return (MessageStr);
-        }
+        //    return (MessageStr);
+        //}
 
         public string DeleteDepToVen(string DeleteID)
         {
-            string MessageStr = "刪除失敗";
+            string MessageStr = "刪除失敗!";
 
             try
             {
@@ -91,14 +112,22 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 _db.MXIC_DepartmentManagements.Remove(DeleteDepToVenList);
                 _db.SaveChanges();
 
-                MessageStr = "刪除成功";
+                MessageStr = "刪除成功!";
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageStr = e.ToString();
+                MessageStr = ex.ToString();
             }
 
             return (MessageStr);
+        }
+        public string Venderdata()
+        {
+            var _Venderdata = _db.MXIC_VendorManagements.Select(x => new { x.VendorName }).Distinct().OrderBy(x => x.VendorName).ToList();
+
+            string responseStr = JsonConvert.SerializeObject(_Venderdata, Formatting.Indented);
+
+            return (responseStr);
         }
     }
 }

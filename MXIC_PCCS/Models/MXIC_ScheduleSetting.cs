@@ -28,5 +28,8 @@ namespace MXIC_PCCS.Models
         [Required]
         [StringLength(50)]
         public string WorkShift { get; set; }
+
+        [StringLength(50)]
+        public string WorkGroup { get; set; }
     }
 }

@@ -9,7 +9,6 @@ namespace MXIC_PCCS.DataUnity.Interface
 {
     interface ILisenceManagement
     {
-  
         string SearchLisence(string PoNo, string EmpName, string LicName);
 
         string AddLisence(string PoNo, string EmpName, string LicName, DateTime EndDate);
@@ -22,5 +21,6 @@ namespace MXIC_PCCS.DataUnity.Interface
 
         string ImportLisence(string PoNo, List<MXIC_LisenceProperty> Property_ListModel);
 
+        string ClearTable(string PoNo);
     }
 }

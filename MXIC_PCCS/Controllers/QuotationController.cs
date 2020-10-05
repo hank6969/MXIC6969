@@ -7,18 +7,23 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MXIC_PCCS.Controllers
 {
+    [Authorize]
     public class QuotationController : Controller
     {
         IQuotation _IQuotation = new Quotation();
+        StringBuilder SB = new StringBuilder();
 
         // GET: Quotation
         public ActionResult Index()
         {
+            var id = HttpContext.User.Identity.Name;
+            ViewBag.ID = id;
             return View();
         }
 
@@ -27,9 +32,6 @@ namespace MXIC_PCCS.Controllers
         {
             try
             {
-                //先清空資料庫
-                _IQuotation.ClearTable();
-
                 //再匯入EXCEL
                 //EPPLUS 授權 (不可註解刪除)
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial; 
@@ -50,22 +52,35 @@ namespace MXIC_PCCS.Controllers
 
                         //廠商和PO 直接讀取對應位置的內容
                         //抓不到就先直接return 
-                        if (sheet.Cells[5, 7].Text.Contains("供應商Vendor"))
+                        if (sheet.Cells[5, 7].Text.Contains("供應商Vendor") && !string.IsNullOrWhiteSpace(sheet.Cells[5, 9].Text))
                         {
                             VendorName = sheet.Cells[5, 9].Text;
                         }
                         else
                         {
-                            return RedirectToAction("Index");
+                            SB.Clear();
+                            SB.AppendFormat("<script>alert('找不到供應商名稱!');window.location.href='../Quotation/Index';</script>");
+                            return Content(SB.ToString());
                         }
                         
-                        if (sheet.Cells[7, 7].Text.Contains("PO NO."))
+                        if (sheet.Cells[7, 7].Text.Contains("PO NO.") && !string.IsNullOrWhiteSpace(sheet.Cells[7, 9].Text))
                         {
                             PoNo = sheet.Cells[7, 9].Text;
                         }
                         else
                         {
-                            return RedirectToAction("Index");
+                            SB.Clear();
+                            SB.AppendFormat("<script>alert('找不到PO Number!');window.location.href='../Quotation/Index';</script>");
+                            return Content(SB.ToString());
+                        }
+
+                        //判斷資料是否重複並清空資料庫
+                        var MessageStr = _IQuotation.ClearTable(PoNo);
+                        if (!MessageStr.Contains("判讀結束!"))
+                        {
+                            SB.Clear();
+                            SB.AppendFormat("<script>alert('判讀資料發生錯誤!');window.location.href='../Quotation/Index';</script>");
+                            return Content(SB.ToString());
                         }
 
                         //剩下的資料範圍
@@ -110,13 +125,15 @@ namespace MXIC_PCCS.Controllers
                             }
                             Property_ListModel.Add(Property_Model);
                         }
-                        string MessageStr = _IQuotation.ImportQuotation(VendorName, PoNo, Property_ListModel);
+                        _IQuotation.ImportQuotation(VendorName, PoNo, Property_ListModel);
                     }
                 }
             }
             catch (Exception ex)
             {
-                //網頁跳出錯誤訊息 或是 寫ErrorLog
+                SB.Clear();
+                SB.AppendFormat(ex.ToString());
+                return Content(SB.ToString());
             }
             return RedirectToAction("Index");
         }
@@ -140,7 +157,9 @@ namespace MXIC_PCCS.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Index");
+                SB.Clear();
+                SB.AppendFormat("<script>alert('下載失敗!');window.location.href='../Quotation/Index';</script>");
+                return Content(SB.ToString());
             }
         }
     }

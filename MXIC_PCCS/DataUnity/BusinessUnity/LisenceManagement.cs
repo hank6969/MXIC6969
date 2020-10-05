@@ -18,11 +18,10 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
         {
             ((IDisposable)_db).Dispose();
         }
+
         public string SearchLisence(string PoNo, string EmpName, string LicName)
         {
-
             var _LisenceSearchCondition = _db.MXIC_LisenceManagements.Select(x => new { x.PoNo, x.EmpName, x.LicName, x.EndDate,x.EditID,x.DeleteID });
-
 
             //如果PoNo不為空
             if (!string.IsNullOrWhiteSpace(PoNo))
@@ -40,14 +39,14 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             if (!string.IsNullOrWhiteSpace(LicName))
             {
                 _LisenceSearchCondition = _LisenceSearchCondition.Where(x => x.LicName.Contains(LicName));
-
             }
 
             //_LisenceList轉換成json字串
             string responseStr = JsonConvert.SerializeObject(_LisenceSearchCondition, Formatting.Indented);
 
-            return (responseStr);
+            responseStr = responseStr.Replace("T00:00:00", "");
 
+            return (responseStr);
         }
 
         public string AddLisence(string PoNo, string EmpName, string LicName, DateTime EndDate)
@@ -65,7 +64,6 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 UpDateTime = DateTime.Now,
                 EditID = Guid.NewGuid(),
                 DeleteID = Guid.NewGuid()
-
             };
 
             _db.MXIC_LisenceManagements.Add(AddLisenceItem);
@@ -91,10 +89,11 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
                 _db.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageStr = e.ToString();
+                MessageStr = ex.ToString();
             }
+
             return (MessageStr);
         }
 
@@ -103,6 +102,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             var LisenceDetail = _db.MXIC_LisenceManagements.Where(x => x.EditID.ToString() == EditID).Select(x => new { x.PoNo, x.EmpName, x.LicName, x.EndDate });
 
             string responseStr = JsonConvert.SerializeObject(LisenceDetail, Formatting.Indented);
+
+            responseStr= responseStr.Replace("T00:00:00", "");
 
             return (responseStr);
         }
@@ -119,9 +120,9 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
                 MessageStr = "刪除成功";
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageStr = e.ToString();
+                MessageStr = ex.ToString();
             }
             return (MessageStr);
         }
@@ -145,11 +146,32 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     EditID = Guid.NewGuid(),
                     DeleteID = Guid.NewGuid(),
                 };
-
                 _db.MXIC_LisenceManagements.Add(AddLisenceItem);
             }
             _db.SaveChanges();
 
+            return (MessageStr);
+        }
+
+        public string ClearTable(string PoNo)
+        {
+            string MessageStr = "判讀結束!";
+            try
+            {
+                var Rows = _db.MXIC_LisenceManagements.Where(x => x.PoNo == PoNo);
+                if (Rows.Count() > 0)
+                {
+                    foreach (var DataRow in Rows)
+                    {
+                        _db.MXIC_LisenceManagements.Remove(DataRow);
+                    }
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageStr = ex.ToString();
+            }
             return (MessageStr);
         }
     }

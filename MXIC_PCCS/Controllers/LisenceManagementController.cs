@@ -6,17 +6,23 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MXIC_PCCS.Controllers
 {
+    [Authorize]
     public class LisenceManagementController : Controller
     {
         ILisenceManagement _ILisenceManagement = new LisenceManagement();
+        StringBuilder SB = new StringBuilder();
+
         // GET: LisenceManagement
         public ActionResult Index()
         {
+            var id = HttpContext.User.Identity.Name;
+            ViewBag.ID = id;
             return View();
         }
 
@@ -78,13 +84,24 @@ namespace MXIC_PCCS.Controllers
 
                         //PO直接讀取對應位置的內容
                         //抓不到就先直接return 
-                        if (sheet.Cells[1, 1].Text.Contains("PO No."))
+                        if (sheet.Cells[1, 1].Text.Contains("PO No.") && !string.IsNullOrWhiteSpace(sheet.Cells[1, 2].Text))
                         {
                             PoNo = sheet.Cells[1, 2].Text;
                         }
                         else
                         {
-                            return RedirectToAction("Index");
+                            SB.Clear();
+                            SB.AppendFormat("<script>alert('找不到PO Number!');window.location.href='../LisenceManagement/Index';</script>");
+                            return Content(SB.ToString());
+                        }
+
+                        //判讀是否有資料重複 
+                        var MessageStr = _ILisenceManagement.ClearTable(PoNo);
+                        if (!MessageStr.Contains("判讀結束!"))
+                        {
+                            SB.Clear();
+                            SB.AppendFormat("<script>alert('判讀資料發生錯誤!');window.location.href='../LisenceManagement/Index';</script>");
+                            return Content(SB.ToString());
                         }
 
                         //剩下的資料範圍
@@ -126,14 +143,15 @@ namespace MXIC_PCCS.Controllers
                             }
                             Property_ListModel.Add(Property_Model);
                         }
-                       string MessageStr = _ILisenceManagement.ImportLisence(PoNo, Property_ListModel);
+                       _ILisenceManagement.ImportLisence(PoNo, Property_ListModel);
                     }
                 }
             }
             catch (Exception ex)
             {
-                //網頁跳出錯誤訊息 或是 寫ErrorLog
-
+                SB.Clear();
+                SB.AppendFormat("<script>alert('匯入失敗!');window.location.href='../LisenceManagement/Index';</script>");
+                return Content(SB.ToString());
             }
             return RedirectToAction("Index");
         }
@@ -149,7 +167,9 @@ namespace MXIC_PCCS.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Index");
+                SB.Clear();
+                SB.AppendFormat("<script>alert('下載失敗!');window.location.href='../LisenceManagement/Index';</script>");
+                return Content(SB.ToString());
             }
         }
     }

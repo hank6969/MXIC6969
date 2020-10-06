@@ -51,26 +51,47 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string AddLisence(string PoNo, string EmpName, string LicName, DateTime EndDate)
         {
-            string MessageStr = "新增成功";
+            string MessageStr ;
 
-            var AddLisenceItem = new MXIC_LisenceManagement()
+            if (!string.IsNullOrWhiteSpace(PoNo) && !string.IsNullOrWhiteSpace(EmpName) && !string.IsNullOrWhiteSpace(LicName))
             {
-                LicID = Guid.NewGuid(),
-                PoNo = PoNo,
-                EmpName = EmpName,
-                LicName = LicName,
-                EndDate = EndDate,
-                LicPossess = true,
-                UpDateTime = DateTime.Now,
-                EditID = Guid.NewGuid(),
-                DeleteID = Guid.NewGuid()
-            };
+                var check = _db.MXIC_LisenceManagements.Where(x => x.PoNo == PoNo && x.EmpName == EmpName && x.LicName == LicName);
 
-            _db.MXIC_LisenceManagements.Add(AddLisenceItem);
+                if (check.Any())
+                {
+                    MessageStr = "資料重複";
+                }
+                else
+                {
+                    var AddLisenceItem = new MXIC_LisenceManagement()
+                    {
+                        LicID = Guid.NewGuid(),
+                        PoNo = PoNo,
+                        EmpName = EmpName,
+                        LicName = LicName,
+                        EndDate = EndDate,
+                        LicPossess = true,
+                        UpDateTime = DateTime.Now,
+                        EditID = Guid.NewGuid(),
+                        DeleteID = Guid.NewGuid()
+                    };
 
-            _db.SaveChanges();
+                    _db.MXIC_LisenceManagements.Add(AddLisenceItem);
 
+                    _db.SaveChanges();
+
+                    MessageStr = "新增成功";
+                }
+            }
+            else
+            {
+
+                MessageStr = "欄位未填";
+                
+
+            }
             return (MessageStr);
+
         }
 
         public string EditLisence(string EditID, string PoNo, string EmpName, string LicName, DateTime EndDate)

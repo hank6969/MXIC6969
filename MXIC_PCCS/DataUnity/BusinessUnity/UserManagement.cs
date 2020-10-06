@@ -75,7 +75,17 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
         public string AddUser(string DepNo, string DepName, string UserID, string UserName, string Admin, string PassWord)
         {
             string Str = "新增成功";
-            
+            if(!string.IsNullOrWhiteSpace(DepNo) && !string.IsNullOrWhiteSpace(DepName) && !string.IsNullOrWhiteSpace(UserID) && !string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(PassWord))
+            {
+
+                var OriginalUser = _db.MXIC_UserManagements.Where(x => x.UserID == UserID);
+
+                if (OriginalUser.Any())
+                {
+                    Str = "此人員編號已存在";
+                }
+                else
+                { 
             //SHA1加密
             string Hash = GetSHA1.GetSHA1Hash(PassWord);
 
@@ -95,7 +105,12 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
             _db.MXIC_UserManagements.Add(AddUser);
             _db.SaveChanges();
-
+            }
+            }
+            else
+            {
+                Str = "欄位未填";
+            }
             return (Str);
         }
 

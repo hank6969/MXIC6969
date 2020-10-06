@@ -439,7 +439,7 @@ $(document).ready(function () {
                 for (var i = 0; i < rowDatas.length; i++) {
                     var rowData = rowDatas[i];
                     var electricityCondition = rowData.AttendType;
-                    if (electricityCondition == '異常')
+                    if (electricityCondition == '異常'||electricityCondition == '曠職')
                         $("#" + ids[i]).find("td").css({ "background-color": "#ff4040", "color": "white" });
 
                     var electricityCondition_LisenceDiff = new Date(rowData.EndDate);
@@ -693,6 +693,8 @@ function cancel() {
 }
 //確認表單按鈕 請自行定義傳遞陣列方式
 function check() {
+
+
     $('.insertBox').fadeOut(1000);
     $('.cover').removeClass('blur-in').addClass('blur-out');
     //取得所有新增"文字"輸入框參數
@@ -734,6 +736,7 @@ function check() {
     }
     console.log(Insertobj)
     InsertDB()
+  
     GridData()
     //清空POP視窗 輸入框數值
     $('.popUpContant > input').val('');
@@ -741,15 +744,18 @@ function check() {
 
 
 function InsertDB() {
+   
     $.ajax({
         async: false,
         cache: false,
         type: "post",
-        datatype: "json",
+        datatype: "text",
         url: inserturl,
         data: Insertobj,
         traditional: true,
         success: function (data) {
+            console.log(data)
+            alert(data);
 
         }
     })

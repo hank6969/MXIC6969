@@ -21,7 +21,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
         }
         public string CheckinList(string VendorName, string EmpID, string EmpName, DateTime? StartTime, DateTime? EndTime, string AttendTypeSelect)
         {
-            var _List = _db.MXIC_View_Swipes.Select(x => new { x.PoNo, x.VendorName, x.EmpID, x.EmpName, x.CheckType, x.SwipeTime, x.EditID, x.AttendType }).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
+            var _List = _db.MXIC_View_Swipes.Select(x => new { x.PoNo, x.VendorName, x.EmpID, x.EmpName, x.CheckType, x.SwipeTime, x.EditID, x.AttendType,x.WorkShift }).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
 
             if (!string.IsNullOrWhiteSpace(VendorName))
             {
@@ -178,6 +178,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             Swipe.Hour = 0;
                             Swipe.AttendType = AttendType;
                             Swipe.valid = "true";
+                            Swipe.WORK_DATETIME = item.WORK_DATETIME;
                         }
                         else
                         {
@@ -189,6 +190,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             Swipe.Hour = 0;
                             Swipe.AttendType = AttendType;
                             Swipe.valid = "true";
+                            Swipe.WORK_DATETIME = item.WORK_DATETIME;
                         }
                         _db.MXIC_SwipeInfos.Add(Swipe);
                         _db.SaveChanges();
@@ -203,7 +205,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string transform2()
         {
-            DateTime Date = DateTime.Now.AddMonths(-1);
+            DateTime Date = DateTime.Now.AddMonths(-2);
           //DateTime Date = Convert.ToDateTime("2020-08-01");
 
             DateTime TheMonthStart = new DateTime(Date.Year, Date.Month, 1);//本月初1號
@@ -244,9 +246,9 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
                         EXIT = item.Date;
 
-                        InAttendType = "異常";
+                        InAttendType = "曠職";
 
-                        OutAttendType = "異常";
+                        OutAttendType = "曠職";
                     }
                     //有打卡紀錄
                     else
@@ -331,6 +333,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             Swipe.Hour = 0;
                             Swipe.AttendType = InAttendType;
                             Swipe.valid = "true";
+                            Swipe.WORK_DATETIME = item.Date;
                         }
                         else
                         {
@@ -342,6 +345,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             Swipe.Hour = 0;
                             Swipe.AttendType = OutAttendType;
                             Swipe.valid = "true";
+                            Swipe.WORK_DATETIME = item.Date;
                         }
                         _db.MXIC_SwipeInfos.Add(Swipe);
                     }

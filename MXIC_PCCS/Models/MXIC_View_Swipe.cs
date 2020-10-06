@@ -52,5 +52,8 @@
             [Column(Order = 8)]
 
             public string CheckType { get; set; }
+
+        [Column(Order = 9)]
+        public string WorkShift { get; set; }
     }
 }

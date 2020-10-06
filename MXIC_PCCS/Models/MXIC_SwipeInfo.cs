@@ -22,7 +22,7 @@ namespace MXIC_PCCS.Models
         public string CheckType { get; set; }
 
         public DateTime? SwipeTime { get; set; }
-
+      
         public Guid EditID { get; set; }
 
         [Required]
@@ -30,5 +30,7 @@ namespace MXIC_PCCS.Models
         public string AttendType { get; set; }
 
         public double Hour { get; set; }
+
+        public DateTime? WORK_DATETIME { get; set; }
     }
 }

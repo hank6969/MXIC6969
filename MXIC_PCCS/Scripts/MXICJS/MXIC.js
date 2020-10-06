@@ -439,7 +439,7 @@ $(document).ready(function () {
                 for (var i = 0; i < rowDatas.length; i++) {
                     var rowData = rowDatas[i];
                     var electricityCondition = rowData.AttendType;
-                    if (electricityCondition == '異常')
+                    if (electricityCondition == '異常'||electricityCondition == '曠職')
                         $("#" + ids[i]).find("td").css({ "background-color": "#ff4040", "color": "white" });
 
                     var electricityCondition_LisenceDiff = new Date(rowData.EndDate);

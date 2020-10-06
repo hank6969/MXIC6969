@@ -354,6 +354,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                     sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(61, 103, 255));//設定背景顏色
                                     break;
                                 default:
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 90, 90));//設定背景顏色
                                     break;
                             }
                             sheet.Cells[RowAttendant + 1, ColAttendant].Value = _AttendType;

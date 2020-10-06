@@ -7,6 +7,7 @@ using MXIC_PCCS.Models;
 using Newtonsoft.Json;
 using OfficeOpenXml;
 using System.Web.Mvc;
+using System.Text;
 
 namespace MXIC_PCCS.DataUnity.BusinessUnity
 {
@@ -74,6 +75,45 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             _db.SaveChanges();
 
             return (MessageStr);
+        }
+
+        public string ClearTableCheck(HttpPostedFileBase file)
+        {
+            //StringBuilder SB = new StringBuilder();
+            string Result = "0";
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using (var excelPkg = new ExcelPackage(file.InputStream))
+            {
+                string PoNo;
+                ExcelWorksheet sheet = excelPkg.Workbook.Worksheets["PO報價"];
+                if (sheet.Cells[7, 7].Text.Contains("PO NO.") && !string.IsNullOrWhiteSpace(sheet.Cells[7, 9].Text))
+                {
+                    PoNo = sheet.Cells[7, 9].Text;
+
+                    var Rows = _db.MXIC_Quotations.Where(x => x.PoNo == PoNo);
+
+                    if (Rows.Count() > 0)
+                    {
+                        //Po已存在
+                        Result ="1";
+                    }
+                  
+                }
+                else
+                {
+                    Result = "0";
+
+                }
+
+                
+
+                return (Result);
+
+
+            }
+
+            
         }
 
         public string ClearTable(string PoNo)

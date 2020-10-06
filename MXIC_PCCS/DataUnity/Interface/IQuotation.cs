@@ -27,10 +27,16 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// <returns></returns>
         string ImportQuotation(string VendorName, string PoNo, List<MXIC_QuotationProperty> Property_ListModel);
        /// <summary>
-       /// 匯入之前判斷資料是否重複
+       /// 清空Table
        /// </summary>
        /// <param name="PoNo"></param>
        /// <returns></returns>
         string ClearTable(string PoNo);
+        /// <summary>
+        /// 匯入之前判斷資料是否重複
+        /// </summary>
+        /// <param name="PoNo"></param>
+        /// <returns></returns>
+        string ClearTableCheck(HttpPostedFileBase file);
     }
 }

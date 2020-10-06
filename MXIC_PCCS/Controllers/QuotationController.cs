@@ -1,6 +1,7 @@
 ﻿using MXIC_PCCS.DataUnity.BusinessUnity;
 using MXIC_PCCS.DataUnity.Interface;
 using MXIC_PCCS.Models;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -74,7 +75,7 @@ namespace MXIC_PCCS.Controllers
                             return Content(SB.ToString());
                         }
 
-                        //判斷資料是否重複並清空資料庫
+
                         var MessageStr = _IQuotation.ClearTable(PoNo);
                         if (!MessageStr.Contains("判讀結束!"))
                         {
@@ -138,6 +139,13 @@ namespace MXIC_PCCS.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public string CheckQuotationPo(HttpPostedFileBase file)
+        {
+            string Result = _IQuotation.ClearTableCheck(file);
+            //1表示Po已存在
+            return Result;
+        }
         public string SearchQuotation(string VendorName, string PoNo, string PoClassID)
         {
             //呼叫IQuotation介面中的QuotationList方法

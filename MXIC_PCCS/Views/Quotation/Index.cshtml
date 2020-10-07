@@ -50,10 +50,11 @@
             </div>
             <div class="editBox cover">
                 <a href="#" class="seachBTN btn-1" onclick="seachBtn()">查詢</a>
-                <a href="#" class="seachBTN btn-1 Manager" onclick="DownloadExample()" style="width: 200px;">匯入範本</a>
-                <a href='javascript:document.form1.submit();' class="seachBTN btn-1 Manager">提交</a>
+                <a href="#" class="seachBTN btn-1 Manager" onclick="DownloadExample()" style="width: 150px;">匯入範本</a>
+                @*<a href='javascript:document.form1.submit();' class="seachBTN btn-1 Manager">提交</a>*@
+                <a href='#' id="upload" class="seachBTN btn-1 Manager">提交</a>
                 <form name='form1' action="@Url.Action("UploadQuotation")" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" id="file" class="seachBTN btn-1 Manager" style="width: 250px;height: 50px;"/>
+                    <input type="file" name="file" id="file" class="Manager" />
                 </form>
             </div>
         </div>
@@ -83,4 +84,30 @@
     {
         window.location = '/Quotation/DownloadQuotationExample';
     }
+
+
+    $('#upload').on('click', function () {
+        var file_data = $('#file').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('file', file_data);
+
+        $.ajax({
+            url: '/Quotation/CheckQuotationPo',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function (Checkdata) {
+                if (Checkdata == "1") {
+                    if (confirm('此Po已存在，是否覆蓋舊有資料?')) {
+                        document.form1.submit();
+                    }
+                }
+                else {
+                    document.form1.submit();
+                }
+            }
+        })
+    })
 </script>

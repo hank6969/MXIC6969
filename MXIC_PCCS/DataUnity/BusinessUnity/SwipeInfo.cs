@@ -205,7 +205,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string transform2()
         {
-            DateTime Date = DateTime.Now.AddMonths(-2);
+            DateTime Date = DateTime.Now.AddMonths(-1);
           //DateTime Date = Convert.ToDateTime("2020-08-01");
 
             DateTime TheMonthStart = new DateTime(Date.Year, Date.Month, 1);//本月初1號

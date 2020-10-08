@@ -109,3 +109,36 @@ function marqueeMassege(data, num) {
     $('.marqueeContant').empty();
     $('.marqueeContant').append('<div style="display:flex; height:20px; margin:0 20px 0 0"><p style="color:red; margin-right:10px">員工姓名：' + data[num].EmpName + '<p style="color:red; margin-right:10px">證照名稱：' + data[num].LicName + '</p><p style="color:red; margin-right:10px">到期日：' + data[num].EndDate + '</p></div>')
 }
+
+function Setting() {
+    $('.popSettingBox').fadeIn(700);
+    $('.cover').removeClass('blur-out').addClass('blur-in')
+    $('#pw').val('');
+}
+
+
+function Settingcheck() {
+    $('.popSettingBox').fadeOut(1000);
+    $('.cover').removeClass('blur-in').addClass('blur-out');
+    Password = $('#pw').val();
+
+    $.ajax({
+        url: '/Webpage/EditPassword',
+        type: "post",
+        dataType: "text",
+        async: false, 
+        data: { UserID: UserID ,Password:Password},
+        success: function (result) {
+            alert(result)
+           
+        }
+    })
+
+}
+
+function cancel() {
+    $('.popUp').fadeOut(1000);
+    $('.cover').removeClass('blur-in').addClass('blur-out');
+    ResetInput();
+
+}

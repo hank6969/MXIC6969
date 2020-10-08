@@ -399,7 +399,12 @@ function Settingcheck() {
 
 }
 
+function cancel() {
+    $('.popUp').fadeOut(1000);
+    $('.cover').removeClass('blur-in').addClass('blur-out');
+    ResetInput();
 
+}
 
 
 

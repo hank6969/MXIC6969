@@ -309,10 +309,10 @@ $(document).ready(function () {
     //-----------------------------------------------------以下新版動態生成
     for (i = 0; i < GenerateResult.length; i++) {
         if (GenerateTypeResult[i] == "date") {
-            $('.inputBox').append(GenerateResult[i] + '<input type="' + GenerateTypeResult[i] + '" name="seachTextInput" placeholder="' + GenerateResult[i] + '" required="required" />')
+            $('.inputBox').append(GenerateResult[i] + '<input type="' + GenerateTypeResult[i] + '" autocomplete="off" name="seachTextInput" placeholder="' + GenerateResult[i] + '" required="required" />')
         } else {
-            $('.inputBox').append('<input type="' + GenerateTypeResult[i] + '" name="seachTextInput" placeholder="' + GenerateResult[i] + '" required="required" />')
-            $('input[type=select]').replaceWith(GenerateResult[i] + '<input  onfocus=this.value="" type="text" name="seachTextInput" id="" class="editInputOption" list="seachInputOption' + [i] + '"><datalist id="seachInputOption' + [i] + '"></datalist>')
+            $('.inputBox').append('<input type="' + GenerateTypeResult[i] + '" autocomplete="off" name="seachTextInput" placeholder="' + GenerateResult[i] + '" required="required" />')
+            $('input[type=select]').replaceWith(GenerateResult[i] + '<input  onfocus=this.value="" type="text" autocomplete="off" name="seachTextInput" id="" class="editInputOption" list="seachInputOption' + [i] + '"><datalist id="seachInputOption' + [i] + '"></datalist>')
             
         }
     };
@@ -334,8 +334,8 @@ $(document).ready(function () {
         $('.' + location).html('');
         for (i = 0; i < result.length; i++) {
 
-            $('.' + location).append('<div class="PopSeachBox" stlye="display:flex;"><label>' + result[i] + '</label><input type="' + resultType[i] + '" name="' + inputname + '" placeholder="' + result[i] + '" required="required" /></div>')
-            $('input[type=select]').replaceWith('</label><input type="text" onfocus=this.value=""  name="' + inputname + '" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
+            $('.' + location).append('<div class="PopSeachBox" stlye="display:flex;"><label>' + result[i] + '</label><input type="' + resultType[i] + '" autocomplete="off" name="' + inputname + '" placeholder="' + result[i] + '" required="required" /></div>')
+            $('input[type=select]').replaceWith('</label><input  type="text" autocomplete="off" onfocus=this.value=""  name="' + inputname + '" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
            
         };
     }
@@ -880,13 +880,13 @@ function ResetInput() {
     $('.editPopUpContant').empty();
 
     for (i = 0; i < editPopGenerateResult.length; i++) {
-        $('.editPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + editPopGenerateResult[i] + '</label><input type="' + editPopGenerateTypeResult[i] + '" name="editTextInput" placeholder="' + editPopGenerateResult[i] + '" required="required" /></div>')
-        $('input[type=Select]').replaceWith('<input type="text" onfocus=this.value="" name="editTextInput" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
+        $('.editPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + editPopGenerateResult[i] + '</label><input autocomplete="off" type="' + editPopGenerateTypeResult[i] + '" name="editTextInput" placeholder="' + editPopGenerateResult[i] + '" required="required" /></div>')
+        $('input[type=Select]').replaceWith('<input type="text" autocomplete="off" onfocus=this.value="" name="editTextInput" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
     }
 
     for (i = 0; i < PopGenerateResult.length; i++) {
-        $('.insertPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + PopGenerateResult[i] + '</label><input type="' + PopGenerateTypeResult[i] + '" name="insertTextInput" placeholder="' + PopGenerateResult[i] + '" required="required" /></div>')
-        $('input[type=Select]').replaceWith('<input type="text" onfocus=this.value="" name="insertTextInput" id="editPopInput' + i + '" class="insertInputOption" list="insertInputOption' + [i] + '"><datalist id="insertInputOption' + [i] + '"></datalist>')
+        $('.insertPopUpContant').append('<div class="PopSeachBox" stlye="display:flex;"><label>' + PopGenerateResult[i] + '</label><input autocomplete="off" type="' + PopGenerateTypeResult[i] + '" name="insertTextInput" placeholder="' + PopGenerateResult[i] + '" required="required" /></div>')
+        $('input[type=Select]').replaceWith('<input type="text" autocomplete="off" onfocus=this.value="" name="insertTextInput" id="editPopInput' + i + '" class="insertInputOption" list="insertInputOption' + [i] + '"><datalist id="insertInputOption' + [i] + '"></datalist>')
     }
     // for (i = 0; i < editPopGenerateResult.length; i++) {
     //     if (editPopGenerateTypeResult[i] == "select") {
@@ -897,4 +897,28 @@ function ResetInput() {
   
 }
 
+function Setting() {
+    $('.popSettingBox').fadeIn(700);
+    $('.cover').removeClass('blur-out').addClass('blur-in')
+    $('#pw').val('');
+}
 
+
+function Settingcheck() {
+    $('.popSettingBox').fadeOut(1000);
+    $('.cover').removeClass('blur-in').addClass('blur-out');
+    Password = $('#pw').val();
+
+    $.ajax({
+        url: '/Webpage/EditPassword',
+        type: "post",
+        dataType: "text",
+        async: false, 
+        data: { UserID: UserID ,Password:Password},
+        success: function (result) {
+            alert(result)
+           
+        }
+    })
+
+}

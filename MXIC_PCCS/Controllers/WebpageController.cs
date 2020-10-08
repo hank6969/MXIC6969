@@ -157,5 +157,35 @@ namespace MXIC_PCCS.Controllers
 
             return (Admin);
         }
+
+        public ActionResult _PartialSetting()
+        {
+            return View();
+        }
+        [HttpPost]
+        public string EditPassword(string UserID ,string Password)
+        {
+            string Str = "欄位未填";
+            if (!string.IsNullOrWhiteSpace(Password))
+            {
+                try { 
+                MXIC_UserManagement EditPassword = _db.MXIC_UserManagements.Where(x => x.UserListID.ToString() == UserID).FirstOrDefault();
+                string hash = GetSHA1.GetSHA1Hash(Password);
+                EditPassword.PassWord = hash;
+                _db.SaveChanges();
+                Str = "修改成功";
+                }
+                catch(Exception e)
+                {
+
+                    Str = e.ToString();
+
+                }
+            }
+
+
+            return (Str);
+
+        }
     }
 }

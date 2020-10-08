@@ -36,7 +36,7 @@
                 <i class="fa fa-home" aria-hidden="true"></i><a class="admin" href="\Home\">Home</a>
             </div>
             <div class="ulBtn">
-                <i class="fa fa-cogs" aria-hidden="true"></i><a class="admin" href="">Setting</a>
+                <i class="fa fa-cogs" aria-hidden="true"></i><a class="admin" href="#" onclick="Setting()">Setting</a>
             </div>
             <div class="ulBtn">
                 <i class="fa fa-user-circle" aria-hidden="true"></i><a class="admin" href="\Login\LogOut">LogOut</a>
@@ -54,7 +54,7 @@
                 @*<a href='javascript:document.form1.submit();' class="seachBTN btn-1 Manager">提交</a>*@
                 <a href='#' id="upload" class="seachBTN btn-1 Manager">提交</a>
                 <form name='form1' action="@Url.Action("UploadQuotation")" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" id="file" class="Manager" />
+                    <input type="file" name="file" id="file" class="seachBTN btn-1 Manager" style="width: 250px;height: 50px;"  />
                 </form>
             </div>
         </div>
@@ -73,6 +73,7 @@
         <div class="tableContant hidden cover">
             <table id="grid" cellpadding="0" cellspacing="0" border="0"></table>
         </div>
+        @Html.Partial("~/Views/Webpage/_PartialSetting.cshtml")
     </div>
     <div class="footer cover">
         <p>© 2020 -YU-CHEN System Technology</p>

@@ -373,7 +373,31 @@ function ExportPO() {
 
 
 
+  function Setting() {
+    $('.popSettingBox').fadeIn(700);
+    $('.cover').removeClass('blur-out').addClass('blur-in')
+    $('#pw').val('');
+}
 
+
+function Settingcheck() {
+    $('.popSettingBox').fadeOut(1000);
+    $('.cover').removeClass('blur-in').addClass('blur-out');
+    Password = $('#pw').val();
+
+    $.ajax({
+        url: '/Webpage/EditPassword',
+        type: "post",
+        dataType: "text",
+        async: false, 
+        data: { UserID: UserID ,Password:Password},
+        success: function (result) {
+            alert(result)
+           
+        }
+    })
+
+}
 
 
 

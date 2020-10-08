@@ -16,6 +16,7 @@ $(document).ready(function () {
         type: "post",
         datatype: "json",
         url: "/Webpage/SwipeInfoSelect",
+        data:{TableName:tablename},
     
         success: function (data) {
             dataList = [];

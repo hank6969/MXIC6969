@@ -586,7 +586,7 @@ function GridData() {
 }
 //開啟"新增"彈窗
 function insert() {
-   
+    inputOption('insertInputOption2', dataList, '', '');
     inputOption('editInputOption0', dataList, '', '');
     $("#insert input").val("");
     $('.insertBox').fadeIn(700);
@@ -605,7 +605,7 @@ function delect(e) {
 //開啟"修改"彈窗
 function edit(e) {
     inputOption('editInputOption0', dataList, '', '');
-
+    inputOption('editInputOption2', dataList, '', '');
     $('.popEditBox').fadeIn(700);
     $('.cover').removeClass('blur-out').addClass('blur-in')
 

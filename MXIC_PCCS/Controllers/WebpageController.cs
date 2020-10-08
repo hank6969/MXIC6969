@@ -116,11 +116,13 @@ namespace MXIC_PCCS.Controllers
             return (Str);
         }
 
-        public string SwipeInfoSelect()
+        public string SwipeInfoSelect(string TableName)
         {
             List<SelectViewModel> SelectListx = new List<SelectViewModel>();
 
-            var list = _db.SwipeInfoSelects.Select(x => new { x.name }).Distinct().OrderBy(x => x.name).ToList();
+            var list = _db.SwipeInfoSelects.Where(x=>x.TableName == TableName).Select(x => new { x.name }).Distinct().OrderBy(x => x.name).ToList();
+            //var list = _db.SwipeInfoSelects.Select(x => new { x.name }).Distinct().OrderBy(x => x.name).ToList();
+
 
             foreach (var item in list)
             {

@@ -19,6 +19,9 @@
       
         public string value { get; set; }
 
-     
+        public string TableName { get; set; }
+
+
+
     }
 }

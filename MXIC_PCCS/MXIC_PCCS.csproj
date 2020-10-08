@@ -362,6 +362,7 @@
     <Content Include="Scripts\MXICJS\jquery-ui.min.js" />
     <Content Include="Scripts\MXICJS\jquery.jqgrid.min.js" />
     <Content Include="Scripts\MXICJS\jquery.min.js" />
+    <Content Include="Scripts\MXICJS\LisenceManagement.js" />
     <Content Include="Scripts\MXICJS\MXIC.js" />
     <Content Include="Scripts\MXICJS\MXICExportPO.js" />
     <Content Include="Scripts\MXICJS\MXICIndex.js" />

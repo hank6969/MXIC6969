@@ -300,7 +300,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             case "夜":
                                 DateTime StartTimeNight = Convert.ToDateTime("18:30");
                                 DateTime EndTimeNight = Convert.ToDateTime("07:30");
-                                DateTime LateTimeNight = Convert.ToDateTime("19;00");
+                                DateTime LateTimeNight = Convert.ToDateTime("19:00");
                                 DateTime EarlyTimeNight = Convert.ToDateTime("07:00");
                                 //上班時間比18:30早=加班 上班時間比19:00晚=遲到
                                 if (CHECKINtime < StartTimeNight || CHECKINtime > LateTimeNight)

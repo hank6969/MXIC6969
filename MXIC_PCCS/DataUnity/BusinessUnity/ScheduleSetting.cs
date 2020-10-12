@@ -96,7 +96,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                 }
                                 if (currentColumn >= 3)
                                 {
-                                    if (string.IsNullOrWhiteSpace(sheet.Cells[4, currentColumn].Text))
+                                    if (!string.IsNullOrEmpty(sheet.Cells[4, currentColumn].Text) && !string.IsNullOrWhiteSpace(sheet.Cells[4, currentColumn].Text))
                                     {
                                         WorkShift = sheet.Cells[currentRow, currentColumn].Text;
                                         DayWeek = "星期" + sheet.Cells[5, currentColumn].Text;

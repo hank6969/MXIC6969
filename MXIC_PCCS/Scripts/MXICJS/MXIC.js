@@ -288,21 +288,23 @@ $(document).ready(function () {
         datatype: "json",
         url: '/Webpage/Admin',
         data: { UserID: UserID },
-        // error: function () {
-        //     alert('欄位生成異常，目前為範例資料')
-        // },
         success: function (data) {
             Admin="";
-
             Admin=data;
-            if(Admin=="false"){
-
+            if(Admin=="false")
+            {
                 $('.Manager').attr("style", "display:none;");
+            }else if(Admin=="true")
+            {
+                $('.SuperAdmin').attr("style", "display:none;");
 
-            }
-           
+            }          
         }
     })
+
+    
+
+
     $('.title').html(title);
 
 

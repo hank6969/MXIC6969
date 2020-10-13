@@ -96,20 +96,23 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                 }
                                 if (currentColumn >= 3)
                                 {
-                                    WorkShift = sheet.Cells[currentRow, currentColumn].Text;
-                                    DayWeek = "星期" + sheet.Cells[5, currentColumn].Text;
-                                    workdate = Year +'/'+ Month +'/'+ sheet.Cells[4, currentColumn].Text;
+                                    if (!string.IsNullOrEmpty(sheet.Cells[4, currentColumn].Text) && !string.IsNullOrWhiteSpace(sheet.Cells[4, currentColumn].Text))
+                                    {
+                                        WorkShift = sheet.Cells[currentRow, currentColumn].Text;
+                                        DayWeek = "星期" + sheet.Cells[5, currentColumn].Text;
+                                        workdate = Year + '/' + Month + '/' + sheet.Cells[4, currentColumn].Text;
 
-                                    MXIC_ScheduleProperty model = new MXIC_ScheduleProperty();
-                                    model.PoNo = PoNo;
-                                    model.WorkDate = Convert.ToDateTime(workdate);
-                                    model.DayWeek = DayWeek;
-                                    model.EmpName = EmpName;
-                                    model.WorkShift = WorkShift;
-                                    model.WorkGroup = WorkGroup;
+                                        MXIC_ScheduleProperty model = new MXIC_ScheduleProperty();
+                                        model.PoNo = PoNo;
+                                        model.WorkDate = Convert.ToDateTime(workdate);
+                                        model.DayWeek = DayWeek;
+                                        model.EmpName = EmpName;
+                                        model.WorkShift = WorkShift;
+                                        model.WorkGroup = WorkGroup;
 
-                                    //新增進資料庫
-                                    str = AddSchedul(model);
+                                        //新增進資料庫
+                                        str = AddSchedul(model);
+                                    }
                                 }
                             }
                         }
@@ -325,6 +328,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             }
                             switch (_AttendType)
                             {
+                                case "正常":
+                                    break;
                                 case "異常":
                                     sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
                                     sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 90, 90));//設定背景顏色

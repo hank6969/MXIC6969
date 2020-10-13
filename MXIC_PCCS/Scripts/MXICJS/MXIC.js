@@ -719,7 +719,12 @@ function check() {
         } else {
             value = document.querySelectorAll('.insertPopUpContant input[name="insertTextInput"]')[i].value;
         }
-
+        if (document.querySelectorAll('.insertPopUpContant input[name="insertTextInput"]')[i].type == 'date') {
+            if (document.querySelectorAll('.insertPopUpContant input[name="insertTextInput"]')[i].value == "") {
+                alert('請填入日期。');
+                return;
+            }
+        }
 
         obj = value
         insertInputValue.push(obj);

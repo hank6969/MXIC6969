@@ -721,7 +721,7 @@ function check() {
         }
         if (document.querySelectorAll('.insertPopUpContant input[name="insertTextInput"]')[i].type == 'date') {
             if (document.querySelectorAll('.insertPopUpContant input[name="insertTextInput"]')[i].value == "") {
-                alert('請填入日期。');
+                alert('新增失敗，請輸入所有資料!');
                 return;
             }
         }

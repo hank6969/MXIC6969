@@ -156,7 +156,7 @@ select:focus{
     outline: -webkit-focus-ring-color auto 0;
 }
 input[type="text"]{
-    width: 135px;
+    width: 130px;
     height: 35px;
     border-radius: 5px;
     margin: 0px 10px 5px 0;

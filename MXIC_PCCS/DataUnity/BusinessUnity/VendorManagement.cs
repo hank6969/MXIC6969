@@ -48,6 +48,10 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 _db.SaveChanges();
             }
             }
+            else
+            {
+                Str = "新增失敗，請輸入所有必填資料。";
+            }
             return (Str);
         }
 

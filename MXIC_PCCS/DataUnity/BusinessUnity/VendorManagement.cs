@@ -50,7 +50,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             }
             else
             {
-                Str = "新增失敗，請輸入所有必填資料。";
+                Str = "新增失敗，請輸入所有資料。";
             }
             return (Str);
         }

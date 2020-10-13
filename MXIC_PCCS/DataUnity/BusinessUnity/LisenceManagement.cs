@@ -86,7 +86,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             else
             {
 
-                MessageStr = "欄位未填";
+                MessageStr = "新增失敗，請輸入所有資料。";
                 
 
             }

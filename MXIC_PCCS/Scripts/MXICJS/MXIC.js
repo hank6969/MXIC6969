@@ -727,7 +727,12 @@ function check() {
         } else {
             value = document.querySelectorAll('.insertPopUpContant input[name="insertTextInput"]')[i].value;
         }
-
+        if (document.querySelectorAll('.insertPopUpContant input[name="insertTextInput"]')[i].type == 'date') {
+            if (document.querySelectorAll('.insertPopUpContant input[name="insertTextInput"]')[i].value == "") {
+                alert('新增失敗，請輸入所有資料!');
+                return;
+            }
+        }
 
         obj = value
         insertInputValue.push(obj);

@@ -392,21 +392,28 @@ $(document).ready(function () {
         if (testb == 'CheckBox') {
 
             testdata = { name: testA[i], index: testA[i], width: gridColume, align: "center", formatter: CheckBox }
-        } else if (testb == 'DeleteBtn'&&Admin=="true") {
+
+        } else if (testb == 'DeleteBtn'&&(Admin=="true"||Admin=="SuperAdmin")) {
+
             testdata = { name: testA[i], index: testA[i], width: gridColume * 0.5, align: "center", formatter: DeleteBtn }
 
-        } else if (testb == 'EditBtn'&&Admin=="true") {
+        } else if (testb == 'EditBtn'&&(Admin=="true"||Admin=="SuperAdmin")) {
+
             testdata = { name: testA[i], index: testA[i], width: gridColume * 0.7, align: "center", formatter: EditBtn }
 
         } else if (testb == 'Hidden'||(testb == 'EditBtn'&&Admin=="false")||(testb == 'DeleteBtn'&&Admin=="false")) {
+
             testdata = { name: testA[i], index: testA[i], width: gridColume * 0.5, align: "center", hidden: true }
 
         } else if (testb == 'SwipeEditBtn') {
+
             testdata = { name: testA[i], index: testA[i], width: gridColume * 0.7, align: "center", formatter: EditBtn }
 
         } else if (testb == 'jqWidthQPCN') {
+
             testdata = { name: testA[i], index: testA[i], width: gridColume * 2.2, align: "center" }
         } else {
+
             testdata = { name: testA[i], index: testA[i], width: gridColume, align: "center" }
         }
         // 追加する新しいレコードを作成
@@ -590,6 +597,7 @@ function GridData() {
 function insert() {
     inputOption('insertInputOption2', dataList, '', '');
     inputOption('editInputOption0', dataList, '', '');
+    inputOption('editInputOption2', dataList, '', '');
     $("#insert input").val("");
     $('.insertBox').fadeIn(700);
     $('.cover').removeClass('blur-out').addClass('blur-in')

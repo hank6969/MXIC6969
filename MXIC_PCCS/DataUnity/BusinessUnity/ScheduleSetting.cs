@@ -328,6 +328,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             }
                             switch (_AttendType)
                             {
+                                case "正常":
+                                    break;
                                 case "異常":
                                     sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
                                     sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 90, 90));//設定背景顏色

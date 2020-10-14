@@ -21,7 +21,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
         }
         public string CheckinList(string VendorName, string EmpID, string EmpName, DateTime? StartTime, DateTime? EndTime, string AttendTypeSelect)
         {
-            var _List = _db.MXIC_View_Swipes.Select(x => new { x.PoNo, x.VendorName, x.EmpID, x.EmpName, x.CheckType, x.SwipeTime, x.EditID, x.AttendType,x.WorkShift }).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
+            var _List = _db.MXIC_View_Swipes.Select(x => new { x.PoNo, x.VendorName, x.EmpID, x.CheckType, x.EmpName, x.SwipeTime, x.EditID, x.AttendType,x.WorkShift }).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
 
             if (!string.IsNullOrWhiteSpace(VendorName))
             {

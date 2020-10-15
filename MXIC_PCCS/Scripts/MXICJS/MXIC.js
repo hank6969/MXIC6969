@@ -859,7 +859,7 @@ function delectCheck() {
 
 function EditBtn(cellvalue, options, rowObject) {
     if (title == '刷卡紀錄') {
-        if (rowObject.AttendType !== "正常"&&Admin=="true") {
+        if (rowObject.AttendType !== "正常"&&(Admin=="true"||Admin=="SuperAdmin")) {
             return ' <a href="#" id=' + rowObject.EditID + ' class="seachBTN btn-1" style="width:50px" onclick="edit(this)">' + rowObject.AttendType + '</a>';
 
         } else {

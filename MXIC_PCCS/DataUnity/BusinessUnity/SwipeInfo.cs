@@ -219,19 +219,12 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             var history = _db.MXIC_SwipeInfos.Where(x => x.WORK_DATETIME >= StartDate && x.WORK_DATETIME < EndDate).ToList();
             if (history.Any())
             {
-
                 foreach(var item in history)
                 {
-
-
                     _db.MXIC_SwipeInfos.Remove(item);
                 }
 
-
-
-            
                 _db.SaveChanges();
-                
             }
             
             // 班表

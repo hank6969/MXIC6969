@@ -216,6 +216,23 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             DateTime StartDate = TheMonthStart;
           //DateTime EndDate = Convert.ToDateTime("2020-09-08");
             DateTime EndDate = TheMonthEnd.AddDays(1);
+            var history = _db.MXIC_SwipeInfos.Where(x => x.WORK_DATETIME >= StartDate && x.WORK_DATETIME < EndDate).ToList();
+            if (history.Any())
+            {
+
+                foreach(var item in history)
+                {
+
+
+                    _db.MXIC_SwipeInfos.Remove(item);
+                }
+
+
+
+            
+                _db.SaveChanges();
+                
+            }
             
             // 班表
             var UserSchedule = _db.MXIC_ScheduleSettings.Where(x => x.Date >= StartDate && x.Date < EndDate);
@@ -352,7 +369,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 }
             }
             _db.SaveChanges();
-
+            
             string str = "修改失敗";
 
             return (str);

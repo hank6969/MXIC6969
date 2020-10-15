@@ -40,7 +40,8 @@ namespace MXIC_PCCS.Controllers
 
             return str;
         }
-        [Authorize(Roles = "true")]
+
+        //[Authorize(Roles = "true,SuperAdmin")]
         public string AddDepToVen(string DepName, string VendorName)
         {
             string str = _IDepartmentManagement.AddDepToVen( DepName,  VendorName);

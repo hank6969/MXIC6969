@@ -11,7 +11,8 @@ using System.Web.Mvc;
 
 namespace MXIC_PCCS.Controllers
 {
-    [Authorize(Roles ="true")]
+    [Authorize(Roles = "true,SuperAdmin")]
+    //兩個以上權限使用,分開
     public class ExportPOController : Controller
     {
         IExportPO _ExportPO = new ExportPO();

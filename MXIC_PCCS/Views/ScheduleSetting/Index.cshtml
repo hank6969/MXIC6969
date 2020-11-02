@@ -162,6 +162,24 @@
     }
 
     function transform() {
-        window.location = '/SwipeInfo/transform';
+
+        seachInputValue = []
+        inputLength = document.querySelectorAll('input[name="seachTextInput"]').length;
+        for (i = 0; i < inputLength; i++) {
+
+            value = document.querySelectorAll('input[name="seachTextInput"]')[i].value;
+            obj = value
+            seachInputValue.push(obj);
+        }
+        console.log(seachInputValue)
+        seachobj = '';
+        for (x = 0; x < AjaxSelect.length; x++) {
+
+            seachobj += AjaxSelect[x] + '=' + seachInputValue[x] + '&'
+
+        }
+        console.log(seachobj)
+
+        window.location = '/SwipeInfo/transform?' + seachobj;
     }
 </script>

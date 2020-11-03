@@ -14,7 +14,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
     public class Quotation : IQuotation, IDisposable
     {
         //開啟資料庫連結
-        public MXIC_PCCSContext _db = new MXIC_PCCSContext();
+        public PCCSContext _db = new PCCSContext();
 
         //關閉資料庫
         public void Dispose()
@@ -51,13 +51,13 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             return (responseStr);
         }
 
-        public string ImportQuotation(string VendorName, string PoNo, List<MXIC_QuotationProperty> Property_ListModel)
+        public string ImportQuotation(string VendorName, string PoNo, List<QuotationProperty> Property_ListModel)
         {
             string MessageStr = "匯入成功";
 
             for (int i=0; i< Property_ListModel.Count;i++)
             {
-                var AddQuotationItem = new MXIC_Quotation()
+                var AddQuotationItem = new Models.Quotation()
                 {
                     QuotationID = Guid.NewGuid(),
                     PoNo = PoNo,
@@ -67,7 +67,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     LicPossess = "有",
                     Unit = Property_ListModel[i].Unit,
                     Amount = Property_ListModel[i].Amount,
-                    Sequence = 1+i
+                    Sequence = 1+ i
                 };
 
                 _db.MXIC_Quotations.Add(AddQuotationItem);

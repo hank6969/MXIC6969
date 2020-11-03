@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MXIC_PCCS.Models
 {
-    public class MXIC_ScheduleProperty
+    public class ScheduleProperty
     {
         public string PoNo { get; set; }
 

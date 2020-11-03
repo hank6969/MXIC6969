@@ -11,7 +11,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
     public class LisenceManagement : ILisenceManagement, IDisposable
     {
         //開啟資料庫連結
-        public MXIC_PCCSContext _db = new MXIC_PCCSContext();
+        public PCCSContext _db = new PCCSContext();
 
         //關閉資料庫
         public void Dispose()
@@ -63,7 +63,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 }
                 else
                 {
-                    var AddLisenceItem = new MXIC_LisenceManagement()
+                    var AddLisenceItem = new Models.LisenceManagement()
                     {
                         LicID = Guid.NewGuid(),
                         PoNo = PoNo,
@@ -134,7 +134,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             string MessageStr = "刪除失敗";
             try
             {
-                MXIC_LisenceManagement DeleteLisenceList = _db.MXIC_LisenceManagements.Where(x => x.DeleteID.ToString() == DeleteID).FirstOrDefault();
+                Models.LisenceManagement DeleteLisenceList = _db.MXIC_LisenceManagements.Where(x => x.DeleteID.ToString() == DeleteID).FirstOrDefault();
 
                 _db.MXIC_LisenceManagements.Remove(DeleteLisenceList);
                 _db.SaveChanges();
@@ -148,14 +148,14 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             return (MessageStr);
         }
 
-        public string ImportLisence(string PoNo, List<MXIC_LisenceProperty> Property_ListModel)
+        public string ImportLisence(string PoNo, List<LisenceProperty> Property_ListModel)
         {
             string MessageStr = "匯入成功";
             DateTime ImportTime = DateTime.Now;
 
             for (int i = 0; i < Property_ListModel.Count; i++)
             {
-                var AddLisenceItem = new MXIC_LisenceManagement()
+                var AddLisenceItem = new Models.LisenceManagement()
                 {
                     LicID = Guid.NewGuid(),
                     PoNo = PoNo,

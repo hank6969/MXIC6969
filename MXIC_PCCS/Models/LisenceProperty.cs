@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MXIC_PCCS.Models
 {
-    public class MXIC_LisenceProperty
+    public class LisenceProperty
     {
         public string EmpName { get; set; }
 

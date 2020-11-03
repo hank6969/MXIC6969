@@ -17,7 +17,7 @@ namespace MXIC_PCCS.Controllers
     [Authorize]
     public class QuotationController : Controller
     {
-        IQuotation _IQuotation = new Quotation();
+        IQuotation _IQuotation = new DataUnity.BusinessUnity.Quotation();
         StringBuilder SB = new StringBuilder();
 
         // GET: Quotation
@@ -43,7 +43,7 @@ namespace MXIC_PCCS.Controllers
                     //宣告儲存空間(儲存報價單的內容)
                     string VendorName, PoNo;
 
-                    List<MXIC_QuotationProperty> Property_ListModel = new List<MXIC_QuotationProperty>();
+                    List<QuotationProperty> Property_ListModel = new List<QuotationProperty>();
              
                     //以下是EXCEL讀檔
                     using (var excelPkg = new ExcelPackage(file.InputStream))
@@ -93,7 +93,7 @@ namespace MXIC_PCCS.Controllers
                         //直接讀取剩下的資料
                         for (int currentRow = startRowIndex; currentRow <= endRowIndex; currentRow++)
                         {
-                            MXIC_QuotationProperty Property_Model = new MXIC_QuotationProperty();
+                            QuotationProperty Property_Model = new QuotationProperty();
                             for (int currentColumn = startColumn; currentColumn <= endColumn; currentColumn++)
                             {
                                 if (sheet.Cells[currentRow, currentColumn].Text == "")

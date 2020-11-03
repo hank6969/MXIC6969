@@ -5,8 +5,8 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
-    public partial class MXIC_InputGenerate
+    [Table("InputGenerate")]
+    public partial class InputGenerate
     {   [Key]
     
         public int InputGenerateID { get; set; }

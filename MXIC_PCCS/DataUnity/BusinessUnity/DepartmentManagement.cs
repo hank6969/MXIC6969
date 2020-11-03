@@ -11,7 +11,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
     public class DepartmentManagement : IDepartmentManagement, IDisposable
     {
         //開啟資料庫連結
-        public MXIC_PCCSContext _db = new MXIC_PCCSContext();
+        public PCCSContext _db = new PCCSContext();
 
         //關閉資料庫
         public void Dispose()
@@ -74,7 +74,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                       
 
 
-                        var AddVendor = new MXIC_DepartmentManagement();
+                        var AddVendor = new Models.DepartmentManagement();
                         AddVendor.DepName = DepName;
                         AddVendor.DepNo = DepNo;
                         AddVendor.VendorName = VendorList[x];
@@ -123,7 +123,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
             try
             {
-                MXIC_DepartmentManagement DeleteDepToVenList = _db.MXIC_DepartmentManagements.Where(x => x.DeleteID.ToString() == DeleteID).FirstOrDefault();
+                Models.DepartmentManagement DeleteDepToVenList = _db.MXIC_DepartmentManagements.Where(x => x.DeleteID.ToString() == DeleteID).FirstOrDefault();
 
                 _db.MXIC_DepartmentManagements.Remove(DeleteDepToVenList);
                 _db.SaveChanges();

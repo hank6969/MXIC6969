@@ -10,7 +10,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 {
     public class SwipeInfo : ISwipeInfo, IDisposable
     {
-        public MXIC_PCCSContext _db = new MXIC_PCCSContext();
+        public PCCSContext _db = new PCCSContext();
 
         public MxicTestContext _dbMXIC = new MxicTestContext();
 
@@ -39,8 +39,9 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             }
 
             if (!string.IsNullOrWhiteSpace(StartTime.ToString()) && !string.IsNullOrWhiteSpace(EndTime.ToString()))
-            {
-                _List = _List.Where(x => x.SwipeTime >= StartTime && x.SwipeTime <= EndTime).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
+            {   //日期加一天 再減去一秒
+                DateTime End2 = EndTime.Value.AddDays(1).AddSeconds(-1);
+                _List = _List.Where(x => x.SwipeTime >= StartTime && x.SwipeTime <= End2).OrderBy(x => new { x.PoNo, x.EmpID, x.SwipeTime });
             }
 
             if (!string.IsNullOrWhiteSpace(AttendTypeSelect))
@@ -103,7 +104,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
             foreach (var item in ATTENDLIST)
             {
-                MXIC_ScheduleSetting UserSchedule = _db.MXIC_ScheduleSettings.Where(x => x.Date == item.WORK_DATETIME && x.EmpName == item.WORKER_NAME).FirstOrDefault();
+                Models.ScheduleSetting UserSchedule = _db.MXIC_ScheduleSettings.Where(x => x.Date == item.WORK_DATETIME && x.EmpName == item.WORKER_NAME).FirstOrDefault();
 
                 if (UserSchedule != null)
                 {
@@ -167,7 +168,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     }
                     for (int i = 0; i < 2; i++)
                     {
-                        var Swipe = new MXIC_SwipeInfo();
+                        var Swipe = new Models.SwipeInfo();
                         if (i == 0)
                         {
                             Swipe.CheckType = "CHECKIN";
@@ -215,7 +216,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
           //DateTime StartDate = Convert.ToDateTime("2020-08-10");
             DateTime StartDate = TheMonthStart;
           //DateTime EndDate = Convert.ToDateTime("2020-09-08");
-            DateTime EndDate = TheMonthEnd.AddDays(1);
+            DateTime EndDate = TheMonthEnd.AddDays(1).AddSeconds(-1);
             var history = _db.MXIC_SwipeInfos.Where(x => x.WORK_DATETIME >= StartDate && x.WORK_DATETIME < EndDate).ToList();
             if (history.Any())
             {
@@ -332,7 +333,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     }
                     for (int i = 0; i < 2; i++)
                     {
-                        var Swipe = new MXIC_SwipeInfo();
+                        var Swipe = new Models.SwipeInfo();
                         if (i == 0)
                         {
                             Swipe.CheckType = "CHECKIN";

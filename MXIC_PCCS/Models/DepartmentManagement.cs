@@ -5,27 +5,23 @@ namespace MXIC_PCCS.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
-    public partial class MXIC_LisenceManagement
+    [Table("DepartmentManagement")]
+    public partial class DepartmentManagement
     {
         [Key]
-        public Guid LicID { get; set; }
+        public Guid DepID { get; set; }
 
         [Required]
-        public string PoNo { get; set; }
+        [StringLength(50)]
+        public string DepNo { get; set; }
 
         [Required]
-        [StringLength(10)]
-        public string EmpName { get; set; }
+        [StringLength(50)]
+        public string DepName { get; set; }
 
         [Required]
-        public string LicName { get; set; }
-
-        public DateTime EndDate { get; set; }
-
-        public bool LicPossess { get; set; }
-
-        public DateTime UpDateTime { get; set; }
+        [StringLength(50)]
+        public string VendorName { get; set; }
 
         public Guid EditID { get; set; }
 

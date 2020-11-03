@@ -5,8 +5,8 @@ namespace MXIC_PCCS.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
-    public partial class MXIC_UserManagement
+    [Table("UserManagement")]
+    public partial class UserManagement
     {
         [Key]
         [Column(Order = 0)]

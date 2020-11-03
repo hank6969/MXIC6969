@@ -19,7 +19,7 @@ namespace MXIC_PCCS.DataUnity.Interface
 
         string DeleteLisence(string DeleteID);
 
-        string ImportLisence(string PoNo, List<MXIC_LisenceProperty> Property_ListModel);
+        string ImportLisence(string PoNo, List<LisenceProperty> Property_ListModel);
 
         string ClearTable(string PoNo);
     }

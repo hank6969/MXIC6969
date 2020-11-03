@@ -11,7 +11,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
     public class UserManagement : IUserManagement, IDisposable
     {
         //開啟資料庫連結
-        public MXIC_PCCSContext _db = new MXIC_PCCSContext();
+        public PCCSContext _db = new PCCSContext();
 
         //關閉資料庫
         public void Dispose()
@@ -59,7 +59,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             string Str = "刪除失敗";
             try
             {
-                MXIC_UserManagement User = _db.MXIC_UserManagements.Where(x => x.DeleteID.ToString() == DeleteID).FirstOrDefault();
+                Models.UserManagement User = _db.MXIC_UserManagements.Where(x => x.DeleteID.ToString() == DeleteID).FirstOrDefault();
                 //User.UserDisable = false;
                 _db.MXIC_UserManagements.Remove(User);
                 _db.SaveChanges();
@@ -89,7 +89,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             //SHA1加密
             string Hash = GetSHA1.GetSHA1Hash(PassWord);
 
-            var AddUser = new MXIC_UserManagement()
+            var AddUser = new Models.UserManagement()
             {
                 UserListID = Guid.NewGuid(),
                 DepNo = DepNo,

@@ -14,7 +14,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
     public class ExportPO : IExportPO, IDisposable
     {
         //開啟資料庫連結
-        public MXIC_PCCSContext _db = new MXIC_PCCSContext();
+        public PCCSContext _db = new PCCSContext();
 
         //關閉資料庫
         public void Dispose()
@@ -22,7 +22,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             ((IDisposable)_db).Dispose();
         }
 
-        private void DownloadExcel(string PoNo, string VendorName, List<MXIC_CalculationQuotation> QuotationList)
+        private void DownloadExcel(string PoNo, string VendorName, List<CalculationQuotation> QuotationList)
         {
             //Step 1. 寫入EXCEL 
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -133,7 +133,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             }
         }
 
-        private void UsualFunction(string PoNo, DateTime StartDate, DateTime EndDate, string ProcessCode, IQueryable<MXIC_SwipeInfo> SwipeData, List<MXIC_CalculationQuotation> QuotationItem)
+        private void UsualFunction(string PoNo, DateTime StartDate, DateTime EndDate, string ProcessCode, IQueryable<Models.SwipeInfo> SwipeData, List<CalculationQuotation> QuotationItem)
         {
             var EmpList = _db.MXIC_ScheduleSettings.Where(x => x.PoNo == PoNo && x.Date >= StartDate && x.Date <= EndDate).Select(x => new { x.EmpName, x.WorkGroup }).Distinct();
 
@@ -496,11 +496,11 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     #region 撈出報價單的項目資料
                     var QuotationList = _db.MXIC_Quotations.OrderBy(x => x.Sequence).Where(x => x.PoNo == PoNo).Select(x => new { x.PoNo, x.VendorName, x.PoClassID, x.Amount });
 
-                    List<MXIC_CalculationQuotation> QuotationItem_ListModel = new List<MXIC_CalculationQuotation>();
+                    List<CalculationQuotation> QuotationItem_ListModel = new List<CalculationQuotation>();
 
                     foreach (var QuotationRow in QuotationList)
                     {
-                        MXIC_CalculationQuotation QuotationItem_Model = new MXIC_CalculationQuotation();
+                        CalculationQuotation QuotationItem_Model = new CalculationQuotation();
                         QuotationItem_Model.PoClassID = QuotationRow.PoClassID;
                         QuotationItem_Model.Amount = QuotationRow.Amount;
                         QuotationItem_Model.Count = 0.0;

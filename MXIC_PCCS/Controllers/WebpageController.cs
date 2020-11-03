@@ -11,7 +11,7 @@ namespace MXIC_PCCS.Controllers
     [Authorize]
     public class WebpageController : Controller
     {
-        public MXIC_PCCSContext _db = new MXIC_PCCSContext();
+        public PCCSContext _db = new PCCSContext();
 
         // GET: Webpage
         public ActionResult Index()
@@ -171,7 +171,7 @@ namespace MXIC_PCCS.Controllers
             if (!string.IsNullOrWhiteSpace(Password))
             {
                 try { 
-                MXIC_UserManagement EditPassword = _db.MXIC_UserManagements.Where(x => x.UserListID.ToString() == UserID).FirstOrDefault();
+                UserManagement EditPassword = _db.MXIC_UserManagements.Where(x => x.UserListID.ToString() == UserID).FirstOrDefault();
                 string hash = GetSHA1.GetSHA1Hash(Password);
                 EditPassword.PassWord = hash;
                 _db.SaveChanges();

@@ -10,7 +10,7 @@ namespace MXIC_PCCS.Controllers
 {
     public class LoginController : Controller
     {
-        public MXIC_PCCSContext _db = new MXIC_PCCSContext();
+        public PCCSContext _db = new PCCSContext();
 
         // GET: Login
         public ActionResult Login()
@@ -23,7 +23,7 @@ namespace MXIC_PCCS.Controllers
         {
             string Hash = GetSHA1.GetSHA1Hash(Password);
 
-            MXIC_UserManagement UserData = _db.MXIC_UserManagements.Where(x => x.UserID.ToLower() == Account.ToLower() && x.PassWord == Hash).FirstOrDefault();
+            UserManagement UserData = _db.MXIC_UserManagements.Where(x => x.UserID.ToLower() == Account.ToLower() && x.PassWord == Hash).FirstOrDefault();
 
             if (UserData == null)
             {   

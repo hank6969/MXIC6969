@@ -11,7 +11,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
     public class VendorManagement : IVendorManagement, IDisposable
     {
         //開啟資料庫連結
-        public MXIC_PCCSContext _db = new MXIC_PCCSContext();
+        public PCCSContext _db = new PCCSContext();
 
         //關閉資料庫
         public void Dispose()
@@ -31,7 +31,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     Str = "此駐廠人員編號已存在";
                 }
                 else { 
-                var AddUser = new MXIC_VendorManagement()
+                var AddUser = new Models.VendorManagement()
                 {
                     VenID = Guid.NewGuid(),
                     PoNo = PoNo,
@@ -60,7 +60,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             string Str = "刪除失敗";
             try
             {
-                MXIC_VendorManagement Vendor = _db.MXIC_VendorManagements.Where(x => x.DeleteID.ToString() == DeleteID).FirstOrDefault();
+                Models.VendorManagement Vendor = _db.MXIC_VendorManagements.Where(x => x.DeleteID.ToString() == DeleteID).FirstOrDefault();
                 //User.UserDisable = false;
                 _db.MXIC_VendorManagements.Remove(Vendor);
                 _db.SaveChanges();

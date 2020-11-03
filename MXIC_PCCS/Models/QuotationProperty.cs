@@ -5,14 +5,16 @@ using System.Web;
 
 namespace MXIC_PCCS.Models
 {
-    public class MXIC_CalculationQuotation
+    public class QuotationProperty
     {
-
 
         public string PoClassID { get; set; }
 
+        public string PoClassName { get; set; }
+
+        public string Unit { get; set; }
+
         public string Amount { get; set; }
 
-        public double Count { get; set; }
     }
 }

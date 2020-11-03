@@ -5,8 +5,8 @@ namespace MXIC_PCCS.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
-    public partial class MXIC_SwipeInfo
+    [Table("SwipeInfo")]
+    public partial class SwipeInfo
     {
         [Key]
         public Guid SwipID { get; set; }

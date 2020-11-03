@@ -15,7 +15,7 @@ namespace MXIC_PCCS.Controllers
     [Authorize]
     public class LisenceManagementController : Controller
     {
-        ILisenceManagement _ILisenceManagement = new LisenceManagement();
+        ILisenceManagement _ILisenceManagement = new DataUnity.BusinessUnity.LisenceManagement();
         StringBuilder SB = new StringBuilder();
 
         // GET: LisenceManagement
@@ -75,7 +75,7 @@ namespace MXIC_PCCS.Controllers
                 {
                     //宣告儲存空間(儲存證照的內容)
                     string PoNo;
-                    List<MXIC_LisenceProperty> Property_ListModel = new List<MXIC_LisenceProperty>();
+                    List<LisenceProperty> Property_ListModel = new List<LisenceProperty>();
 
                     using (var excelPkg = new ExcelPackage(file.InputStream))
                     {
@@ -113,7 +113,7 @@ namespace MXIC_PCCS.Controllers
                         //直接讀取剩下的資料
                         for (int currentRow = startRowIndex; currentRow <= endRowIndex; currentRow++)
                         {
-                            MXIC_LisenceProperty Property_Model = new MXIC_LisenceProperty();
+                            LisenceProperty Property_Model = new LisenceProperty();
                             for (int currentColumn = startColumn; currentColumn <= endColumn; currentColumn++)
                             {
                                 if (sheet.Cells[currentRow, currentColumn].Text == "")

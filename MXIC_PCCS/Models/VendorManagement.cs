@@ -5,8 +5,8 @@ namespace MXIC_PCCS.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
-    public partial class MXIC_VendorManagement
+    [Table("VendorManagement")]
+    public partial class VendorManagement
     {
         [Key]
         [Column(Order = 0)]

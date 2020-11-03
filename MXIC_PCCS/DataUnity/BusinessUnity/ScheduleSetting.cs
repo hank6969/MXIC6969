@@ -16,7 +16,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
     public class ScheduleSetting : IScheduleSetting, IDisposable
     {
 
-        public MXIC_PCCSContext _db = new MXIC_PCCSContext();
+        public PCCSContext _db = new PCCSContext();
 
         //關閉資料庫
         public void Dispose()
@@ -24,11 +24,11 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             ((IDisposable)_db).Dispose();
         }
 
-        public string AddSchedul(MXIC_ScheduleProperty Model)
+        public string AddSchedul(ScheduleProperty Model)
         {
             string Str = "匯入成功";
 
-            var AddSchedul = new MXIC_ScheduleSetting()
+            var AddSchedul = new Models.ScheduleSetting()
             {
                 Date = Model.WorkDate,
                 EmpName = Model.EmpName,
@@ -102,7 +102,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                         DayWeek = "星期" + sheet.Cells[5, currentColumn].Text;
                                         workdate = Year + '/' + Month + '/' + sheet.Cells[4, currentColumn].Text;
 
-                                        MXIC_ScheduleProperty model = new MXIC_ScheduleProperty();
+                                        ScheduleProperty model = new ScheduleProperty();
                                         model.PoNo = PoNo;
                                         model.WorkDate = Convert.ToDateTime(workdate);
                                         model.DayWeek = DayWeek;

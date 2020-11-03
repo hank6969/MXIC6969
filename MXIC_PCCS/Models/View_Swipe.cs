@@ -6,8 +6,8 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("MXIC_View_Swipe")]
-    public partial class MXIC_View_Swipe
+    [Table("View_Swipe")]
+    public partial class View_Swipe
     {
         [Key]
         [Column(Order = 0)]

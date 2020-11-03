@@ -25,7 +25,7 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// <param name="PoNo"></param>
         /// <param name="Property_ListModel"></param>
         /// <returns></returns>
-        string ImportQuotation(string VendorName, string PoNo, List<MXIC_QuotationProperty> Property_ListModel);
+        string ImportQuotation(string VendorName, string PoNo, List<QuotationProperty> Property_ListModel);
        /// <summary>
        /// 清空Table
        /// </summary>

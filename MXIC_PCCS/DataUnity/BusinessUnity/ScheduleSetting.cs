@@ -173,6 +173,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             #region 有年月的那一行
             sheet.Row(rowStart).Height = 30; //第一行行高
             sheet.Row(rowStart).Style.Font.Size = 18; //第一行字體大小
+            sheet.Cells[rowStart, 1].Value = "PoNo : "+ PoNo;
             sheet.Cells[rowStart, 19, rowStart, 23].Merge = true;
             sheet.Cells[rowStart, 19].Value = "TGCM";
             sheet.Cells[rowStart, 25, rowStart, 29].Merge = true;

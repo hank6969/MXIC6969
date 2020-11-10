@@ -60,8 +60,8 @@
                 <a href="#" class="seachBTN btn-1 Manager SuperAdmin " onclick=" transform()" style="width: 150px;">關帳轉檔</a>
                 <a href="#" class="seachBTN btn-1" onclick="seachBtn()">查詢</a>
                 <a href="#" class="seachBTN btn-1 Manager" onclick="DownloadExample()" style="width: 150px;">匯入範本</a>
-                <a href="#" class="seachBTN btn-1 Manager" onclick="ExportSchedule()" style="width: 150px;">產出報表</a>
-                <a href='javascript:document.form1.submit();' class="seachBTN btn-1 Manager">提交</a>
+                @*<a href="#" class="seachBTN btn-1 Manager" onclick="ExportSchedule()" style="width: 150px;">產出報表</a>*@
+                <a href='javascript:document.form1.submit();' class="seachBTN btn-1 Manager">匯入</a>
                 <form name='form1' action="@Url.Action("UploadSchedule")" method="post" enctype="multipart/form-data">
                     <input type="file" name="file" id="file" class="seachBTN btn-1 Manager" style="width: 250px;height: 50px;" />
 
@@ -139,27 +139,27 @@
     {
         window.location = '/ScheduleSetting/DownloadScheduleExample';
     }
-    function ExportSchedule() {
+    //function ExportSchedule() {
 
-        seachInputValue = []
-        inputLength = document.querySelectorAll('input[name="seachTextInput"]').length;
-        for (i = 0; i < inputLength; i++) {
+    //    seachInputValue = []
+    //    inputLength = document.querySelectorAll('input[name="seachTextInput"]').length;
+    //    for (i = 0; i < inputLength; i++) {
            
-            value = document.querySelectorAll('input[name="seachTextInput"]')[i].value;
-            obj = value
-            seachInputValue.push(obj);
-        }
-        console.log(seachInputValue)
-        seachobj = '';
-        for (x = 0; x < AjaxSelect.length; x++) {
+    //        value = document.querySelectorAll('input[name="seachTextInput"]')[i].value;
+    //        obj = value
+    //        seachInputValue.push(obj);
+    //    }
+    //    console.log(seachInputValue)
+    //    seachobj = '';
+    //    for (x = 0; x < AjaxSelect.length; x++) {
 
-            seachobj += AjaxSelect[x] + '=' + seachInputValue[x] + '&'
+    //        seachobj += AjaxSelect[x] + '=' + seachInputValue[x] + '&'
 
-        }
-        console.log(seachobj)
+    //    }
+    //    console.log(seachobj)
 
-        window.location = '/ScheduleSetting/ExportSchedule?' + seachobj;
-    }
+    //    window.location = '/ScheduleSetting/ExportSchedule?' + seachobj;
+    //}
 
     function transform() {
 

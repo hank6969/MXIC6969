@@ -103,6 +103,7 @@ var navData = [
     { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1' },
     { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
     { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },
+    
     { 'name': '匯出計價單', 'url': '../ExportPO/', 'commonly_used': '1' }
 ]
 
@@ -320,10 +321,15 @@ $(document).ready(function () {
     };
  
     //畫面select選單資料
-    for (i = 0; i < GenerateResult.length; i++) {
-        if (GenerateTypeResult[i] == "select") {
-            inputOption('seachInputOption' + [i], dataList, '', '');
-        }
+    if (title == '廠商管理') {
+        inputOption('seachInputOption1', dataList, '', '');
+        inputOption('seachInputOption4' , dataList2, '', '');}
+        else{
+     for (i = 0; i < GenerateResult.length; i++) {
+         if (GenerateTypeResult[i] == "select") {
+             inputOption('seachInputOption' + [i], dataList, '', '');
+         }
+     }
     }
     //動態生成新增Pop INPUT
     inputGenerate('insertPopUpContant', PopGenerateResult, PopGenerateTypeResult, 'insertTextInput');

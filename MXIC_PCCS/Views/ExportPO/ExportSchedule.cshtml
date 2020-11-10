@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>匯出計價單</title>
+    <title>匯出班表</title>
 
     @*//請按照順訊*@
     <link href="~/Content/MXIC/font-awesome.min.css" rel="stylesheet" />
@@ -23,7 +23,8 @@
     <script src="~/Scripts/MXICJS/jquery.jqgrid.min.js"></script>
 </head>
 
-<body><input type="hidden" id="UserID" value="@ViewBag.ID">
+<body>
+    <input type="hidden" id="UserID" value="@ViewBag.ID">
     <div class="head cover">
         <div class="banner"></div>
         <div class="navber">
@@ -44,14 +45,14 @@
     <div class="body">
         <h1 class="title cover"></h1>
         <div class="seachBox cover">
-            @using (Html.BeginForm("DownloadQuotation", "ExportPO", FormMethod.Post, new { name = "form1" }))
+            @using (Html.BeginForm("ExportSchedule", "ScheduleSetting", FormMethod.Post, new { name = "form1" }))
             {
-                    <div class="inputBox" style="padding: 0% ;width: 100%;">
-                        選擇年月
-                        <input type="month" name="Date"  required="required">
-                        <input type="text" name="PONumber" placeholder="PONumber" required="required">
-                    </div>
-            } 
+                <div class="inputBox" style="padding: 0% ;width: 100%;">
+                    選擇年月
+                    <input type="month" name="Date" required="required">
+                    <input type="text" name="PoNo" placeholder="PONumber" required="required">
+                </div>
+            }
             <div class="editBox cover">
                 <a href='javascript:document.form1.submit();' class="seachBTN btn-1 Manager" onclick="ExportFunc()">產出報表</a>
             </div>

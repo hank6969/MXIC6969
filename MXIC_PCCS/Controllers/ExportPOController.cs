@@ -70,5 +70,11 @@ namespace MXIC_PCCS.Controllers
             var responseStr = _ExportPO.CalcuationPO(PONumber, Convert.ToDateTime(Month));
             return responseStr;
         }
+
+        public ActionResult ExportSchedule()
+        {
+            return View();
+
+        }
     }
 }

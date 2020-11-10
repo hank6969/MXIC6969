@@ -55,5 +55,16 @@ namespace MXIC_PCCS.Controllers
 
             return (str);
         }
+
+        /// <summary>
+        /// 班別List
+        /// </summary>
+        /// <returns></returns>
+        public string Shifts()
+        {
+            string str = _IVendorManagement.Shifts();
+
+            return (str);
+        }
     }
 }

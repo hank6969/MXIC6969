@@ -406,6 +406,7 @@
     <Content Include="Views\ExportPO\Index.cshtml" />
     <Content Include="Views\Login\Permissiodenied.cshtml" />
     <Content Include="Views\Webpage\_PartialSetting.cshtml" />
+    <Content Include="Views\ExportPO\ExportSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -157,5 +157,28 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
             return (Str);
         }
+
+        public string Shifts()
+        {
+            List<SelectViewModel> SelectListx = new List<SelectViewModel>();
+
+           
+            var ShiftsList = _db.MXIC_VendorManagements.Select(x => x.Shifts).Distinct();
+            foreach (var item in ShiftsList)
+            {
+                var SelectItem = new SelectViewModel()
+                {
+                    name = item,
+                    value = item
+                };
+                SelectListx.Add(SelectItem);
+            }
+         
+
+            string Str = JsonConvert.SerializeObject(SelectListx, Formatting.Indented);
+
+            return (Str);
+
+        }
     }
 }

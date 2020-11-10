@@ -62,6 +62,8 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// <param name="EditID"></param>
         /// <returns></returns>
         string EditVendorDetail(string EditID);
+
+        string Shifts();
     }
 }
 

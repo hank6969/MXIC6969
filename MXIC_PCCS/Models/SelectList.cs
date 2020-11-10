@@ -6,8 +6,8 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("SwipeInfoSelect")]
-    public partial class SwipeInfoSelect
+    [Table("SelectList")]
+    public partial class SelectList
     {
 
 

@@ -25,7 +25,7 @@ namespace MXIC_PCCS.Models
 
         public virtual DbSet<NavData> NavDatas { get; set; }
 
-        public virtual DbSet<SwipeInfoSelect> SwipeInfoSelects { get; set; }
+        public virtual DbSet<SelectList> SelectLists { get; set; }
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

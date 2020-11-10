@@ -130,16 +130,16 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string ScheduleList(DateTime? ScheduleDate, string PoNo)
         {
-            var _ScheduleList = _db.MXIC_ScheduleSettings.Select(x => new { x.PoNo, x.Date, x.DayWeek, x.WorkShift, x.EmpName });
+            var _ScheduleList = _db.MXIC_ScheduleSettings.Select(x => new { x.PoNo, x.Date, x.DayWeek, x.WorkShift, x.EmpName }).OrderBy(x=>new { x.Date,x.EmpName});
 
             if(!string.IsNullOrWhiteSpace(PoNo))
             {
-                _ScheduleList = _ScheduleList.Where(x => x.PoNo.Contains(PoNo));
+                _ScheduleList = _ScheduleList.Where(x => x.PoNo.Contains(PoNo)).OrderBy(x => new { x.Date, x.EmpName });
             }
             if (!string.IsNullOrWhiteSpace(ScheduleDate.ToString()))
             {
                 DateTime ScheduleDateEnd = Convert.ToDateTime(ScheduleDate).AddDays(1);
-                _ScheduleList = _ScheduleList.Where(x => x.Date >= ScheduleDate && x.Date < ScheduleDateEnd);
+                _ScheduleList = _ScheduleList.Where(x => x.Date >= ScheduleDate && x.Date < ScheduleDateEnd).OrderBy(x => new { x.Date, x.EmpName });
             }
             
             string str = JsonConvert.SerializeObject(_ScheduleList, Formatting.Indented);

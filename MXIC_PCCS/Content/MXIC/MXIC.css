@@ -762,6 +762,9 @@ svg {
         font-size: 25px;
         margin: 5px 0;
     }
+    .head {
+        height:auto !important;
+    }
 }
 
 @media screen and (max-width: 1367px) {

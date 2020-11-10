@@ -120,7 +120,7 @@ namespace MXIC_PCCS.Controllers
         {
             List<SelectViewModel> SelectListx = new List<SelectViewModel>();
 
-            var list = _db.SwipeInfoSelects.Where(x=>x.TableName == TableName).Select(x => new { x.name }).Distinct().OrderBy(x => x.name).ToList();
+            var list = _db.SelectLists.Where(x=>x.TableName == TableName).Select(x => new { x.name }).Distinct().OrderBy(x => x.name).ToList();
             //var list = _db.SwipeInfoSelects.Select(x => new { x.name }).Distinct().OrderBy(x => x.name).ToList();
 
 

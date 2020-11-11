@@ -119,7 +119,7 @@ var navData = [
     { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1' },
     { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
     { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },
-    { 'name': '出匯班表', 'url': '../ExportPO/ExportSchedule', 'commonly_used': '1' },
+    { 'name': '匯出班表', 'url': '../ExportPO/ExportSchedule', 'commonly_used': '1' },
     { 'name': '匯出計價單', 'url': '../ExportPO/', 'commonly_used': '1' }
 ]
 
@@ -358,11 +358,15 @@ $(document).ready(function () {
 
     //彈跳視窗 input生成
     function inputGenerate(location, result, resultType, inputname) {
+        if(location=='insertPopUpContant')
+        {
+        var ClassName='insertInputOption';
+        }else{var ClassName='editInputOption';}
         $('.' + location).html('');
         for (i = 0; i < result.length; i++) {
 
             $('.' + location).append('<div class="PopSeachBox" stlye="display:flex;"><label>' + result[i] + '</label><input type="' + resultType[i] + '" autocomplete="off" name="' + inputname + '" placeholder="' + result[i] + '" required="required" /></div>')
-            $('input[type=select]').replaceWith('</label><input  type="text" autocomplete="off" onfocus=this.value=""  name="' + inputname + '" id="editPopInput' + i + '" class="editInputOption" list="editInputOption' + [i] + '"><datalist id="editInputOption' + [i] + '"></datalist>')
+            $('input[type=select]').replaceWith('</label><input  type="text" autocomplete="off" onfocus=this.value=""  name="' + inputname + '" id="editPopInput' + i + '" class="'+ClassName+'" list="'+ClassName + [i] + '"><datalist id="'+ClassName + [i] + '"></datalist>')
            
         };
     }
@@ -630,9 +634,16 @@ function GridData() {
 }
 //開啟"新增"彈窗
 function insert() {
+    if (title == '廠商管理') 
+    {
+        inputOption('insertInputOption4', dataList2, '', '');
+    }
+    else{    
     inputOption('insertInputOption2', dataList, '', '');
     inputOption('editInputOption0', dataList, '', '');
     inputOption('editInputOption2', dataList, '', '');
+}
+
     $("#insert input").val("");
     $('.insertBox').fadeIn(700);
     $('.cover').removeClass('blur-out').addClass('blur-in')
@@ -649,8 +660,13 @@ function delect(e) {
 
 //開啟"修改"彈窗
 function edit(e) {
+    if (title == '廠商管理') 
+    {
+        inputOption('editInputOption4', dataList2, '', '');
+    }
+    else{ 
     inputOption('editInputOption0', dataList, '', '');
-    inputOption('editInputOption2', dataList, '', '');
+    inputOption('editInputOption2', dataList, '', '');}
     $('.popEditBox').fadeIn(700);
     $('.cover').removeClass('blur-out').addClass('blur-in')
 

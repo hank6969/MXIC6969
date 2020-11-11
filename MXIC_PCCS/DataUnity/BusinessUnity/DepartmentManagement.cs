@@ -21,7 +21,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string SearchDepToVen(string DepNo, string DepName)
         {
-            var _DepSearchCondition = _db.MXIC_DepartmentManagements.Select(x => new { x.DepName, x.VendorName, x.DeleteID, x.DepNo }).OrderBy(x=>x.DepName);
+            var _DepSearchCondition = _db.MXIC_DepartmentManagements.Select(x => new { x.DeleteID, x.DepName, x.VendorName,  x.DepNo }).OrderBy(x=>x.DepName);
 
             //如果DepNo不為空
             if (!string.IsNullOrWhiteSpace(DepNo))
@@ -123,12 +123,24 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
             try
             {
-                Models.DepartmentManagement DeleteDepToVenList = _db.MXIC_DepartmentManagements.Where(x => x.DeleteID.ToString() == DeleteID).FirstOrDefault();
+                if (!string.IsNullOrWhiteSpace(DeleteID))
+                { 
+                string[] DeleteIDList = null;
+                DeleteID = DeleteID.Replace("jqg_grid_gb1_","").TrimEnd(',');
+                DeleteIDList = DeleteID.Split(',');
+                foreach(var item  in DeleteIDList) { 
+                Models.DepartmentManagement DeleteDepToVenList = _db.MXIC_DepartmentManagements.Where(x => x.DeleteID.ToString() == item).FirstOrDefault();
 
                 _db.MXIC_DepartmentManagements.Remove(DeleteDepToVenList);
+                }
                 _db.SaveChanges();
 
                 MessageStr = "刪除成功!";
+                }
+                else
+                {
+                    MessageStr = "刪除失敗!請勾選刪除資料。";
+                }
             }
             catch (Exception ex)
             {

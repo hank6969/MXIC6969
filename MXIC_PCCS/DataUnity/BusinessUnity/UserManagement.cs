@@ -59,11 +59,24 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             string Str = "刪除失敗";
             try
             {
-                Models.UserManagement User = _db.MXIC_UserManagements.Where(x => x.DeleteID.ToString() == DeleteID).FirstOrDefault();
-                //User.UserDisable = false;
-                _db.MXIC_UserManagements.Remove(User);
+                if (!string.IsNullOrWhiteSpace(DeleteID))
+                {
+                    string[] DeleteIDList = null;
+                    DeleteID = DeleteID.Replace("jqg_grid_gb1_", "").TrimEnd(',');
+                    DeleteIDList = DeleteID.Split(',');
+                    foreach (var item in DeleteIDList)
+                    {
+                        Models.UserManagement User = _db.MXIC_UserManagements.Where(x => x.DeleteID.ToString() == item).FirstOrDefault();
+                        //User.UserDisable = false;
+                        _db.MXIC_UserManagements.Remove(User);
+                    }
                 _db.SaveChanges();
                 Str = "刪除成功";
+                }
+                else
+                {
+                    Str = "刪除失敗!請勾選刪除資料。";
+                }
             }
             catch (Exception e)
             {

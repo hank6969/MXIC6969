@@ -6,6 +6,7 @@ var ajaxUrl = [];
 var seachobj = '';
 generateUrl = '/Webpage/PageGenerate';
 var tablename = ""
+var multiselect;
 //var navUrl = '/Webpage/Nav';
 var navUrl = '.../api/api-1';
 var title = document.title;
@@ -24,6 +25,8 @@ if (title == 'MXIC') {
     inserturl = "/UserManagement/AddUser"
     //table名稱
     tablename = "MXIC_UserManagement"
+    //是否出現刪除checkbox
+    multiselect=true;
 } else if (title == '部門管理') {
     //搜尋url這個要先寫
     ajaxUrl = '/DepartmentManagement/SearchDepToVen'
@@ -31,6 +34,8 @@ if (title == 'MXIC') {
     deleteurl = "/DepartmentManagement/DeleteDepToVen"
     //table名稱
     tablename = "MXIC_DepartmentManagement"
+     //是否出現刪除checkbox
+    multiselect=true;
 } else if (title == '廠商管理') {
 
 
@@ -46,6 +51,8 @@ if (title == 'MXIC') {
     inserturl = "/VendorManagement/AddVendor"
     //table名稱
     tablename = "MXIC_VendorManagement"
+     //是否出現刪除checkbox
+    multiselect=true;
 } else if (title == '報價單') {
 
 
@@ -53,6 +60,8 @@ if (title == 'MXIC') {
     ajaxUrl = "/Quotation/SearchQuotation"
     //table名稱
     tablename = "MXIC_Quotation"
+ //是否出現刪除checkbox
+    multiselect=false;
 
 
 } else if (title == '班表設定') {
@@ -60,6 +69,9 @@ if (title == 'MXIC') {
     ajaxUrl = "/ScheduleSetting/ScheduleList"
     //table名稱
     tablename = "MXIC_ScheduleSetting"
+
+     //是否出現刪除checkbox
+     multiselect=false;
 } else if (title == '證照管理') {
     //搜尋url這個要先寫
     ajaxUrl = "/LisenceManagement/SearchLisence"
@@ -73,11 +85,15 @@ if (title == 'MXIC') {
     inserturl = "/LisenceManagement/AddLisence"
     //table名稱
     tablename = "MXIC_LisenceManagement"
+     //是否出現刪除checkbox
+     multiselect=true;
 } else if (title == '刷卡紀錄') {
     tablename = "MXIC_View_Swipe"
     ajaxUrl = "/SwipeInfo/CheckinList"
     editDetailUrl = "/SwipeInfo/SwipeInfoDetail"
     editUrl = "/SwipeInfo/EditSwipe"
+     //是否出現刪除checkbox
+     multiselect=false;
 } else if (title == '匯出計價單') {
     
     tablename="MXIC_ExportPO"
@@ -103,7 +119,7 @@ var navData = [
     { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1' },
     { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
     { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },
-    
+    { 'name': '出匯班表', 'url': '../ExportPO/ExportSchedule', 'commonly_used': '1' },
     { 'name': '匯出計價單', 'url': '../ExportPO/', 'commonly_used': '1' }
 ]
 
@@ -279,6 +295,9 @@ var ColumeWid = dataColume[0].length;
 //---------------------------------------------------------------------------------------------------------------------
 $(document).ready(function () {
 
+    $('.DelBtn').addClass("disabled");
+    $('.DelBtn').attr("disabled", true);
+
     UserID = $('#UserID').val();
     Admin="";
 
@@ -293,7 +312,7 @@ $(document).ready(function () {
             Admin="";
             Admin=data;
             if(Admin=="false")
-            {
+            {   multiselect=false;
                 $('.Manager').attr("style", "display:none;");
             }else if(Admin=="true")
             {
@@ -400,8 +419,8 @@ $(document).ready(function () {
             testdata = { name: testA[i], index: testA[i], width: gridColume, align: "center", formatter: CheckBox }
 
         } else if (testb == 'DeleteBtn'&&(Admin=="true"||Admin=="SuperAdmin")) {
-
-            testdata = { name: testA[i], index: testA[i], width: gridColume * 0.5, align: "center", formatter: DeleteBtn }
+            //hidden: true 記得加入
+            testdata = { name: testA[i], index: testA[i], width: gridColume * 0.5, align: "center", key : true, formatter: DelCheckBox, hidden: true}
 
         } else if (testb == 'EditBtn'&&(Admin=="true"||Admin=="SuperAdmin")) {
 
@@ -447,6 +466,16 @@ $(document).ready(function () {
             sortorder: "desc",
             pager: true,
             rowNum: pageRow,
+            multiselect: multiselect,
+        //     onSelectRow: function (rowId, status, e) {
+           
+        //     alert("選一個")
+        //     },
+        // //点击题头的checkbox按钮，一键多选
+        //     onSelectAll:function(rowids,statue){
+        //         alert("選全部")
+        //     },
+        //     //multiboxonly=true,
             loadComplete: function () {
                 //获取列表数据
                 var ids = $("#grid").jqGrid("getDataIDs");
@@ -504,7 +533,7 @@ function navbarItem(e) {
     for (i = 0; i < arrLength; i++) {
         $('.navber > ul').append('<li><a href="./' + e[i].url + '">' + e[i].name + '</a></li>')
     }
-    if (arrLength <= 8) {
+    if (arrLength <= 9) {
         $('ul > li').css('width', '' + menuBTN + '%');
     } else {
         $('.navber > ul').css('flex-wrap', 'wrap')
@@ -849,18 +878,30 @@ function EditDB() {
 function delectCheck() {
     $('.delectBox').fadeOut(1000);
     $('.cover').removeClass('blur-in').addClass('blur-out');
+
+    DeleteID="";
+
+    
+
+    $('td[class=td_cbox] *').each(function(){
+        if($(this).is(':checked')){
+            DeleteID+=$(this).attr('id')+",";
+            
+        }
+    });
+  console.log(DeleteID);
     //下方定義傳遞方式    
-    $.ajax({
-        url: deleteurl,
-        type: "post",
-        dataType: "text",
-        async: false,
+     $.ajax({
+         url: deleteurl,
+         type: "post",
+         dataType: "text",
+         async: false,
         data: { DeleteID: DeleteID },
         success: function (result) {
-            alert(result)
-            GridData()
-        }
-    })
+             alert(result)
+             GridData()
+         }
+     })
 }
 
 function EditBtn(cellvalue, options, rowObject) {
@@ -892,6 +933,14 @@ function CheckBox(cellvalue, options, rowObject) {
     else {
         return '<input type="checkbox" checked onclick="return false" >';
     }
+}
+
+function DelCheckBox(cellvalue, options, rowObject) {
+
+    //判斷ChildGrid是否開啟
+   
+        return '<input type="checkbox" id='+cellvalue+'>';
+   
 }
 function ResetInput() {
 

@@ -134,12 +134,25 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             string MessageStr = "刪除失敗";
             try
             {
-                Models.LisenceManagement DeleteLisenceList = _db.MXIC_LisenceManagements.Where(x => x.DeleteID.ToString() == DeleteID).FirstOrDefault();
+                if (!string.IsNullOrWhiteSpace(DeleteID))
+                {
+                    string[] DeleteIDList = null;
+                    DeleteID = DeleteID.Replace("jqg_grid_gb1_", "").TrimEnd(',');
+                    DeleteIDList = DeleteID.Split(',');
+                    foreach (var item in DeleteIDList)
+                    {
+                        Models.LisenceManagement DeleteLisenceList = _db.MXIC_LisenceManagements.Where(x => x.DeleteID.ToString() == item).FirstOrDefault();
 
-                _db.MXIC_LisenceManagements.Remove(DeleteLisenceList);
+                        _db.MXIC_LisenceManagements.Remove(DeleteLisenceList);
+                    }
                 _db.SaveChanges();
 
                 MessageStr = "刪除成功";
+                }
+                else
+                {
+                    MessageStr = "刪除失敗!請勾選刪除資料。";
+                }
             }
             catch (Exception ex)
             {

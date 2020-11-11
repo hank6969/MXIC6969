@@ -12,7 +12,8 @@ var navData = [
     { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1','Img':'班表1x' },
     { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1','Img':'證照管理1x' },
     { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1','Img':'刷卡紀錄1x' },
-    { 'name': '匯出計價單', 'url': '../ExportPO/', 'commonly_used': '1','Img':'計價單1x' }
+    { 'name': '出匯班表', 'url': '../ExportPO/ExportSchedule', 'commonly_used': '1','Img':'刷卡紀錄1x' },
+    { 'name': '出匯計價單', 'url': '../ExportPO/', 'commonly_used': '1','Img':'計價單1x' }
 ]
 
 //跑馬燈資料格式範例
@@ -63,7 +64,7 @@ function navbarItem(e) {
 }
 
 //index導覽按鈕生成
-function iconMenu(e) {
+function iconMenu2(e) {
     var arrLength = e.length;
     var menuWidth = $('.indexBTN').width();
     for (i = 0; i < arrLength; i++) {
@@ -76,6 +77,20 @@ function iconMenu(e) {
 }
 
 // 
+
+//index導覽按鈕生成
+function iconMenu(e) {
+    var arrLength = e.length;
+    var menuWidth = $('.indexBTN').width();
+    for (i = 0; i < arrLength; i++) {
+        if (i == 2) {
+            $('.indexBTN').append('<div class="btn"><div class="btnBackground link-container"><a class="link" href="./' + e[i].url + '">' + e[i].name + '</a></div></div><br>')
+        } else {
+            $('.indexBTN').append('<div class="btn"><div class="btnBackground link-container"><a class="link" href="./' + e[i].url + '">' + e[i].name + '</a></div></div>')
+        }
+    }
+}
+
 
 //跑馬燈 內容
 function marquee(e) {

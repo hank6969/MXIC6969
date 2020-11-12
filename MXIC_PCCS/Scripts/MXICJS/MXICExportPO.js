@@ -93,6 +93,7 @@ var navData = [
     { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1' },
     { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
     { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },
+    { 'name': '匯出班表', 'url': '../ExportPO/ExportSchedule', 'commonly_used': '1' },
     { 'name': '匯出計價單', 'url': '../ExportPO/', 'commonly_used': '1' }
 ]
 
@@ -274,7 +275,7 @@ function navbarItem(e) {
     for (i = 0; i < arrLength; i++) {
         $('.navber > ul').append('<li><a href="./' + e[i].url + '">' + e[i].name + '</a></li>')
     }
-    if (arrLength <= 8) {
+    if (arrLength <= 9) {
         $('ul > li').css('width', '' + menuBTN + '%');
     } else {
         $('.navber > ul').css('flex-wrap', 'wrap')

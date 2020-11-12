@@ -74,7 +74,6 @@ namespace MXIC_PCCS.Controllers
         public ActionResult ExportSchedule()
         {
             return View();
-
         }
     }
 }

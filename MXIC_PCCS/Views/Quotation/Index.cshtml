@@ -29,7 +29,7 @@
             overflow: hidden;
         }
 
-        .editBox > a:nth-child(1) {
+        .editBox > a:nth-child(2) {
             margin-right: 20px;
         }
 
@@ -37,7 +37,7 @@
             position: relative;
         }
 
-            .editBox > a:nth-child(2) {
+            .editBox > a:nth-child(3) {
                 left: 245px;
                 position: absolute;
                 top: -0px;
@@ -77,6 +77,7 @@
             </div>
             <div class="editBox cover">
                 <a href="#" class="seachBTN btn-1" onclick="seachBtn()">查詢</a>
+                <a href="#" class="seachBTN btn-1 Manager DelBtn" onclick="delect(this)">刪除</a>
                 <a href="#" class="seachBTN btn-1 Manager" onclick="DownloadExample()" style="width: 150px;">下載匯入格式</a>
                 <a href='#' class="seachBTN btn-1 Manager" onclick="openUpfile()">選擇檔案</a>
                 <a href='#' id="upload" class="seachBTN btn-1 Manager">匯入</a>
@@ -96,6 +97,21 @@
                     <circle class="point three" cx="75" cy="70" r="5" />
                 </g>
             </svg>
+        </div>
+
+        <div class="delectBox popUp hidden">
+            <div class="box">
+                <div class="popUpHead">
+                    刪除
+                </div>
+                <div class="popUpContant">
+                    確認刪除此報價單?
+                </div>
+                <div class="popUpFooter">
+                    <a href="#" class="seachBTN btn-1 close-button" onclick="cancel()">取消</a>
+                    <a href="#" class="seachBTN btn-1" onclick="deleteCheck()">確定</a>
+                </div>
+            </div>
         </div>
         <div class="tableContant hidden cover">
             <table id="grid" cellpadding="0" cellspacing="0" border="0"></table>
@@ -140,4 +156,27 @@
             }
         })
     })
+
+    //function deleteCheck() {
+
+    //    seachInputValue = []
+    //    inputLength = document.querySelectorAll('input[name="seachTextInput"]').length;
+    //    for (i = 0; i < inputLength; i++) {
+
+    //        value = document.querySelectorAll('input[name="seachTextInput"]')[i].value;
+    //        obj = value
+    //        seachInputValue.push(obj);
+    //    }
+    //    console.log(seachInputValue)
+    //    seachobj = '';
+    //    for (x = 0; x < AjaxSelect.length; x++) {
+
+    //        seachobj += AjaxSelect[x] + '=' + seachInputValue[x] + '&'
+
+    //    }
+    //    console.log(seachobj)
+
+    //    window.location = '/Quotation/DelQuotation?' + seachobj;
+
+    //}
 </script>

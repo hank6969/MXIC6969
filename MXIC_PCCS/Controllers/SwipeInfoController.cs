@@ -41,9 +41,9 @@ namespace MXIC_PCCS.Controllers
             return str;
         }
       
-        public ActionResult transform(string Date)
+        public ActionResult transform(string StartTime,string EndTime)
         {
-            _ISwipeInfo.transform2(Date);
+            _ISwipeInfo.transform2(StartTime, EndTime);
 
             return RedirectToAction("Index", "SwipeInfo");
         }

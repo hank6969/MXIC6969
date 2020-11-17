@@ -17,7 +17,7 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// <param name="SchedulDate"></param>
         /// <param name="PoNo"></param>
         /// <returns></returns>
-        string ScheduleList(DateTime? SchedulDate, string PoNo);
+        string ScheduleList(DateTime? StartTime, DateTime? EndTime, string PoNo);
         /// <summary>
         /// 匯入檔案
         /// </summary>
@@ -43,5 +43,12 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// <param name="PoNo"></param>
         /// <returns></returns>
         MemoryStream ExportSchedul(string Year, string Month, string PoNo);
+        /// <summary>
+        /// 刪除班表資料
+        /// </summary>
+        /// <param name="ScheduleDate"></param>
+        /// <param name="SchedulePoNo"></param>
+        /// <returns></returns>
+        string DelSchedule(string ScheduleDate, string SchedulePoNo);
     }
 }

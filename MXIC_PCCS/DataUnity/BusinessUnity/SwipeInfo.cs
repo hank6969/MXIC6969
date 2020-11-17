@@ -204,19 +204,21 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             return (str);
         }
 
-        public string transform2(string UserDate)
+        public string transform2(string StartTime, string EndTime)
         {
-            DateTime Date = DateTime.Parse(UserDate);
-          //DateTime Date = Convert.ToDateTime("2020-08-01");
+            //DateTime Date = DateTime.Parse(UserDate);
+            DateTime StartDate = DateTime.Parse(StartTime);
+            DateTime EndDate = DateTime.Parse(EndTime).AddDays(1).AddSeconds(-1);
+            //DateTime Date = Convert.ToDateTime("2020-08-01");
 
-            DateTime TheMonthStart = new DateTime(Date.Year, Date.Month, 1);//本月初1號
-            DateTime TheMonthEnd = new DateTime(Date.Year, Date.Month, DateTime.DaysInMonth(Date.Year, Date.Month));//本月初月底
+            //DateTime TheMonthStart = new DateTime(Date.Year, Date.Month, 1);//本月初1號
+            //DateTime TheMonthEnd = new DateTime(Date.Year, Date.Month, DateTime.DaysInMonth(Date.Year, Date.Month));//本月初月底
 
             // 設定查詢月份
           //DateTime StartDate = Convert.ToDateTime("2020-08-10");
-            DateTime StartDate = TheMonthStart;
+            //DateTime StartDate = TheMonthStart;
           //DateTime EndDate = Convert.ToDateTime("2020-09-08");
-            DateTime EndDate = TheMonthEnd.AddDays(1).AddSeconds(-1);
+           // DateTime EndDate = TheMonthEnd.AddDays(1).AddSeconds(-1);
             var history = _db.MXIC_SwipeInfos.Where(x => x.WORK_DATETIME >= StartDate && x.WORK_DATETIME < EndDate).ToList();
             if (history.Any())
             {

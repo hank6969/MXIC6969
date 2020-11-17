@@ -24,9 +24,9 @@ namespace MXIC_PCCS.Controllers
             return View();
         }
 
-        public string ScheduleList(DateTime? Date, string PoNo)
+        public string ScheduleList(DateTime? StartTime, DateTime? EndTime, string PoNo)
         {
-            string str = _IScheduleSetting.ScheduleList(Date, PoNo);
+            string str = _IScheduleSetting.ScheduleList(StartTime, EndTime, PoNo);
             return str;
         }
 
@@ -71,6 +71,14 @@ namespace MXIC_PCCS.Controllers
             }
             //return View();
         }
-     
+
+        public string DelSchedule(string ScheduleDate,string SchedulePoNo)
+        {
+
+            string str = _IScheduleSetting.DelSchedule(ScheduleDate, SchedulePoNo);
+            return str;
+        }
+
+
     }
 }

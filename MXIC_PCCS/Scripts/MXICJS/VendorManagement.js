@@ -34,5 +34,3 @@ $(document).ready(function () {
         }})
 
 })
-inputOption('seachInputOption1', dataList, '', '');
-inputOption('seachInputOption4' , dataList2, '', '');

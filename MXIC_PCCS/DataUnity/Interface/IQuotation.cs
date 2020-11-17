@@ -38,5 +38,11 @@ namespace MXIC_PCCS.DataUnity.Interface
         /// <param name="PoNo"></param>
         /// <returns></returns>
         string ClearTableCheck(HttpPostedFileBase file);
+        /// <summary>
+        /// 刪除報價單
+        /// </summary>
+        /// <param name="PoNo"></param>
+        /// <returns></returns>
+        string DelQuotation(string PoNo);
     }
 }

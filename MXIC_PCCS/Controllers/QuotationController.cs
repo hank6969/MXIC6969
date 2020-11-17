@@ -170,5 +170,18 @@ namespace MXIC_PCCS.Controllers
                 return Content(SB.ToString());
             }
         }
+
+        public string DelQuotation(string PoNo)
+        {
+            //呼叫IQuotation介面中的QuotationList方法
+            string jsonStr = _IQuotation.DelQuotation(PoNo);
+
+
+
+
+
+            return jsonStr;
+
+        }
     }
 }

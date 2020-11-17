@@ -58,6 +58,8 @@ if (title == 'MXIC') {
 
     //搜尋url這個要先寫
     ajaxUrl = "/Quotation/SearchQuotation"
+      //刪除url
+      deleteurl = "/Quotation/DelQuotation"
     //table名稱
     tablename = "MXIC_Quotation"
  //是否出現刪除checkbox
@@ -67,6 +69,9 @@ if (title == 'MXIC') {
 } else if (title == '班表設定') {
     //搜尋url這個要先寫
     ajaxUrl = "/ScheduleSetting/ScheduleList"
+
+       //刪除url
+       deleteurl = "/ScheduleSetting/DelSchedule"
     //table名稱
     tablename = "MXIC_ScheduleSetting"
 
@@ -119,7 +124,7 @@ var navData = [
     { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1' },
     { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
     { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },
-    { 'name': '匯出班表', 'url': '../ExportPO/ExportSchedule', 'commonly_used': '1' },
+    { 'name': '匯出出勤月報表', 'url': '../ExportPO/ExportSchedule', 'commonly_used': '1' },
     { 'name': '匯出計價單', 'url': '../ExportPO/', 'commonly_used': '1' }
 ]
 
@@ -919,6 +924,70 @@ function delectCheck() {
          }
      })
 }
+function deleteCheck() {
+    $('.delectBox').fadeOut(1000);
+    $('.cover').removeClass('blur-in').addClass('blur-out');
+   
+    seachInputValue = []
+        inputLength = document.querySelectorAll('input[name="seachTextInput"]').length;
+        for (i = 0; i < inputLength; i++) {
+
+            value = document.querySelectorAll('input[name="seachTextInput"]')[i].value;
+            obj = value
+            seachInputValue.push(obj);
+        }
+        console.log(seachInputValue)
+        seachobj = '';
+        for (x = 0; x < AjaxSelect.length; x++) {
+
+            seachobj += AjaxSelect[x] + '=' + seachInputValue[x] + '&'
+
+        }
+        $(".inputBox input").val("");
+        console.log(seachobj)
+    //下方定義傳遞方式    
+     $.ajax({
+         url: deleteurl,
+         type: "post",
+         dataType: "text",
+         async: false,
+        data: seachobj,
+        success: function (result) {
+             alert(result)
+             seachobj=[]
+             GridData()
+
+         }
+     })
+}
+function deleteScheduleCheck() {
+ 
+    $('.delectBox').fadeOut(1000);
+    $('.cover').removeClass('blur-in').addClass('blur-out');
+   
+    var ScheduleDate=$("#Date").val();
+    var SchedulePoNo=$("#PoNo").val();
+
+    //下方定義傳遞方式    
+     $.ajax({
+         url: deleteurl,
+         type: "post",
+         dataType: "text",
+         async: false,
+        data: {ScheduleDate:ScheduleDate,SchedulePoNo:SchedulePoNo},
+        success: function (result) {
+             alert(result)
+            
+             GridData()
+
+            
+
+         }
+     })
+     var ScheduleDate=$("#Date").val('');
+     var SchedulePoNo=$("#PoNo").val('');
+}
+
 
 function EditBtn(cellvalue, options, rowObject) {
     if (title == '刷卡紀錄') {

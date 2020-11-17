@@ -138,5 +138,37 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             }
             return (MessageStr);
         }
+
+
+        public string DelQuotation(string PoNo)
+        {
+            string MessageStr = "刪除失敗";
+            try
+            {
+                var Rows = _db.MXIC_Quotations.Where(x => x.PoNo == PoNo);
+
+                if (Rows.Count() > 0)
+                {
+                    foreach (var DataRow in Rows)
+                    {
+                        _db.MXIC_Quotations.Remove(DataRow);
+                    }
+                    _db.SaveChanges();
+                    MessageStr = "刪除成功";
+                }
+                else
+                {
+                    MessageStr = "查無此PoNo";
+
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                MessageStr = ex.ToString();
+            }
+            return (MessageStr);
+
+        }
     }
 }

@@ -128,7 +128,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             return str;
         }
 
-        public string ScheduleList(DateTime? ScheduleDate, string PoNo)
+        public string ScheduleList(DateTime? StartTime, DateTime? EndTime, string PoNo)
         {
             var _ScheduleList = _db.MXIC_ScheduleSettings.Select(x => new { x.PoNo, x.Date, x.DayWeek, x.WorkShift, x.EmpName }).OrderBy(x=>new { x.Date,x.EmpName});
 
@@ -136,10 +136,10 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             {
                 _ScheduleList = _ScheduleList.Where(x => x.PoNo.Contains(PoNo)).OrderBy(x => new { x.Date, x.EmpName });
             }
-            if (!string.IsNullOrWhiteSpace(ScheduleDate.ToString()))
+            if (!string.IsNullOrWhiteSpace(StartTime.ToString()))
             {
-                DateTime ScheduleDateEnd = Convert.ToDateTime(ScheduleDate).AddDays(1);
-                _ScheduleList = _ScheduleList.Where(x => x.Date >= ScheduleDate && x.Date < ScheduleDateEnd).OrderBy(x => new { x.Date, x.EmpName });
+                DateTime ScheduleDateEnd = Convert.ToDateTime(EndTime).AddDays(1);
+                _ScheduleList = _ScheduleList.Where(x => x.Date >= StartTime && x.Date < ScheduleDateEnd).OrderBy(x => new { x.Date, x.EmpName });
             }
             
             string str = JsonConvert.SerializeObject(_ScheduleList, Formatting.Indented);
@@ -419,5 +419,50 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             fileStream.Position = 0;
             return fileStream;
         }
+
+
+        public string DelSchedule(string ScheduleDate, string SchedulePoNo)
+        {
+            string MSG = "刪除失敗!";
+            try {
+                if (!string.IsNullOrWhiteSpace(ScheduleDate) && !string.IsNullOrWhiteSpace(SchedulePoNo))
+                {
+                    DateTime TheMonthStart = DateTime.Parse(ScheduleDate);
+
+                    DateTime TheMonthEnd = new DateTime(TheMonthStart.Year, TheMonthStart.Month, DateTime.DaysInMonth(TheMonthStart.Year, TheMonthStart.Month)).AddDays(1).AddSeconds(-1); //本月月底
+
+                    var history = _db.MXIC_ScheduleSettings.Where(x => x.Date >= TheMonthStart && x.Date < TheMonthEnd);
+                    if (history.Any())
+                    {
+                        foreach (var item in history)
+                        {
+                            _db.MXIC_ScheduleSettings.Remove(item);
+                        }
+
+                        _db.SaveChanges();
+                        MSG = "刪除成功";
+                    }
+                    else
+                    {
+
+                        MSG = "查無班表資料";
+                    }
+                }
+                else
+                {
+
+                    MSG = "欄位未填";
+                }
+
+            }
+            catch(Exception ex)
+            {
+                MSG = ex.ToString();
+
+            }
+            return MSG;
+        }
+
+
     }
 }

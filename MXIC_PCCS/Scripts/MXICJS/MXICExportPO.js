@@ -93,7 +93,7 @@ var navData = [
     { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1' },
     { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
     { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },
-    { 'name': '匯出班表', 'url': '../ExportPO/ExportSchedule', 'commonly_used': '1' },
+    { 'name': '匯出出勤月報表', 'url': '../ExportPO/ExportSchedule', 'commonly_used': '1' },
     { 'name': '匯出計價單', 'url': '../ExportPO/', 'commonly_used': '1' }
 ]
 

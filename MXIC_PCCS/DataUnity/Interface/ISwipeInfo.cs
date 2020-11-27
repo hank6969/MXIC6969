@@ -15,6 +15,6 @@ namespace MXIC_PCCS.DataUnity.Interface
         string EditSwipe(string EditID, string AttendTypeSelect, string Hour);
 
          string transform();
-        string transform2(string StartTime, string EndTime);
+        void transform2(string StartTime, string EndTime);
     }
 }

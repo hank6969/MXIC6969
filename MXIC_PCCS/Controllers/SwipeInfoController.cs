@@ -40,7 +40,14 @@ namespace MXIC_PCCS.Controllers
 
             return str;
         }
-      
+
+        public string MxicTest()
+        {
+            string str = _ISwipeInfo.transform();
+
+            return str;
+        }
+
         public ActionResult transform(string StartTime,string EndTime)
         {
             _ISwipeInfo.transform2(StartTime, EndTime);

@@ -189,6 +189,7 @@
     </Compile>
     <Compile Include="Models\FAC_ATTENDLIST.cs" />
     <Compile Include="Models\GetSHA1.cs" />
+    <Compile Include="Models\METADATAContext.cs" />
     <Compile Include="Models\MxicTestContext.cs" />
     <Compile Include="Models\CalculationQuotation.cs" />
     <Compile Include="Models\DepartmentManagement.cs" />

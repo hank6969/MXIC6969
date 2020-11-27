@@ -67,7 +67,7 @@ namespace MXIC_PCCS.Controllers
             else
             {
                 TempData["message"] = "請填入PoNo及年月";
-                return RedirectToAction("Index", "ScheduleSetting");
+                return RedirectToAction("ExportSchedule", "ExportPO");
             }
             //return View();
         }

@@ -143,14 +143,20 @@ namespace MXIC_PCCS.Controllers
                             }
                             Property_ListModel.Add(Property_Model);
                         }
-                       _ILisenceManagement.ImportLisence(PoNo, Property_ListModel);
+                        _ILisenceManagement.ImportLisence(PoNo, Property_ListModel);
                     }
+                }
+                else
+                {
+                    SB.Clear();
+                    SB.AppendFormat("<script>alert('請先選擇匯入檔案!');window.location.href='../LisenceManagement/Index';</script>");
+                    return Content(SB.ToString());
                 }
             }
             catch (Exception ex)
             {
                 SB.Clear();
-                SB.AppendFormat("<script>alert('匯入失敗!');window.location.href='../LisenceManagement/Index';</script>");
+                SB.AppendFormat("<script>alert('匯入檔案時發生錯誤!');window.location.href='../LisenceManagement/Index';</script>");
                 return Content(SB.ToString());
             }
             return RedirectToAction("Index");

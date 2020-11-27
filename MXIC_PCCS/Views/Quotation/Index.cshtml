@@ -80,7 +80,7 @@
                 <a href="#" class="seachBTN btn-1 Manager DelBtn" onclick="delect(this)">刪除</a>
                 <a href="#" class="seachBTN btn-1 Manager" onclick="DownloadExample()" style="width: 150px;">下載匯入格式</a>
                 <a href='#' class="seachBTN btn-1 Manager" onclick="openUpfile()">選擇檔案</a>
-                <a href='#' id="upload" class="seachBTN btn-1 Manager">匯入</a>
+                <a href='javascript:document.form1.submit();' id="upload" class="seachBTN btn-1 Manager">匯入</a>
                 <form name='form1' action="@Url.Action("UploadQuotation")" method="post" enctype="multipart/form-data">
                     <input type="file" name="file" id="file" class="seachBTN btn-1 Manager" style="width: 250px;height: 50px;"/>
                 </form>

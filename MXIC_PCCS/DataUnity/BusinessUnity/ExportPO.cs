@@ -8,6 +8,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Configuration;
 
 namespace MXIC_PCCS.DataUnity.BusinessUnity
 {
@@ -27,8 +28,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             //Step 1. 寫入EXCEL 
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            //TODO : 要使用記得修改路徑 因為寫死阿阿阿QQ
-            var ExcelPath = Properties.Resources.DowloadDirectory;
+            var ExcelPath = ConfigurationManager.AppSettings["DowloadDirectory"]; 
             var DownloadPath = new FileInfo(ExcelPath);
             using (var Excel = new ExcelPackage(DownloadPath))
             {

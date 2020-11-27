@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Configuration;
 
 namespace MXIC_PCCS.Controllers
 {
@@ -40,7 +41,7 @@ namespace MXIC_PCCS.Controllers
             {
                 try
                 {
-                    System.IO.File.Copy(Properties.Resources.ExampleDirectory, Properties.Resources.DowloadDirectory, true);
+                    System.IO.File.Copy(ConfigurationManager.AppSettings["ExampleDirectory"], ConfigurationManager.AppSettings["DowloadDirectory"], true);
                     responseStr = ExportPO(PONumber, Month);
                     if (responseStr == "寫入成功")
                     {

@@ -50,9 +50,16 @@ namespace MXIC_PCCS.Controllers
 
         public ActionResult transform(string StartTime,string EndTime)
         {
-            _ISwipeInfo.transform2(StartTime, EndTime);
-
-            return RedirectToAction("Index", "SwipeInfo");
+            if (!string.IsNullOrEmpty(StartTime) && !string.IsNullOrWhiteSpace(StartTime) && !string.IsNullOrEmpty(EndTime) && !string.IsNullOrWhiteSpace(EndTime))
+            {
+                _ISwipeInfo.transform2(StartTime, EndTime);
+                return RedirectToAction("Index", "SwipeInfo");
+            }
+            else
+            {
+                TempData["message"] = "請輸入開始和結束日期";
+                return RedirectToAction("Index", "ScheduleSetting");
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             ((IDisposable)_db).Dispose();
         }
 
-        private void DownloadExcel(string PoNo, string VendorName, List<CalculationQuotation> QuotationList)
+        private void DownloadExcel(string PoNo, string VendorName, DateTime Date, List<CalculationQuotation> QuotationList)
         {
             //Step 1. 寫入EXCEL 
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -128,6 +128,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 WorkSheet.Cells[5, 9].Value = VendorName;
                 //PO
                 WorkSheet.Cells[7, 9].Value = PoNo;
+                //申請月份
+                WorkSheet.Cells[9, 1].Value = Date.ToString("yyyy/MM");
 
                 Excel.Save();
             }
@@ -746,7 +748,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     //}
                     #endregion
 
-                    DownloadExcel(PoNumber, VendorName, QuotationItem_ListModel);
+                    DownloadExcel(PoNumber, VendorName, Date, QuotationItem_ListModel);
                 }
                 catch (Exception ex)
                 {

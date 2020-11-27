@@ -26,6 +26,14 @@
 </head>
 
 <body><input type="hidden" id="UserID" value="@ViewBag.ID">
+    @if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+            var message = @Html.Raw(Json.Encode(TempData["message"]));
+            alert(message);
+        </script>
+        TempData["message"] = null;
+    }
     <div class="head cover">
         <div class="banner"></div>
         <div class="navber">

@@ -91,7 +91,7 @@
                 <a href='#' class="seachBTN btn-1 Manager" onclick="openUpfile()">選擇檔案</a>
                 <a href='javascript:document.form1.submit();' class="seachBTN btn-1 Manager">匯入</a>
                 <form name='form1' action="@Url.Action("UploadSchedule")" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" id="file" class="seachBTN btn-1 Manager" style="width: 250px; height: 50px;"/>
+                    <input type="file" name="file" id="file" class="seachBTN btn-1 Manager" accept=".xlsx" style="width: 250px; height: 50px;"/>
                 </form>
             </div>
         </div>

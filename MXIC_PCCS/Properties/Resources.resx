@@ -117,12 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DowloadDirectory" xml:space="preserve">
-    <value>C:\Users\user\Documents\MXIC6969 \MXIC_PCCS\Content\計價單.xlsx</value>
-    <comment>使用前記得修改路徑</comment>
-  </data>
-  <data name="ExampleDirectory" xml:space="preserve">
-    <value>C:\Users\user\Documents\MXIC6969 \MXIC_PCCS\Content\MXIC\計價單.xlsx</value>
-    <comment>使用前記得修改路徑</comment>
-  </data>
 </root>

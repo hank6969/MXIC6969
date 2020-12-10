@@ -33,9 +33,22 @@ namespace MXIC_PCCS.Controllers
         [HttpPost]
         public ActionResult UploadSchedule(HttpPostedFileBase file)
         {
-            string Result = _IScheduleSetting.ImportSchedul(file);
-            TempData["message"] = Result;
-            return RedirectToAction("Index", "ScheduleSetting");
+            if (file!=null) {
+
+                string Result = _IScheduleSetting.ImportSchedul(file);
+                TempData["message"] = Result;
+                return RedirectToAction("Index", "ScheduleSetting");
+            }
+            else {
+                StringBuilder SB = new StringBuilder();
+                string responseStr = "未選擇檔案!";
+            SB.Clear();
+            SB.AppendFormat("<script>alert('{0}');window.location.href='../ScheduleSetting/Index';</script>", responseStr);
+                return Content(SB.ToString());
+
+            }
+
+
         }
 
         public ActionResult DownloadScheduleExample()

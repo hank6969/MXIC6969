@@ -3,6 +3,7 @@ using MXIC_PCCS.DataUnity.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -50,9 +51,41 @@ namespace MXIC_PCCS.Controllers
 
         public ActionResult transform(string StartTime,string EndTime)
         {
-            _ISwipeInfo.transform2(StartTime, EndTime);
+            string responseStr = "日期選擇不完整!";
 
-            return RedirectToAction("Index", "SwipeInfo");
+            StringBuilder SB = new StringBuilder();
+
+            if (!string.IsNullOrWhiteSpace(StartTime) || !string.IsNullOrWhiteSpace(EndTime))
+            {
+                DateTime start = Convert.ToDateTime(StartTime);
+
+                DateTime end = Convert.ToDateTime(EndTime);
+
+                var result = DateTime.Compare(start, end);
+                if (result != 1)
+                { 
+                _ISwipeInfo.transform2(StartTime, EndTime);
+
+                return RedirectToAction("Index", "SwipeInfo");
+                }
+                else {
+
+                    responseStr = "日期選擇異常!";
+                    SB.Clear();
+                SB.AppendFormat("<script>alert('{0}');window.location.href='../ScheduleSetting/Index';</script>", responseStr);
+                return Content(SB.ToString());
+                }
+            }
+            else
+            {
+                SB.Clear();
+                SB.AppendFormat("<script>alert('{0}');window.location.href='../ScheduleSetting/Index';</script>", responseStr);
+
+                return Content(SB.ToString());
+            }
+
+          
+
         }
     }
 }

@@ -17,7 +17,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
     {
 
         public PCCSContext _db = new PCCSContext();
-
+        public MxicTestContext _dbMXIC = new MxicTestContext();
         //關閉資料庫
         public void Dispose()
         {
@@ -294,7 +294,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 }
                 #endregion
 
-                var _FAC_ATTENDLIST = _db.FAC_ATTENDLISTs.OrderBy(x => x.WORK_DATETIME).Where(x => x.WORK_DATETIME <= LastDayShiftDate && x.WORK_DATETIME >= FirstShiftDate && x.WORKER_NAME == ListVendorName.EmpName).Select(x => new { x.ENTRANCE_DATETIME, x.EXIT_DATETIME, x.WORK_DATETIME, x.WORKER_NAME });
+                var _FAC_ATTENDLIST = _dbMXIC.FAC_ATTENDLISTs.OrderBy(x => x.WORK_DATETIME).Where(x => x.WORK_DATETIME <= LastDayShiftDate && x.WORK_DATETIME >= FirstShiftDate && x.WORKER_NAME == ListVendorName.EmpName).Select(x => new { x.ENTRANCE_DATETIME, x.EXIT_DATETIME, x.WORK_DATETIME, x.WORKER_NAME });
                 //var _ScheduleSetting = _db.MXIC_ScheduleSettings.OrderBy(x => x.Date).Where(x => x.EmpName == ListVendorName.EmpName && x.Date >= FirstShiftDate && x.Date <= LastDayShiftDate);
                 foreach (var ListAttendlist in _FAC_ATTENDLIST)
                 {

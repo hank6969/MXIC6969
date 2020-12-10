@@ -51,6 +51,7 @@ namespace MXIC_PCCS.Controllers
 
         public ActionResult transform(string StartTime,string EndTime)
         {
+
             string responseStr = "日期選擇不完整!";
 
             StringBuilder SB = new StringBuilder();
@@ -86,6 +87,18 @@ namespace MXIC_PCCS.Controllers
 
           
 
+
+            if (!string.IsNullOrEmpty(StartTime) && !string.IsNullOrWhiteSpace(StartTime) && !string.IsNullOrEmpty(EndTime) && !string.IsNullOrWhiteSpace(EndTime))
+            {
+                _ISwipeInfo.transform2(StartTime, EndTime);
+                return RedirectToAction("Index", "SwipeInfo");
+            }
+            else
+            {
+                TempData["message"] = "請輸入開始和結束日期";
+                return RedirectToAction("Index", "ScheduleSetting");
+            }
+>>>>>>> ad894dd58cab2135e4c170106305606a3e429102
         }
     }
 }

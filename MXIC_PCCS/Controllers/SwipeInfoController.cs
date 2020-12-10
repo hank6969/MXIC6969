@@ -98,7 +98,7 @@ namespace MXIC_PCCS.Controllers
                 TempData["message"] = "請輸入開始和結束日期";
                 return RedirectToAction("Index", "ScheduleSetting");
             }
->>>>>>> ad894dd58cab2135e4c170106305606a3e429102
+
         }
     }
 }

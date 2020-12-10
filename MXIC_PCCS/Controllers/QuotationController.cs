@@ -35,7 +35,7 @@ namespace MXIC_PCCS.Controllers
             {
                 //再匯入EXCEL
                 //EPPLUS 授權 (不可註解刪除)
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial; 
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
                 //檢查匯入的EXCEL檔
                 if (file != null && file.ContentLength > 0)
@@ -44,7 +44,7 @@ namespace MXIC_PCCS.Controllers
                     string VendorName, PoNo;
 
                     List<QuotationProperty> Property_ListModel = new List<QuotationProperty>();
-             
+
                     //以下是EXCEL讀檔
                     using (var excelPkg = new ExcelPackage(file.InputStream))
                     {
@@ -63,7 +63,7 @@ namespace MXIC_PCCS.Controllers
                             SB.AppendFormat("<script>alert('找不到供應商名稱!');window.location.href='../Quotation/Index';</script>");
                             return Content(SB.ToString());
                         }
-                        
+
                         if (sheet.Cells[7, 7].Text.Contains("PO NO.") && !string.IsNullOrWhiteSpace(sheet.Cells[7, 9].Text))
                         {
                             PoNo = sheet.Cells[7, 9].Text;
@@ -129,11 +129,17 @@ namespace MXIC_PCCS.Controllers
                         _IQuotation.ImportQuotation(VendorName, PoNo, Property_ListModel);
                     }
                 }
+                else
+                {
+                    SB.Clear();
+                    SB.AppendFormat("<script>alert('請先選擇匯入檔案!');window.location.href='../Quotation/Index';</script>");
+                    return Content(SB.ToString());
+                }
             }
             catch (Exception ex)
             {
                 SB.Clear();
-                SB.AppendFormat(ex.ToString());
+                SB.AppendFormat("<script>alert('匯入檔案時發生錯誤!');window.location.href='../Quotation/Index';</script>");
                 return Content(SB.ToString());
             }
             return RedirectToAction("Index");

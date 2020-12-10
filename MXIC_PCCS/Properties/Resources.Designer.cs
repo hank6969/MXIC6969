@@ -59,23 +59,5 @@ namespace MXIC_PCCS.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   查詢類似 C:\Users\user\Documents\MXIC6969 \MXIC_PCCS\Content\計價單.xlsx 的當地語系化字串。
-        /// </summary>
-        internal static string DowloadDirectory {
-            get {
-                return ResourceManager.GetString("DowloadDirectory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查詢類似 C:\Users\user\Documents\MXIC6969 \MXIC_PCCS\Content\MXIC\計價單.xlsx 的當地語系化字串。
-        /// </summary>
-        internal static string ExampleDirectory {
-            get {
-                return ResourceManager.GetString("ExampleDirectory", resourceCulture);
-            }
-        }
     }
 }

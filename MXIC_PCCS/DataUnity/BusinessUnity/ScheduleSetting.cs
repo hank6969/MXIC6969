@@ -57,7 +57,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 {
                     //年,月,PO號碼
                     string Year, Month, PoNo;
-                    
+
                     //以下是讀檔
                     using (var excelPkg = new ExcelPackage(file.InputStream))
                     {
@@ -82,7 +82,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             string WorkGroup = "", EmpName = "", WorkShift = "", workdate = "", DayWeek = "";
                             for (int currentColumn = startColumn; currentColumn <= endColumn; currentColumn++)
                             {
-                                if(string.IsNullOrWhiteSpace(sheet.Cells[currentRow, 1].Text))
+                                if (string.IsNullOrWhiteSpace(sheet.Cells[currentRow, 1].Text))
                                 {
                                     continue;
                                 }
@@ -118,11 +118,15 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         }
                     }
                 }
-
+                else
+                {
+                    str = "請先選擇匯入檔案!";
+                }
             }
             catch (Exception ex)
             {
-                str = ex.ToString();
+              //str = ex.ToString();
+                str = "匯入檔案時發生錯誤!";
             }
 
             return str;

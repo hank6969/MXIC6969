@@ -129,7 +129,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string VendorList( string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
         {
-            var _VenderList = _db.MXIC_VendorManagements.Select(x=>new { x.PoNo,x.VendorName,x.EmpID,x.EmpName,x.Shifts,x.EditID,x.DeleteID});
+            var _VenderList = _db.MXIC_VendorManagements.OrderBy(x => x.EmpID).Select(x=>new { x.PoNo,x.VendorName,x.EmpID,x.EmpName,x.Shifts,x.EditID,x.DeleteID});
 
             //如果PoNo不為空
             if (!string.IsNullOrWhiteSpace(PoNo))

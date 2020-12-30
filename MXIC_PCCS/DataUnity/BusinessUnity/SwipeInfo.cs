@@ -162,32 +162,64 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
                         EXIT = item.Date;
 
-                        InAttendType = "曠職";
+                        if (item.WorkShift == "請假")
+                        {
+                            InAttendType = "請假";
 
-                        OutAttendType = "曠職";
-                        var SwipeIN = new Models.SwipeInfo();
-                        SwipeIN.CheckType = "CHECKIN";
-                        SwipeIN.SwipeTime = ENTRANCE;
-                        SwipeIN.EmpName = item.EmpName;
-                        SwipeIN.EditID = Guid.NewGuid();
-                        SwipeIN.SwipID = Guid.NewGuid();
-                        SwipeIN.Hour = 0;
-                        SwipeIN.AttendType = InAttendType;
-                        SwipeIN.valid = "true";
-                        SwipeIN.WORK_DATETIME = item.Date;
-                        _db.MXIC_SwipeInfos.Add(SwipeIN);
+                            OutAttendType = "請假";
+                            var SwipeIN = new Models.SwipeInfo();
+                            SwipeIN.CheckType = "CHECKIN";
+                            SwipeIN.SwipeTime = ENTRANCE;
+                            SwipeIN.EmpName = item.EmpName;
+                            SwipeIN.EditID = Guid.NewGuid();
+                            SwipeIN.SwipID = Guid.NewGuid();
+                            SwipeIN.Hour = 8;
+                            SwipeIN.AttendType = InAttendType;
+                            SwipeIN.valid = "true";
+                            SwipeIN.WORK_DATETIME = item.Date;
+                            _db.MXIC_SwipeInfos.Add(SwipeIN);
 
-                        var SwipeOUT = new Models.SwipeInfo();
-                        SwipeOUT.CheckType = "CHECKOUT";
-                        SwipeOUT.SwipeTime = EXIT;
-                        SwipeOUT.EmpName = item.EmpName;
-                        SwipeOUT.EditID = Guid.NewGuid();
-                        SwipeOUT.SwipID = Guid.NewGuid();
-                        SwipeOUT.Hour = 0;
-                        SwipeOUT.AttendType = OutAttendType;
-                        SwipeOUT.valid = "true";
-                        SwipeOUT.WORK_DATETIME = item.Date;
-                        _db.MXIC_SwipeInfos.Add(SwipeOUT);
+                            var SwipeOUT = new Models.SwipeInfo();
+                            SwipeOUT.CheckType = "CHECKOUT";
+                            SwipeOUT.SwipeTime = EXIT;
+                            SwipeOUT.EmpName = item.EmpName;
+                            SwipeOUT.EditID = Guid.NewGuid();
+                            SwipeOUT.SwipID = Guid.NewGuid();
+                            SwipeOUT.Hour = 8;
+                            SwipeOUT.AttendType = OutAttendType;
+                            SwipeOUT.valid = "true";
+                            SwipeOUT.WORK_DATETIME = item.Date;
+                            _db.MXIC_SwipeInfos.Add(SwipeOUT);
+                        }
+                        else
+                        {
+                            InAttendType = "曠職";
+
+                            OutAttendType = "曠職";
+                            var SwipeIN = new Models.SwipeInfo();
+                            SwipeIN.CheckType = "CHECKIN";
+                            SwipeIN.SwipeTime = ENTRANCE;
+                            SwipeIN.EmpName = item.EmpName;
+                            SwipeIN.EditID = Guid.NewGuid();
+                            SwipeIN.SwipID = Guid.NewGuid();
+                            SwipeIN.Hour = 0;
+                            SwipeIN.AttendType = InAttendType;
+                            SwipeIN.valid = "true";
+                            SwipeIN.WORK_DATETIME = item.Date;
+                            _db.MXIC_SwipeInfos.Add(SwipeIN);
+
+                            var SwipeOUT = new Models.SwipeInfo();
+                            SwipeOUT.CheckType = "CHECKOUT";
+                            SwipeOUT.SwipeTime = EXIT;
+                            SwipeOUT.EmpName = item.EmpName;
+                            SwipeOUT.EditID = Guid.NewGuid();
+                            SwipeOUT.SwipID = Guid.NewGuid();
+                            SwipeOUT.Hour = 0;
+                            SwipeOUT.AttendType = OutAttendType;
+                            SwipeOUT.valid = "true";
+                            SwipeOUT.WORK_DATETIME = item.Date;
+                            _db.MXIC_SwipeInfos.Add(SwipeOUT);
+                        }
                     }
                     //有打卡紀錄
                     else

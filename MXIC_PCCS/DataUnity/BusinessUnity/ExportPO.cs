@@ -125,9 +125,9 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 }
 
                 //Vendor
-                WorkSheet.Cells[5, 9].Value = VendorName;
+                WorkSheet.Cells[5, 8].Value = VendorName;
                 //PO
-                WorkSheet.Cells[7, 9].Value = PoNo;
+                WorkSheet.Cells[7, 8].Value = PoNo;
                 //申請月份
                 //WorkSheet.Cells[9, 1].Value = Date.ToString("yyyy/MM");
 
@@ -535,7 +535,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         UsualFunction(PoNo, StartDate, EndDate, "扣項", IsSwipeUnusual, QuotationItem_ListModel);
                     }
 
-                    
+
                     if (WithOverTime.Count() > 0)
                     {
                         UsualFunction(PoNo, StartDate, EndDate, "加項", WithOverTime, QuotationItem_ListModel);

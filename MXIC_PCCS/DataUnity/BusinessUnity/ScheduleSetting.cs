@@ -305,7 +305,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
             var FirstShiftDate = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(Month), 1);//要判斷的月份
             var LastDayShiftDate = FirstShiftDate.AddMonths(1).AddDays(-FirstShiftDate.AddMonths(1).Day);
             //從廠商管理撈出PONO裡的人員↓
-            var _VendorManagement = _db.MXIC_VendorManagements.Where(x => x.PoNo == PoNo).Select(x => new { x.EmpName, x.Shifts });
+            var _VendorManagement = _db.MXIC_VendorManagements.OrderBy(x => x.EmpID).Where(x => x.PoNo == PoNo).OrderBy(x => x.Shifts).Select(x => new { x.EmpName, x.Shifts });
             foreach (var ListVendorName in _VendorManagement)
             {
                 #region 前兩格的組別跟人名
@@ -329,7 +329,31 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 }
                 #endregion
 
-                var _FAC_ATTENDLIST = _dbMXIC.FAC_ATTENDLISTs.OrderBy(x => x.WORK_DATETIME).Where(x => x.WORK_DATETIME <= LastDayShiftDate && x.WORK_DATETIME >= FirstShiftDate && x.WORKER_NAME == ListVendorName.EmpName&&x.STAY_FLAG!=null).Select(x => new { x.ENTRANCE_DATETIME, x.EXIT_DATETIME, x.WORK_DATETIME, x.WORKER_NAME });
+                //班表資料請假 & 沒有刷卡資料 = 寫請假資料到出勤月報表上
+                var LeaveInfo = _db.MXIC_ScheduleSettings.Where(x => x.PoNo == PoNo && x.Date <= LastDayShiftDate && x.Date >= FirstShiftDate && x.EmpName == ListVendorName.EmpName && x.WorkShift == "請假");
+                if (LeaveInfo.Any())
+                {
+                    foreach (var Leave in LeaveInfo)
+                    {
+                        var AttendCheck = _dbMXIC.FAC_ATTENDLISTs.Where(x => x.WORKER_NAME == ListVendorName.EmpName && x.WORK_DATETIME == Leave.Date);
+                        if (!AttendCheck.Any())
+                        {
+                            var ColAttendant = 2 * int.Parse(Leave.Date.ToString("dd")) + 1;
+                            sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(212, 212, 212));//設定背景顏色
+
+                            sheet.Cells[RowAttendant + 1, ColAttendant].Value = "請假";
+
+                            sheet.Cells[RowAttendant, ColAttendant].Value = "00:00";
+                            sheet.Cells[RowAttendant, ColAttendant].Style.Font.Size = 8;
+
+                            sheet.Cells[RowAttendant, ColAttendant + 1].Value = "00:00";
+                            sheet.Cells[RowAttendant, ColAttendant + 1].Style.Font.Size = 8;
+                        }
+                    }
+                }
+
+                var _FAC_ATTENDLIST = _dbMXIC.FAC_ATTENDLISTs.OrderBy(x => x.WORK_DATETIME).Where(x => x.WORK_DATETIME <= LastDayShiftDate && x.WORK_DATETIME >= FirstShiftDate && x.WORKER_NAME == ListVendorName.EmpName && x.ENTRANCE_DATETIME != null && x.EXIT_DATETIME != null).Select(x => new { x.ENTRANCE_DATETIME, x.EXIT_DATETIME, x.WORK_DATETIME, x.WORKER_NAME });
                 //var _ScheduleSetting = _db.MXIC_ScheduleSettings.OrderBy(x => x.Date).Where(x => x.EmpName == ListVendorName.EmpName && x.Date >= FirstShiftDate && x.Date <= LastDayShiftDate);
                 foreach (var ListAttendlist in _FAC_ATTENDLIST)
                 {

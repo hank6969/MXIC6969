@@ -330,7 +330,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 #endregion
 
                 //班表資料請假 & 沒有刷卡資料 = 寫請假資料到出勤月報表上
-                var LeaveInfo = _db.MXIC_ScheduleSettings.Where(x => x.PoNo == PoNo && x.Date <= LastDayShiftDate && x.Date >= FirstShiftDate && x.EmpName == ListVendorName.EmpName && x.WorkShift == "請假");
+                var LeaveInfo = _db.MXIC_ScheduleSettings.Where(x => x.PoNo == PoNo && x.Date <= LastDayShiftDate && x.Date >= FirstShiftDate && x.EmpName == ListVendorName.EmpName && x.WorkShift == "排休");
                 if (LeaveInfo.Any())
                 {
                     foreach (var Leave in LeaveInfo)

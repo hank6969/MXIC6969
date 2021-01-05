@@ -288,11 +288,11 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         //SwipeOUT.WORK_DATETIME = item.Date;
                         //_db.MXIC_SwipeInfos.Add(SwipeOUT);
 
-                        if (item.WorkShift == "請假")
+                        if (item.WorkShift == "排休")
                         {
-                            InAttendType = "請假";
+                            InAttendType = "排休";
 
-                            OutAttendType = "請假";
+                            OutAttendType = "排休";
                             var SwipeIN = new Models.SwipeInfo();
                             SwipeIN.CheckType = "CHECKIN";
                             SwipeIN.SwipeTime = ENTRANCE;

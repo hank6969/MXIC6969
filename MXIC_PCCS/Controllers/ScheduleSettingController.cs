@@ -80,7 +80,7 @@ namespace MXIC_PCCS.Controllers
             else
             {
                 TempData["message"] = "請填入PoNo及年月";
-                return RedirectToAction("ExportSchedule", "ExportPO");
+                return RedirectToAction("Index", "ExportPO");
             }
             //return View();
         }

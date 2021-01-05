@@ -31,6 +31,6 @@ namespace MXIC_PCCS.Models
 
         public double Hour { get; set; }
 
-        public DateTime? WORK_DATETIME { get; set; }
+        public DateTime WORK_DATETIME { get; set; }
     }
 }

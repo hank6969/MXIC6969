@@ -454,7 +454,7 @@ $(document).ready(function () {
         testArea.push(testdata)
     }
 
-    setTimeout(function () {
+   
         //Loading
         $('.loading').addClass('hidden');
         $('.tableContant').removeClass('hidden').addClass('show')
@@ -510,7 +510,7 @@ $(document).ready(function () {
                 }
             }
         });
-    }, 2000);
+  
     navbarItem(navData);
     iconMenu(navData);
     marquee(marqueeContant);

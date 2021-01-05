@@ -49,23 +49,25 @@ namespace MXIC_PCCS.Controllers
             return str;
         }
 
-        public ActionResult transform(string StartTime,string EndTime)
+        public ActionResult transform(string StartTime,string EndTime,string PoNo)
         {
 
             string responseStr = "日期選擇不完整!";
 
             StringBuilder SB = new StringBuilder();
-
-            if (!string.IsNullOrWhiteSpace(StartTime) || !string.IsNullOrWhiteSpace(EndTime))
+        
+            //如果開始日不等於空&結束日不等空
+            if (!string.IsNullOrWhiteSpace(StartTime) && !string.IsNullOrWhiteSpace(EndTime))
             {
                 DateTime start = Convert.ToDateTime(StartTime);
 
                 DateTime end = Convert.ToDateTime(EndTime);
-
+                //判斷日期區間是否正確
                 var result = DateTime.Compare(start, end);
+
                 if (result != 1)
                 { 
-                _ISwipeInfo.transform2(StartTime, EndTime);
+                _ISwipeInfo.transform2(StartTime, EndTime,PoNo);
 
                 return RedirectToAction("Index", "SwipeInfo");
                 }
@@ -73,30 +75,23 @@ namespace MXIC_PCCS.Controllers
 
                     responseStr = "日期選擇異常!";
                     SB.Clear();
-                SB.AppendFormat("<script>alert('{0}');window.location.href='../ScheduleSetting/Index';</script>", responseStr);
-                return Content(SB.ToString());
+                    SB.AppendFormat("<script>alert('{0}');window.location.href='../ScheduleSetting/Index';</script>", responseStr);
+                    return Content(SB.ToString());
                 }
             }
+            //如果開始日或結束日等於空
             else
             {
-                SB.Clear();
+                if (!string.IsNullOrWhiteSpace(PoNo))
+                {
+                    _ISwipeInfo.transform2("", "", PoNo);
+                    return RedirectToAction("Index", "SwipeInfo");
+                }
+
+                    SB.Clear();
                 SB.AppendFormat("<script>alert('{0}');window.location.href='../ScheduleSetting/Index';</script>", responseStr);
 
                 return Content(SB.ToString());
-            }
-
-          
-
-
-            if (!string.IsNullOrEmpty(StartTime) && !string.IsNullOrWhiteSpace(StartTime) && !string.IsNullOrEmpty(EndTime) && !string.IsNullOrWhiteSpace(EndTime))
-            {
-                _ISwipeInfo.transform2(StartTime, EndTime);
-                return RedirectToAction("Index", "SwipeInfo");
-            }
-            else
-            {
-                TempData["message"] = "請輸入開始和結束日期";
-                return RedirectToAction("Index", "ScheduleSetting");
             }
 
         }

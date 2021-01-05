@@ -14,10 +14,41 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
         public PCCSContext _db = new PCCSContext();
 
         //關閉資料庫
+        #region IDisposable Support
+        private bool disposedValue = false; // 偵測多餘的呼叫
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: 處置 Managed 狀態 (Managed 物件)。
+                    _db.Dispose();
+                }
+
+                // TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的完成項。
+                // TODO: 將大型欄位設為 null。
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: 僅當上方的 Dispose(bool disposing) 具有會釋放 Unmanaged 資源的程式碼時，才覆寫完成項。
+        // ~UserManagement() {
+        //   // 請勿變更這個程式碼。請將清除程式碼放入上方的 Dispose(bool disposing) 中。
+        //   Dispose(false);
+        // }
+
+        // 加入這個程式碼的目的在正確實作可處置的模式。
         public void Dispose()
         {
-            ((IDisposable)_db).Dispose();
+            // 請勿變更這個程式碼。請將清除程式碼放入上方的 Dispose(bool disposing) 中。
+            Dispose(true);
+            // TODO: 如果上方的完成項已被覆寫，即取消下行的註解狀態。
+            GC.SuppressFinalize(this);
         }
+        #endregion
 
         public string AddVendor(string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
         {
@@ -129,7 +160,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string VendorList( string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
         {
-            var _VenderList = _db.MXIC_VendorManagements.Select(x=>new { x.PoNo,x.VendorName,x.EmpID,x.EmpName,x.Shifts,x.EditID,x.DeleteID});
+            var _VenderList = _db.MXIC_VendorManagements.Select(x=>new { x.PoNo,x.VendorName,x.EmpID,x.EmpName,x.EditID,x.DeleteID});
 
             //如果PoNo不為空
             if (!string.IsNullOrWhiteSpace(PoNo))
@@ -152,10 +183,10 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 _VenderList = _VenderList.Where(x => x.EmpName.ToLower().Contains(EmpName.ToLower()));
             }
             //如果Shifts不為空
-            if (!string.IsNullOrWhiteSpace(Shifts))
-            {
-                _VenderList = _VenderList.Where(x => x.Shifts.ToLower().Contains(Shifts.ToLower()));
-            }
+            //if (!string.IsNullOrWhiteSpace(Shifts))
+            //{
+            //    _VenderList = _VenderList.Where(x => x.Shifts.ToLower().Contains(Shifts.ToLower()));
+            //}
 
             string Str = JsonConvert.SerializeObject(_VenderList, Formatting.Indented);
 

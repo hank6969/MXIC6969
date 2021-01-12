@@ -33,22 +33,20 @@ namespace MXIC_PCCS.Controllers
         [HttpPost]
         public ActionResult UploadSchedule(HttpPostedFileBase file)
         {
-            if (file!=null) {
-
+            if (file!=null)
+            {
                 string Result = _IScheduleSetting.ImportSchedul(file);
                 TempData["message"] = Result;
                 return RedirectToAction("Index", "ScheduleSetting");
             }
-            else {
+            else
+            {
                 StringBuilder SB = new StringBuilder();
                 string responseStr = "未選擇檔案!";
-            SB.Clear();
-            SB.AppendFormat("<script>alert('{0}');window.location.href='../ScheduleSetting/Index';</script>", responseStr);
+                SB.Clear();
+                SB.AppendFormat("<script>alert('{0}');window.location.href='../ScheduleSetting/Index';</script>", responseStr);
                 return Content(SB.ToString());
-
             }
-
-
         }
 
         public ActionResult DownloadScheduleExample()
@@ -82,16 +80,12 @@ namespace MXIC_PCCS.Controllers
                 TempData["message"] = "請填入PoNo及年月";
                 return RedirectToAction("Index", "ExportPO");
             }
-            //return View();
         }
 
         public string DelSchedule(string ScheduleDate,string SchedulePoNo)
         {
-
             string str = _IScheduleSetting.DelSchedule(ScheduleDate, SchedulePoNo);
             return str;
         }
-
-
     }
 }

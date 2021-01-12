@@ -53,31 +53,29 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
         public string AddVendor(string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
         {
             string Str = "新增成功";
-            if (!string.IsNullOrWhiteSpace(PoNo) && !string.IsNullOrWhiteSpace(VendorName) && !string.IsNullOrWhiteSpace(EmpID) && !string.IsNullOrWhiteSpace(EmpName) && !string.IsNullOrWhiteSpace(Shifts))
+            if (!string.IsNullOrWhiteSpace(PoNo) && !string.IsNullOrWhiteSpace(VendorName) && !string.IsNullOrWhiteSpace(EmpID) && !string.IsNullOrWhiteSpace(EmpName))
             {
                 var OriginalEmp = _db.MXIC_VendorManagements.Where(x => x.EmpID == EmpID);
                 if (OriginalEmp.Any())
                 {
-
                     Str = "此駐廠人員編號已存在";
                 }
-                else { 
-                var AddUser = new Models.VendorManagement()
-                {
-                    VenID = Guid.NewGuid(),
-                    PoNo = PoNo,
-                    VendorName = VendorName,
-                    EmpID = EmpID,
-                    EmpName = EmpName,
-                    Shifts = Shifts,
-                    DeleteID = Guid.NewGuid(),
-                    EditID = Guid.NewGuid()
-
-                };
-
-                _db.MXIC_VendorManagements.Add(AddUser);
-                _db.SaveChanges();
-            }
+                else
+                { 
+                    var AddUser = new Models.VendorManagement()
+                    {
+                        VenID = Guid.NewGuid(),
+                        PoNo = PoNo,
+                        VendorName = VendorName,
+                        EmpID = EmpID,
+                        EmpName = EmpName,
+                        Shifts = Shifts,
+                        DeleteID = Guid.NewGuid(),
+                        EditID = Guid.NewGuid()
+                    };
+                    _db.MXIC_VendorManagements.Add(AddUser);
+                    _db.SaveChanges();
+                }
             }
             else
             {
@@ -102,8 +100,8 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         //User.UserDisable = false;
                         _db.MXIC_VendorManagements.Remove(Vendor);
                     }
-                _db.SaveChanges();
-                Str = "刪除成功";
+                    _db.SaveChanges();
+                    Str = "刪除成功";
                 }
                 else
                 {
@@ -149,6 +147,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 {
                     EditVendor.Shifts = Shifts;
                 }
+
                 _db.SaveChanges();
             }
             catch (Exception e)
@@ -160,7 +159,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
         public string VendorList( string PoNo, string VendorName, string EmpID, string EmpName, string Shifts)
         {
-            var _VenderList = _db.MXIC_VendorManagements.OrderBy(x => x.EmpID).Select(x => new { x.PoNo,x.VendorName,x.EmpID,x.EmpName,x.Shifts,x.EditID,x.DeleteID});
+            var _VenderList = _db.MXIC_VendorManagements.OrderBy(x => x.EmpID).Select(x => new { x.PoNo,x.VendorName,x.EmpID,x.EmpName,x.EditID,x.DeleteID});
 
             //如果PoNo不為空
             if (!string.IsNullOrWhiteSpace(PoNo))

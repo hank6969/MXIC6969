@@ -241,58 +241,7 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
                         foreach (var EmpRowData in EmpInfo)
                         {
-                            if (SwipeRowData.AttendType.Contains("加"))       //加班
-                            {
-                                if (WithLisence.Count() == 0)                 //有證照
-                                {
-                                    switch (EmpRowData.WorkGroup)             //班別
-                                    {
-                                        case "組長":
-                                            //Console.WriteLine("10-4(填入時數)"); //SwipeRowData.Hour
-                                            QuotationItem[4 - 1].Count = QuotationItem[4 - 1].Count + SwipeRowData.Hour;
-                                            break;
-                                        case "常日":
-                                            //Console.WriteLine("10-4(填入時數)"); //SwipeRowData.Hour
-                                            QuotationItem[4 - 1].Count = QuotationItem[4 - 1].Count + SwipeRowData.Hour;
-                                            break;
-                                        case "早":
-                                            //Console.WriteLine("10-2(填入時數)"); //SwipeRowData.Hour
-                                            QuotationItem[2 - 1].Count = QuotationItem[2 - 1].Count + SwipeRowData.Hour;
-                                            break;
-                                        case "夜":
-                                            //Console.WriteLine("10-3(填入時數)"); //SwipeRowData.Hour
-                                            QuotationItem[3 - 1].Count = QuotationItem[3 - 1].Count + SwipeRowData.Hour;
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                                else                                          //沒證照
-                                {
-                                    switch (EmpRowData.WorkGroup)             //班別
-                                    {
-                                        case "組長":
-                                            //Console.WriteLine("10-7(填入時數)"); //SwipeRowData.Hour
-                                            QuotationItem[7 - 1].Count = QuotationItem[7 - 1].Count + SwipeRowData.Hour;
-                                            break;
-                                        case "常日":
-                                            //Console.WriteLine("10-7(填入時數)"); //SwipeRowData.Hour
-                                            QuotationItem[7 - 1].Count = QuotationItem[7 - 1].Count + SwipeRowData.Hour;
-                                            break;
-                                        case "早":
-                                            //Console.WriteLine("10-5(填入時數)"); //SwipeRowData.Hour
-                                            QuotationItem[5 - 1].Count = QuotationItem[5 - 1].Count + SwipeRowData.Hour;
-                                            break;
-                                        case "夜":
-                                            //Console.WriteLine("10-6(填入時數)"); //SwipeRowData.Hour
-                                            QuotationItem[6 - 1].Count = QuotationItem[6 - 1].Count + SwipeRowData.Hour;
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                            }
-                            else                                              //支援
+                            if (SwipeRowData.AttendType.Contains("加"))       //支援
                             {
                                 if (WithLisence.Count() == 0)                 //有證照
                                 {
@@ -337,6 +286,58 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                                         case "夜":
                                             //Console.WriteLine("10-17(填入時數)"); //SwipeRowData.Hour
                                             QuotationItem[17 - 1].Count = QuotationItem[17 - 1].Count + SwipeRowData.Hour;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            }
+                            else                                              //加班
+                            {
+                                if (WithLisence.Count() == 0)                 //有證照
+                                {
+                                    switch (EmpRowData.WorkGroup)             //班別
+                                    {
+                                        case "組長":
+                                            //Console.WriteLine("10-4(填入時數)"); //SwipeRowData.Hour
+                                            QuotationItem[4 - 1].Count = QuotationItem[4 - 1].Count + SwipeRowData.Hour;
+                                            break;
+                                        case "常日":
+                                            //Console.WriteLine("10-4(填入時數)"); //SwipeRowData.Hour
+                                            QuotationItem[4 - 1].Count = QuotationItem[4 - 1].Count + SwipeRowData.Hour;
+                                            break;
+                                        case "早":
+                                            //Console.WriteLine("10-2(填入時數)"); //SwipeRowData.Hour
+                                            QuotationItem[2 - 1].Count = QuotationItem[2 - 1].Count + SwipeRowData.Hour;
+                                            break;
+                                        case "夜":
+                                            //Console.WriteLine("10-3(填入時數)"); //SwipeRowData.Hour
+                                            QuotationItem[3 - 1].Count = QuotationItem[3 - 1].Count + SwipeRowData.Hour;
+                                            break;
+                                        default:
+                                            break;
+
+                                    }
+                                }
+                                else                                          //沒證照
+                                {
+                                    switch (EmpRowData.WorkGroup)             //班別
+                                    {
+                                        case "組長":
+                                            //Console.WriteLine("10-7(填入時數)"); //SwipeRowData.Hour
+                                            QuotationItem[7 - 1].Count = QuotationItem[7 - 1].Count + SwipeRowData.Hour;
+                                            break;
+                                        case "常日":
+                                            //Console.WriteLine("10-7(填入時數)"); //SwipeRowData.Hour
+                                            QuotationItem[7 - 1].Count = QuotationItem[7 - 1].Count + SwipeRowData.Hour;
+                                            break;
+                                        case "早":
+                                            //Console.WriteLine("10-5(填入時數)"); //SwipeRowData.Hour
+                                            QuotationItem[5 - 1].Count = QuotationItem[5 - 1].Count + SwipeRowData.Hour;
+                                            break;
+                                        case "夜":
+                                            //Console.WriteLine("10-6(填入時數)"); //SwipeRowData.Hour
+                                            QuotationItem[6 - 1].Count = QuotationItem[6 - 1].Count + SwipeRowData.Hour;
                                             break;
                                         default:
                                             break;

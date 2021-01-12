@@ -124,8 +124,7 @@ var navData = [
     { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1' },
     { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
     { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },
-    { 'name': '匯出出勤月報表', 'url': '../ExportPO/ExportSchedule', 'commonly_used': '1' },
-    { 'name': '匯出計價單', 'url': '../ExportPO/', 'commonly_used': '1' }
+    { 'name': '匯出報表', 'url': '../ExportPO/', 'commonly_used': '1' }
 ]
 
 //跑馬燈資料格式範例
@@ -991,7 +990,7 @@ function deleteScheduleCheck() {
 
 function EditBtn(cellvalue, options, rowObject) {
     if (title == '刷卡紀錄') {
-        if (rowObject.AttendType !== "正常"&&(Admin=="true"||Admin=="SuperAdmin")) {
+        if ((Admin=="true"||Admin=="SuperAdmin")) {
             return ' <a href="#" id=' + rowObject.EditID + ' class="seachBTN btn-1" style="width:50px" onclick="edit(this)">' + rowObject.AttendType + '</a>';
 
         } else {

@@ -301,7 +301,6 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
 
             #region 很多人員的那幾行
             var RowAttendant = rowStart + 4; //人員出勤開始的那一行
-
             var FirstShiftDate = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(Month), 1);//要判斷的月份
             var LastDayShiftDate = FirstShiftDate.AddMonths(1).AddDays(-FirstShiftDate.AddMonths(1).Day);
             //從廠商管理撈出PONO裡的人員↓
@@ -324,36 +323,13 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                 sheet.Cells[RowAttendant, 2, RowAttendant + 1, 2].Style.TextRotation = 255;//文字轉直
                 if (ChangeBackColor)//每兩團變色
                 {
-                    sheet.Cells[RowAttendant, 1, RowAttendant + 1, 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    sheet.Cells[RowAttendant, 1, RowAttendant + 1, 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(199, 235, 250));//設定背景顏色
-                    sheet.Cells[RowAttendant, 2, RowAttendant + 1, 2].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    sheet.Cells[RowAttendant, 2, RowAttendant + 1, 2].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(199, 235, 250));//設定背景顏色
+                    //Col從第一格到最後(一個月的天數乘2加前面兩格的2)
+                    sheet.Cells[RowAttendant, 1, RowAttendant + 1, DaysInMonth * 2 + 2].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    sheet.Cells[RowAttendant, 1, RowAttendant + 1, DaysInMonth * 2 + 2].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(199, 235, 250));//設定背景顏色
+                    //sheet.Cells[RowAttendant, 2, RowAttendant + 1, 2].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    //sheet.Cells[RowAttendant, 2, RowAttendant + 1, 2].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(199, 235, 250));//設定背景顏色
                 }
                 #endregion
-
-                //班表資料請假 & 沒有刷卡資料 = 寫請假資料到出勤月報表上
-                var LeaveInfo = _db.MXIC_ScheduleSettings.Where(x => x.PoNo == PoNo && x.Date <= LastDayShiftDate && x.Date >= FirstShiftDate && x.EmpName == ListVendorName.EmpName && x.WorkShift == "排休");
-                if (LeaveInfo.Any())
-                {
-                    foreach (var Leave in LeaveInfo)
-                    {
-                        var AttendCheck = _dbMXIC.FAC_ATTENDLISTs.Where(x => x.WORKER_NAME == ListVendorName.EmpName && x.WORK_DATETIME == Leave.Date);
-                        if (!AttendCheck.Any())
-                        {
-                            var ColAttendant = 2 * int.Parse(Leave.Date.ToString("dd")) + 1;
-                            sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(212, 212, 212));//設定背景顏色
-
-                            sheet.Cells[RowAttendant + 1, ColAttendant].Value = "請假";
-
-                            sheet.Cells[RowAttendant, ColAttendant].Value = "";
-                            sheet.Cells[RowAttendant, ColAttendant].Style.Font.Size = 8;
-
-                            sheet.Cells[RowAttendant, ColAttendant + 1].Value = "";
-                            sheet.Cells[RowAttendant, ColAttendant + 1].Style.Font.Size = 8;
-                        }
-                    }
-                }
 
                 var _FAC_ATTENDLIST = _dbMXIC.FAC_ATTENDLISTs.OrderBy(x => x.WORK_DATETIME).Where(x => x.WORK_DATETIME <= LastDayShiftDate && x.WORK_DATETIME >= FirstShiftDate && x.WORKER_NAME == ListVendorName.EmpName && x.ENTRANCE_DATETIME != null && x.EXIT_DATETIME != null).Select(x => new { x.ENTRANCE_DATETIME, x.EXIT_DATETIME, x.WORK_DATETIME, x.WORKER_NAME });
                 //var _ScheduleSetting = _db.MXIC_ScheduleSettings.OrderBy(x => x.Date).Where(x => x.EmpName == ListVendorName.EmpName && x.Date >= FirstShiftDate && x.Date <= LastDayShiftDate);
@@ -366,12 +342,11 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     for (int i = 1; i <= DaysInMonth; i++)
                     {
                         sheet.Cells[RowAttendant + 1, ColAttendant, RowAttendant + 1, ColAttendant + 1].Merge = true; //上下班時間下面那格合併
-                        if (ChangeBackColor)//每兩團變色
-                        {
-                            sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(199, 235, 250));//設定背景顏色
-                        }
-                        
+                        //if (ChangeBackColor)//每兩團變色
+                        //{
+                        //    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(199, 235, 250));//設定背景顏色
+                        //}
                         if (sheet.Cells[RowDate, ColAttendant].Value.ToString() == WORK_DATE)
                         {
                             int _Year = Convert.ToInt32(Year);
@@ -451,6 +426,30 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                     }
                 }
 
+                //班表資料請假 & 沒有刷卡資料 = 寫請假資料到出勤月報表上
+                var LeaveInfo = _db.MXIC_ScheduleSettings.Where(x => x.PoNo == PoNo && x.Date <= LastDayShiftDate && x.Date >= FirstShiftDate && x.EmpName == ListVendorName.EmpName && x.WorkShift == "排休");
+                if (LeaveInfo.Any())
+                {
+                    foreach (var Leave in LeaveInfo)
+                    {
+                        var AttendCheck = _dbMXIC.FAC_ATTENDLISTs.Where(x => x.WORKER_NAME == ListVendorName.EmpName && x.WORK_DATETIME == Leave.Date);
+                        if (!AttendCheck.Any())
+                        {
+                            var ColAttendant = 2 * int.Parse(Leave.Date.ToString("dd")) + 1;
+                            sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            sheet.Cells[RowAttendant, ColAttendant, RowAttendant + 1, ColAttendant + 1].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(212, 212, 212));//設定背景顏色
+
+                            sheet.Cells[RowAttendant + 1, ColAttendant].Value = "請假";
+
+                            sheet.Cells[RowAttendant, ColAttendant].Value = "";
+                            sheet.Cells[RowAttendant, ColAttendant].Style.Font.Size = 8;
+
+                            sheet.Cells[RowAttendant, ColAttendant + 1].Value = "";
+                            sheet.Cells[RowAttendant, ColAttendant + 1].Style.Font.Size = 8;
+                        }
+                    }
+                }
+
                 RowAttendant += 2; //有合併所以一次跳兩行
                 ChangeBackColor = !ChangeBackColor;//每兩行換一次背景顏色
             }
@@ -496,11 +495,11 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
         public string DelSchedule(string ScheduleDate, string SchedulePoNo)
         {
             string MSG = "刪除失敗!";
-            try {
+            try
+            {
                 if (!string.IsNullOrWhiteSpace(ScheduleDate) && !string.IsNullOrWhiteSpace(SchedulePoNo))
                 {
                     DateTime TheMonthStart = DateTime.Parse(ScheduleDate);
-
                     DateTime TheMonthEnd = new DateTime(TheMonthStart.Year, TheMonthStart.Month, DateTime.DaysInMonth(TheMonthStart.Year, TheMonthStart.Month)).AddDays(1).AddSeconds(-1); //本月月底
 
                     var history = _db.MXIC_ScheduleSettings.Where(x => x.Date >= TheMonthStart && x.Date < TheMonthEnd);
@@ -510,31 +509,24 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                         {
                             _db.MXIC_ScheduleSettings.Remove(item);
                         }
-
                         _db.SaveChanges();
                         MSG = "刪除成功";
                     }
                     else
                     {
-
                         MSG = "查無班表資料";
                     }
                 }
                 else
                 {
-
                     MSG = "欄位未填";
                 }
-
             }
             catch(Exception ex)
             {
                 MSG = ex.ToString();
-
             }
             return MSG;
         }
-
-
     }
 }

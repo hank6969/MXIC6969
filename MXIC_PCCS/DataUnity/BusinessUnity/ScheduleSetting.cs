@@ -413,11 +413,13 @@ namespace MXIC_PCCS.DataUnity.BusinessUnity
                             }
                             sheet.Cells[RowAttendant + 1, ColAttendant].Value = _AttendType;
 
-                            DateTime _ENTRANCE_DATETIME = Convert.ToDateTime(ListAttendlist.ENTRANCE_DATETIME); //上班時間
+                            var NEW_ENTRANCE_DATETIME = _dbMXIC.FAC_ATTENDLISTs.OrderBy(x => x.ENTRANCE_DATETIME).Where(x => x.WORK_DATETIME.Year == _Year && x.WORK_DATETIME.Month == _Month && x.WORK_DATETIME.Day == _WORK_DATE && x.WORKER_NAME == ListVendorName.EmpName && x.ENTRANCE_DATETIME != null && x.EXIT_DATETIME != null).Select(x => new { x.ENTRANCE_DATETIME }).FirstOrDefault();
+                            DateTime _ENTRANCE_DATETIME = Convert.ToDateTime(NEW_ENTRANCE_DATETIME.ENTRANCE_DATETIME); //上班時間
                             sheet.Cells[RowAttendant, ColAttendant].Value = _ENTRANCE_DATETIME.ToString("HH:mm");
                             sheet.Cells[RowAttendant, ColAttendant].Style.Font.Size = 8;
 
-                            DateTime _EXIT_DATETIME = Convert.ToDateTime(ListAttendlist.EXIT_DATETIME); //下班時間
+                            var NEW_EXIT_DATETIME = _dbMXIC.FAC_ATTENDLISTs.OrderByDescending(x => x.EXIT_DATETIME).Where(x => x.WORK_DATETIME.Year == _Year && x.WORK_DATETIME.Month == _Month && x.WORK_DATETIME.Day == _WORK_DATE && x.WORKER_NAME == ListVendorName.EmpName && x.ENTRANCE_DATETIME != null && x.EXIT_DATETIME != null).Select(x => new { x.EXIT_DATETIME }).FirstOrDefault();
+                            DateTime _EXIT_DATETIME = Convert.ToDateTime(NEW_EXIT_DATETIME.EXIT_DATETIME); //下班時間
                             sheet.Cells[RowAttendant, ColAttendant + 1].Value = _EXIT_DATETIME.ToString("HH:mm");
                             sheet.Cells[RowAttendant, ColAttendant + 1].Style.Font.Size = 8;
                         }

@@ -10,11 +10,14 @@ namespace MXIC_PCCS.DataUnity.Interface
     {
         string CheckinList(string VendorName, string EmpID, string EmpName ,DateTime? StartTime, DateTime? EndTime, string AttendTypeSelect);
 
+        string AlarmList(string PoNo, string VendorName, string EmpName, DateTime? StartTime, DateTime? EndTime, string CheckType);
+
         string SwipeInfoDetail(string EditID);
 
         string EditSwipe(string EditID, string AttendTypeSelect, string Hour);
 
-         string transform();
+        string transform();
+
         void transform2(string StartTime, string EndTime,string PoNo);
     }
 }

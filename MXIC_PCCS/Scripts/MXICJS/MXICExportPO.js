@@ -78,6 +78,11 @@ if (title == 'MXIC') {
     ajaxUrl = "/SwipeInfo/CheckinList"
     editDetailUrl = "/SwipeInfo/SwipeInfoDetail"
     editUrl = "/SwipeInfo/EditSwipe"
+} else if (title == '刷卡警報') {
+    tablename = "MXIC_View_Swipe_Double"
+    ajaxUrl = "/SwipeInfo/AlarmList"
+    //是否出現刪除checkbox
+    multiselect = false;
 } else if (title == '匯出計價單') {
     ajaxUrl="/ExportPO/DownloadQuotation";
     tablename="MXIC_ExportPO";
@@ -93,6 +98,7 @@ var navData = [
     { 'name': '班表設定', 'url': '../ScheduleSetting/', 'commonly_used': '1' },
     { 'name': '證照管理', 'url': '../LisenceManagement/', 'commonly_used': '1' },
     { 'name': '刷卡紀錄', 'url': '../SwipeInfo/', 'commonly_used': '1' },
+    { 'name': '刷卡警報', 'url': '../SwipeInfo/Alarm', 'commonly_used': '1' },
     { 'name': '匯出報表', 'url': '../ExportPO/', 'commonly_used': '1' }
 ]
 

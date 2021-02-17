@@ -252,6 +252,7 @@
     <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
     <Content Include="bin\MXIC_PCCS.dll" />
     <Content Include="bin\MXIC_PCCS.pdb" />
+    <Content Include="bin\MXIC_PCCS.XML" />
     <Content Include="bin\Newtonsoft.Json.dll" />
     <Content Include="bin\Newtonsoft.Json.xml" />
     <Content Include="bin\roslyn\csc.exe" />
@@ -385,6 +386,7 @@
     <Content Include="Scripts\MXICJS\VendorManagement.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\MXICJS\SwipeAlarm.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -420,8 +422,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Page\" />
-    <Folder Include="Views\SwipeAlarm\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -443,6 +443,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
